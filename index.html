@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base target="_top">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<?!= include("css") ?>
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<nav class="navbar">
+
+<div class="logo-group">
+
+<img src="https://smkn3linggabuana.sch.id/wp-content/uploads/2021/12/cropped-cropped-imageedit_3_6783038155-1.png">
+
+<div class="school-text">
+<div class="school-name">
+SMKN 3 LINGGABUANA PURWAKARTA
+</div>
+<div class="school-sub">
+Arsip Kurikulum Digital
+</div>
+</div>
+
+</div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+<h1>Arsip Kurikulum Digital</h1>
+<p>Sistem Manajemen Arsip Sekolah</p>
+
+<button class="hero-btn" onclick="showLogin()">
+Masuk Sistem
+</button>
+
+</section>
+
+
+<!-- ================= LOGIN MODAL ================= -->
+
+<div id="loginModal" class="modal">
+  <div class="modal-box" style="position: relative;">
+    <span class="close-x" onclick="closeLogin()" style="position: absolute; top: 15px; right: 20px; font-size: 22px; color: #aaa; cursor: pointer; line-height: 1;">✕</span>
+
+    <h2>🔐 Masuk Sistem</h2>
+    
+    <div class="role-selection" id="roleSelection">
+      <button class="role-btn" onclick="selectRole('guru')">👨‍🏫 Guru</button>
+      <button class="role-btn" onclick="selectRole('siswa')">🎓 Siswa</button>
+    </div>
+
+    <div id="loginFields" style="display:none; margin-top:20px;">
+      <p id="selectedRoleText" style="font-weight:bold; color:#0288d1; margin-bottom:10px;"></p>
+      
+      <input id="user" placeholder="ID User" class="premium-input">
+      
+      <div class="password-box">
+        <input type="password" id="pass" placeholder="Password" onkeypress="checkEnter(event)">
+        <span class="eye-icon" onclick="togglePassword()">
+          <svg viewBox="0 0 24 24"><path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>
+        </span>
+      </div>
+
+      <button onclick="login()" class="login-submit-btn">Login</button>
+      <button onclick="resetRole()" class="back-btn">⬅ Kembali</button>
+      <p id="loginMsg" style="color:red; font-size:12px; margin-top:10px;"></p>
+    </div>
+
+    <input type="hidden" id="role" value="">
+  </div>
+</div>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div id="dashboard" style="display:none">
+
+<div class="container">
+
+<div class="card">
+
+<h2>📂 Arsip Kurikulum</h2>
+
+<input id="search"
+class="premium-input"
+placeholder="🔍 Cari nama"
+onkeyup="searchName()">
+
+<div id="suggestions"></div>
+
+<select id="menu"
+class="premium-input"
+onchange="changeMenu()">
+
+<option value="">📁 Pilih Kategori</option>
+<option value="skbm">SKBM</option>
+<option value="sertifikat">Sertifikat</option>
+<option value="sklain">SK Lain</option>
+
+</select>
+
+<div id="subMenu"></div>
+
+<button id="downloadBtn"
+class="download-btn"
+onclick="openDownload()">
+⬇ Download File
+</button>
+
+</div>
+
+</div>
+
+<!-- Logout Floating Button -->
+<button class="logout-btn" onclick="logout()">
+<span class="logout-icon">🚪</span>
+Logout
+</button>
+
+</div>
+
+
+<?!= include("js") ?>
+
+<!-- FOOTER -->
+<footer class="footer">
+<p>
+📚 Aplikasi ini dibuat sepenuhnya oleh <b>Ridho Kiswanto</b><br>
+Untuk memudahkan akses arsip kurikulum bagi yang membutuhkan
+</p>
+</footer>
+
+</body>
+</html>
