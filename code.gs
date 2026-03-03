@@ -34,14 +34,14 @@ function doPost(e) {
 /* --- FUNGSI ASLIMU (TIDAK BERUBAH) --- */
 
 function getNames(){
-  const sheetId="1Gf7GzSy0RRcdGnCGZ7k2U6tRaqy3qUNQdQ9gDe9uCWo";
+  const sheetId="ID_SPREADSHEET_ANDA";
   const sheet=SpreadsheetApp.openById(sheetId).getSheets()[0];
   const data=sheet.getRange(2,1,sheet.getLastRow()-1,1).getValues();
   return data.flat().filter(String);
 }
 
 function getDownloadLink(name) {
-  const folderId = "10tdJ6LPBLe7ND36OVfOkSuAd2Gk93h0c"; 
+  const folderId = "ID_FOLDER_ANDA"; 
   const folder = DriveApp.getFolderById(folderId);
   const files = folder.getFiles();
 
