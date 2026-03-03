@@ -129,34 +129,46 @@ function loadDownload() {
 
 /* ================= FITUR PENDUKUNG ================= */
 
-function searchName(){
+function searchName() {
   let input = document.getElementById("search").value.toLowerCase();
   let box = document.getElementById("suggestions");
   box.innerHTML = "";
-  
-  if(input.length < 3) return;
+
+  if (input.length < 3) return;
 
   let filtered = allNames.filter(n => n.toLowerCase().includes(input));
-  
-  filtered.slice(0,8).forEach(name => {
+
+  filtered.slice(0, 8).forEach(name => {
     let div = document.createElement("div");
     div.className = "suggest-item";
     div.innerText = name;
-    
-    div.onclick = function(){
+
+    div.onclick = function() {
+      // 1. Set nama ke input
       document.getElementById("search").value = name;
       box.innerHTML = "";
+
+      // 2. CARI MENU DAN BUKA PAKSA (Gunakan pemanggilan langsung)
+      const elMenu = document.getElementById("menu");
       
-      // MEMBUKA KUNCI MENU
-      let menu = document.getElementById("menu");
-      menu.disabled = false; 
-      menu.style.opacity = "1"; 
-      
-      loadDownload(); 
+      if (elMenu) {
+        elMenu.disabled = false; // Buka gembok
+        elMenu.removeAttribute("disabled"); // Cabut atributnya
+        elMenu.style.opacity = "1"; // Terangkan warna
+        elMenu.style.cursor = "pointer"; // Ubah kursor jadi tangan
+        console.log("Menu Berhasil Dibuka!");
+      } else {
+        console.error("ID menu tidak ditemukan!");
+      }
+
+      // 3. Jalankan load data
+      if (typeof loadDownload === "function") {
+        loadDownload();
+      }
     };
 
     box.appendChild(div);
-  }); // <--- Tadi kurung ini hilang
+  });
 }
 
 function openDownload(){
