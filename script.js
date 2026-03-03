@@ -1,34 +1,16 @@
-/* ================= KONFIGURASI ================= */
-// GANTI DENGAN URL WEB APP (EXEC) YANG KAMU DAPAT SAAT DEPLOY DI GOOGLE SCRIPT
-const SCRIPT_URL = "https://script.google.com/a/macros/guru.smk.belajar.id/s/AKfycbxbocxpgK6_Fg-XeMEiWE8Ck5LOl2f-aNS7GGRVuQ3Ol0rngK9cJzUofQv9vxKAJe9zNw/exec"; 
-
 let userRole = ""; 
-let allNames = [];
-let currentDownloadUrl = "";
 
-/* ================= LOGIN & MODAL ================= */
+// --- FUNGSI YANG HILANG TADI ---
 function showLogin(){
   document.getElementById("loginModal").style.display = "flex";
 }
-
-function selectRole(role) {
-  // Simpan role ke variabel global/hidden input
-  document.getElementById("role").value = role; 
-  document.getElementById("roleSelection").style.display = "none";
-  document.getElementById("loginFields").style.display = "block";
-  
-  let teks = (role === 'guru') ? "Login sebagai Guru" : "Login sebagai Siswa";
-  document.getElementById("selectedRoleText").innerText = teks;
-}
+// ------------------------------
 
 function login(){
   let role = document.getElementById("role").value;
   let user = document.getElementById("user").value;
   let pass = document.getElementById("pass").value;
-  let msg = document.getElementById("loginMsg");
 
-  // Logika login tetap di client (cepat), 
-  // tapi idealnya nanti dipindah ke server (GS) agar lebih aman
   if(role === "guru" && user === "N3" && pass === "linggabuana01"){
       userRole = "guru";
       masukDashboard("guru");
@@ -38,7 +20,7 @@ function login(){
       masukDashboard("siswa");
   } 
   else {
-      msg.innerText = "ID atau Password salah!";
+      document.getElementById("loginMsg").innerText = "ID atau Password salah!";
   }
 }
 
@@ -53,34 +35,121 @@ function masukDashboard(tipe){
     document.querySelector(".card h2").innerText = "📂 Arsip Kurikulum (Guru)";
   } else {
     document.querySelector(".card h2").innerText = "📂 Layanan Siswa";
-    // Filter menu untuk siswa
+    
+    // Hapus menu yang tidak boleh dilihat siswa
     for (let i = menu.options.length - 1; i >= 0; i--) {
       if (menu.options[i].value === "skbm" || menu.options[i].value === "sklain") {
         menu.remove(i);
       }
     }
   }
-  loadNames(); // Panggil data dari Google Sheets
+  
+  loadNames();
 }
 
-/* ================= KOMUNIKASI KE GOOGLE SCRIPT (FETCH) ================= */
+// ... sisanya (logout, loadNames, searchName, dll) tetap sama ...
 
-// Ganti google.script.run untuk ambil Nama
-function loadNames() {
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    body: JSON.stringify({ action: "getNames" })
-  })
-  .then(res => res.json())
-  .then(response => {
-    allNames = response.data;
-    console.log("Nama dimuat:", allNames.length);
-  })
-  .catch(err => console.error("Gagal muat nama:", err));
+function logout(){
+document.getElementById("dashboard").style.display="none";
+document.querySelector(".hero").style.display="block";
+
+setTimeout(()=>{
+location.reload();
+},300);
 }
 
-// Ganti google.script.run untuk cari File
-function loadDownload() {
+/* SEARCH */
+let allNames=[];
+let currentDownloadUrl="";
+
+function loadNames(){
+google.script.run.withSuccessHandler(res=>{
+allNames=res;
+}).getNames();
+}
+
+function searchName(){
+
+let input=document.getElementById("search").value.toLowerCase();
+let box=document.getElementById("suggestions");
+
+box.innerHTML="";
+if(input.length<3) return;
+
+let filtered=allNames.filter(n =>
+n.toLowerCase().includes(input));
+
+filtered.slice(0,8).forEach(name=>{
+
+let div=document.createElement("div");
+div.className="suggest-item";
+div.innerText=name;
+
+div.onclick=function(){
+document.getElementById("search").value=name;
+box.innerHTML="";
+};
+
+box.appendChild(div);
+
+});
+
+}
+
+/* MENU */
+function changeMenu(){
+
+let menu=document.getElementById("menu").value;
+let sub=document.getElementById("subMenu");
+
+sub.innerHTML="";
+document.getElementById("downloadBtn").style.display="none";
+
+if(menu==="skbm"){
+sub.innerHTML=`
+<select id="tahun" class="premium-input" onchange="loadDownload()">
+<option value="">Pilih Tahun</option>
+<option value="2026">2026</option>
+<option value="2025">2025</option>
+<option value="2024">2024</option>
+</select>
+`;
+}
+
+if(menu==="sertifikat"){
+  sub.innerHTML=`
+  <select id="jenis" class="premium-input" onchange="loadDownload()">
+    <option value="" disabled selected>-- Pilih Sertifikat --</option>
+    <option value="-IHT">IHT</option>
+    <option value="LAIN">Lainnya</option>
+  </select>
+  `;
+}
+
+}
+
+/* TOGGLE PASSWORD */
+function togglePassword(){
+
+let pass=document.getElementById("pass");
+
+if(pass.type==="password"){
+pass.type="text";
+}else{
+pass.type="password";
+}
+
+}
+
+/* ENTER KEY LOGIN */
+function checkEnter(e){
+if(e.key==="Enter"){
+login();
+}
+}
+
+/* DOWNLOAD */
+function loadDownload(){
   let nama = document.getElementById("search").value;
   let menu = document.getElementById("menu").value;
   let tahun = document.getElementById("tahun")?.value || "";
@@ -88,10 +157,13 @@ function loadDownload() {
 
   if(!nama || !menu) return;
 
+  // --- TAMBAHKAN BAGIAN INI: BERI TANDA LOADING ---
   let btn = document.getElementById("downloadBtn");
   btn.style.display = "block"; 
-  btn.innerText = "⏳ Sedang mencari file...";
+  btn.innerText = "⏳ Sedang mencari file..."; // Beri teks loading
+  btn.classList.add("disabled"); // Buat tombol tidak bisa diklik dulu
   btn.style.opacity = "0.6";
+  // -----------------------------------------------
 
   let fileName = "";
   if(menu === "sertifikat") {
@@ -100,104 +172,55 @@ function loadDownload() {
     fileName = nama + "-SKBM-" + tahun;
   } else if(menu === "sklain") {
     fileName = nama + "-" + jenis;
+  } else {
+    btn.style.display = "none";
+    return;
   }
 
-  // Kirim permintaan ke Google Script
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    body: JSON.stringify({
-      action: "getDownloadLink",
-      name: fileName
-    })
-  })
-  .then(res => res.json())
-  .then(response => {
-    if(response.data){
-      currentDownloadUrl = response.data;
+  google.script.run.withSuccessHandler(function(url){
+    if(url){
+      currentDownloadUrl = url;
       btn.style.display = "block";
+      btn.classList.remove("disabled");
       btn.style.opacity = "1";
-      btn.innerText = "⬇ Download File";
+      btn.innerText = "⬇ Download File"; // Kembalikan teks asli saat ketemu
     } else {
       showFileNotFound();
     }
-  })
-  .catch(err => {
-    console.error(err);
-    showFileNotFound();
-  });
+  }).getDownloadLink(fileName + ".pdf");
 }
 
-/* ================= FITUR PENDUKUNG ================= */
+/* ===== TAMPILKAN FILE TIDAK DITEMUKAN ===== */
 
-function searchName() {
-  let input = document.getElementById("search").value.toLowerCase();
-  let box = document.getElementById("suggestions");
-  box.innerHTML = "";
+function showFileNotFound(){
 
-  if (input.length < 3) return;
+let btn=document.getElementById("downloadBtn");
 
-  let filtered = allNames.filter(n => n.toLowerCase().includes(input));
+currentDownloadUrl="";
+btn.style.display="block";
+btn.classList.add("disabled");
+btn.innerText="❌ File tidak ditemukan";
 
-  filtered.slice(0, 8).forEach(name => {
-    let div = document.createElement("div");
-    div.className = "suggest-item";
-    div.innerText = name;
-
-    div.onclick = function() {
-      // 1. Set nama ke input
-      document.getElementById("search").value = name;
-      box.innerHTML = "";
-
-      // 2. CARI MENU DAN BUKA PAKSA (Gunakan pemanggilan langsung)
-      const elMenu = document.getElementById("menu");
-      
-      if (elMenu) {
-        elMenu.disabled = false; // Buka gembok
-        elMenu.removeAttribute("disabled"); // Cabut atributnya
-        elMenu.style.opacity = "1"; // Terangkan warna
-        elMenu.style.cursor = "pointer"; // Ubah kursor jadi tangan
-        console.log("Menu Berhasil Dibuka!");
-      } else {
-        console.error("ID menu tidak ditemukan!");
-      }
-
-      // 3. Jalankan load data
-      if (typeof loadDownload === "function") {
-        loadDownload();
-      }
-    };
-
-    box.appendChild(div);
-  });
 }
 
 function openDownload(){
-  if(currentDownloadUrl){
-    window.open(currentDownloadUrl, "_blank");
-  }
+if(currentDownloadUrl){
+window.open(currentDownloadUrl,"_blank");
+}
 }
 
-function showFileNotFound(){
-  let btn = document.getElementById("downloadBtn");
-  currentDownloadUrl = "";
-  btn.style.display = "block";
-  btn.innerText = "❌ File tidak ditemukan";
+// Fungsi saat tombol Guru/Siswa diklik
+function selectRole(role) {
+  document.getElementById("role").value = role; // Simpan role ke hidden input
+  document.getElementById("roleSelection").style.display = "none"; // Sembunyikan pilihan
+  document.getElementById("loginFields").style.display = "block"; // Munculkan form
+  
+  // Update teks petunjuk
+  let teks = (role === 'guru') ? "Login sebagai Guru" : "Login sebagai Siswa";
+  document.getElementById("selectedRoleText").innerText = teks;
 }
 
-function logout() {
-    // Sembunyikan Dashboard dan tampilkan halaman Login kembali
-    document.getElementById("dashboard").style.display = "none";
-    document.getElementById("login-page").style.display = "block";
-    
-    // Reset input agar bersih
-    document.getElementById("search").value = "";
-    document.getElementById("menu").disabled = true;
-    document.getElementById("menu").style.opacity = "0.5";
-    
-    // Refresh halaman (Opsional, agar benar-benar bersih)
-    // location.reload(); 
-}
-
+// Fungsi untuk kembali pilih role
 function resetRole() {
   document.getElementById("roleSelection").style.display = "flex";
   document.getElementById("loginFields").style.display = "none";
@@ -208,62 +231,13 @@ function resetRole() {
 
 function closeLogin() {
   document.getElementById("loginModal").style.display = "none";
+  // Reset form agar saat dibuka lagi kembali ke pilihan Guru/Siswa
   resetRole(); 
 }
 
-function togglePassword(){
-  let pass = document.getElementById("pass");
-  pass.type = (pass.type === "password") ? "text" : "password";
-}
-
-function changeMenu(){
-  let menu = document.getElementById("menu").value;
-  let sub = document.getElementById("subMenu");
-  sub.innerHTML = "";
-  document.getElementById("downloadBtn").style.display = "none";
-
-  if(menu === "skbm"){
-    sub.innerHTML = `<select id="tahun" class="premium-input" onchange="loadDownload()">
-      <option value="">Pilih Tahun</option>
-      <option value="2026">2026</option>
-      <option value="2025">2025</option>
-    </select>`;
+// Tambahkan ini agar bisa tutup pakai tombol ESC di Keyboard
+window.onkeydown = function(event) {
+  if (event.key === "Escape") {
+    closeLogin();
   }
-  if(menu === "sertifikat"){
-    sub.innerHTML = `<select id="jenis" class="premium-input" onchange="loadDownload()">
-      <option value="" disabled selected>-- Pilih Sertifikat --</option>
-      <option value="-IHT">IHT</option>
-      <option value="LAIN">Lainnya</option>
-    </select>`;
-  }
-}
-
-// Event Listeners
-window.onkeydown = (e) => { if(e.key === "Escape") closeLogin(); };
-
-// --- FITUR SESSION EXPIRED (30 MENIT) ---
-let idleTime = 0;
-
-// Fungsi untuk Reset Timer saat ada aktivitas
-function resetTimer() {
-    idleTime = 0;
-}
-
-// Jalankan pengecekan setiap 1 menit
-setInterval(timerIncrement, 60000); 
-
-function timerIncrement() {
-    idleTime = idleTime + 1;
-    if (idleTime >= 30) { // 30 Menit
-        alert("Sesi Anda telah berakhir karena tidak ada aktivitas selama 30 menit. Silakan login kembali.");
-        logout(); // Memanggil fungsi logout
-    }
-}
-
-// Deteksi Aktivitas User
-window.onload = resetTimer;
-window.onmousemove = resetTimer;
-window.onmousedown = resetTimer; // Klik mouse
-window.ontouchstart = resetTimer; // Touchscreen HP
-window.onclick = resetTimer;     // Klik
-window.onkeypress = resetTimer;  // Mengetik
+};
