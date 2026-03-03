@@ -1,280 +1,307 @@
 /* ================= GLOBAL ================= */
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  margin: 0;
-  background: linear-gradient(135deg, #e3f2fd, #f1f8ff);
-  overflow-x: hidden;
-  color: #333;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #e3f2fd, #f1f8ff);
+  overflow-x: hidden; /* Mencegah geser kanan-kiri yang tidak perlu */
 }
 
 /* ================= NAVBAR ================= */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 5%;
-  background: linear-gradient(90deg, #4fc3f7, #0288d1);
-  color: white;
-  box-shadow: 0 5px 25px rgba(0,0,0,.15);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5%; /* Padding lebih fleksibel */
+  background: linear-gradient(90deg, #4fc3f7, #0288d1);
+  color: white;
+  box-shadow: 0 5px 25px rgba(0,0,0,.15);
 }
 
 .logo-group {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .logo-group img {
-  height: 50px;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  height: 50px; /* Ukuran logo lebih proporsional */
 }
 
 .school-text {
-  display: flex;
-  flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .school-name {
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-size: 16px; /* Ukuran default lebih aman untuk HP */
+  font-weight: 600;
 }
 
 .school-sub {
-  font-size: 11px;
-  opacity: .9;
+  font-size: 12px;
+  opacity: .9;
 }
 
-/* ================= HERO (LANDING PAGE) ================= */
+/* ================= HERO ================= */
 .hero {
-  text-align: center;
-  padding: 80px 20px;
+  text-align: center;
+  padding: 80px 20px; /* Padding dikurangi untuk HP */
 }
 
 .hero h1 {
-  font-size: 32px;
-  margin-bottom: 10px;
-  color: #0277bd;
+  font-size: 32px; /* Ukuran teks judul di HP */
+  margin-bottom: 10px;
+  color: #0277bd;
 }
 
 .hero p {
-  opacity: .8;
-  margin-top: 10px;
-  font-size: 16px;
+  opacity: .8;
+  margin-top: 10px;
+  font-size: 16px;
 }
 
 .hero-btn {
-  margin-top: 30px;
-  padding: 15px 40px;
-  border: none;
-  border-radius: 50px;
-  background: linear-gradient(90deg, #4fc3f7, #0288d1);
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer !important;
-  box-shadow: 0 10px 30px rgba(2,136,209,.3);
-  transition: 0.3s;
+  margin-top: 30px;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 50px; /* Lebih membulat agar modern */
+  background: linear-gradient(90deg, #4fc3f7, #0288d1);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(2,136,209,.3);
+  transition: .3s;
 }
 
 .hero-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(2,136,209,.4);
-  background: linear-gradient(90deg, #0288d1, #01579b);
+  transform: translateY(-3px);
 }
 
-/* ================= MODAL LOGIN ================= */
+/* ================= LOGIN MODAL ================= */
 .modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.6);
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(8px);
-  z-index: 2000;
-  padding: 20px;
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  padding: 20px; /* Padding agar modal tidak nempel layar HP */
 }
 
 .modal-box {
-  width: 100%;
-  max-width: 350px;
-  padding: 30px 20px;
-  border-radius: 25px;
-  background: white;
-  text-align: center;
-  box-shadow: 0 25px 70px rgba(0,0,0,.25);
-  position: relative;
+  width: 100%;
+  max-width: 350px; /* Maksimal lebar modal */
+  padding: 30px 20px;
+  border-radius: 25px;
+  background: rgba(255,255,255,1); /* Lebih solid agar teks jelas */
+  text-align: center;
+  box-shadow: 0 25px 70px rgba(0,0,0,.25);
+  position: relative;
 }
 
 .modal-box input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 13px 14px;
-  margin-top: 15px;
-  border-radius: 14px;
-  border: 1px solid #b3e5fc;
-  font-size: 14px;
-  outline: none;
-}
-
-.modal-box input:focus {
-  border-color: #0288d1;
-  box-shadow: 0 0 0 3px rgba(2,136,209,0.1);
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  margin-top: 15px;
+  border-radius: 14px;
+  border: 1px solid #b3e5fc;
+  font-size: 14px;
 }
 
 .modal-box button {
-  margin-top: 22px;
-  width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 14px;
-  background: linear-gradient(90deg, #4fc3f7, #0288d1);
-  color: white;
-  cursor: pointer !important;
-  font-weight: 600;
-  transition: 0.3s;
+  margin-top: 22px;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #4fc3f7, #0288d1);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
 }
 
-.modal-box button:hover {
-  filter: brightness(1.1);
+/* ================= PASSWORD BOX ================= */
+.password-box {
+  position: relative;
+  margin-top: 15px;
 }
 
-/* ================= DASHBOARD COMPONENTS ================= */
+.password-box input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 45px 13px 14px;
+  border-radius: 14px;
+  border: 1px solid #b3e5fc;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  opacity: .6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Gaya Tombol Role */
+.role-selection {
+  display: flex;
+  flex-direction: column; /* Vertikal untuk HP */
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.role-btn {
+  width: 100%;
+  padding: 18px 10px;
+  border: 2px solid #b3e5fc;
+  border-radius: 15px;
+  background: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+.role-btn:hover {
+  background: #e1f5fe;
+  border-color: #0288d1;
+}
+
+/* ================= DASHBOARD ================= */
 .container {
-  width: 95%;
-  max-width: 600px;
-  margin: 20px auto;
+  width: 95%;
+  max-width: 600px;
+  margin: 20px auto;
 }
 
 .card {
-  background: white;
-  padding: 25px 20px;
-  border-radius: 22px;
-  box-shadow: 0 15px 40px rgba(0,0,0,.08);
-  position: relative;
+  background: white;
+  padding: 25px 20px;
+  border-radius: 22px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.08);
 }
 
+/* ================= INPUT & DOWNLOAD ================= */
 .premium-input {
-  width: 100%;
-  padding: 14px;
-  margin-top: 18px;
-  border-radius: 14px;
-  border: 1px solid #b3e5fc;
-  font-size: 14px;
-  box-sizing: border-box;
-  outline: none;
-}
-
-/* ================= SUGGESTIONS LIST ================= */
-#suggestions {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  position: absolute;
-  width: calc(100% - 40px); /* Menyesuaikan lebar card */
-  z-index: 1500;
-  margin-top: 5px;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.suggest-item {
-  padding: 12px 15px;
-  border-bottom: 1px solid #f0f0f0;
-  cursor: pointer !important;
-  text-align: left;
-  transition: 0.2s;
-}
-
-.suggest-item:hover {
-  background-color: #e1f5fe;
-  color: #0288d1;
-  font-weight: 600;
-}
-
-/* ================= SELECT & DOWNLOAD ================= */
-select:disabled {
-  background-color: #f5f5f5 !important;
-  cursor: not-allowed !important;
-  opacity: 0.6;
-}
-
-select:not([disabled]) {
-  cursor: pointer !important;
-  background-color: white;
+  width: 100%;
+  padding: 14px;
+  margin-top: 18px;
+  border-radius: 14px;
+  border: 1px solid #b3e5fc;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
 .download-btn {
-  display: none;
-  margin-top: 25px;
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 14px;
-  background: linear-gradient(90deg, #26c6da, #0288d1);
-  color: white;
-  font-weight: 600;
-  cursor: pointer !important;
-  transition: 0.3s;
-  box-shadow: 0 4px 15px rgba(2, 136, 209, 0.2);
+  display: none;
+  margin-top: 25px;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #26c6da, #0288d1);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.download-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(2, 136, 209, 0.4);
-  filter: brightness(1.05);
+select:disabled {
+  background-color: #f5f5f5; /* Warna abu-abu pudar */
+  cursor: not-allowed;      /* Kursor berubah jadi tanda larangan */
+  opacity: 0.6;
 }
-
 /* ================= LOGOUT BUTTON ================= */
 .logout-btn {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  padding: 12px 25px;
-  border-radius: 50px;
-  background: linear-gradient(135deg, #ff5252, #d32f2f);
-  color: white;
-  border: none;
-  font-weight: 600;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-  z-index: 3000;
-  cursor: pointer !important;
-  transition: 0.3s;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  padding: 12px 20px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #ff5252, #d32f2f);
+  color: white;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  z-index: 100;
 }
 
-.logout-btn:hover {
-  transform: scale(1.1);
-  background: linear-gradient(135deg, #d32f2f, #b71c1c);
-  box-shadow: 0 12px 25px rgba(211, 47, 47, 0.4);
+/* ================= MEDIA QUERIES (UNTUK TAMPILAN DESKTOP) ================= */
+@media (min-width: 768px) {
+  .navbar { padding: 18px 8%; }
+  .school-name { font-size: 20px; }
+  .logo-group img { height: 65px; }
+  .hero { padding: 140px 20px; }
+  .hero h1 { font-size: 52px; }
+  .role-selection { flex-direction: row; } /* Berjejer di laptop */
+  .container { margin: 60px auto; }
+  .card { padding: 35px; }
+}
+
+/* Tambahan: Penutup Modal (X) */
+.close-x {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  color: #bbb;
+  cursor: pointer;
+}
+
+.back-btn {
+  background: none !important;
+  color: #888 !important;
+  font-size: 13px;
+  text-decoration: underline;
+  margin-top: 10px;
+  border: none !important;
+}
+
+#suggestions {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  position: absolute;
+  width: calc(100% - 40px);
+  z-index: 100;
+}
+
+.suggest-item {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
 }
 
 /* ================= FOOTER ================= */
+
 .footer {
-  text-align: center;
-  margin-top: 50px;
-  padding: 30px 20px;
-  color: #777;
-  font-size: 13px;
-  background: white;
-  border-top: 1px solid #e1f5fe;
-  line-height: 1.6;
+  text-align: center;
+  margin-top: 50px; /* Jarak dari konten atas */
+  padding: 30px 20px;
+  color: #555;
+  font-size: 13px;
+  background: white;
+  border-top: 1px solid #e1f5fe;
+  line-height: 1.6;
+  position: relative;
+  z-index: 5;
 }
 
-/* ================= RESPONSIVE ================= */
-@media (min-width: 768px) {
-  .navbar { padding: 18px 8%; }
-  .school-name { font-size: 20px; }
-  .logo-group img { height: 65px; }
-  .hero { padding: 120px 20px; }
-  .hero h1 { font-size: 48px; }
-  .container { margin: 60px auto; }
-  .card { padding: 35px; }
-}
-
+/* Tambahan agar teks footer tidak tertutup tombol logout di HP */
 @media (max-width: 768px) {
-  .footer { padding-bottom: 100px; } /* Ruang untuk tombol logout di HP */
+  .footer {
+    padding-bottom: 100px; /* Ruang extra untuk tombol logout melayang */
+    font-size: 12px;
+  }
+  
+  .footer b {
+    color: #0288d1;
+  }
 }
