@@ -1,6 +1,6 @@
 /* ================= KONFIGURASI ================= */
 // GANTI DENGAN URL WEB APP (EXEC) YANG KAMU DAPAT SAAT DEPLOY DI GOOGLE SCRIPT
-const SCRIPT_URL = "URL_WEB_APP_KAMU_DI_SINI"; 
+const SCRIPT_URL = "https://script.google.com/a/macros/guru.smk.belajar.id/s/AKfycbxbocxpgK6_Fg-XeMEiWE8Ck5LOl2f-aNS7GGRVuQ3Ol0rngK9cJzUofQv9vxKAJe9zNw/exec"; 
 
 let userRole = ""; 
 let allNames = [];
