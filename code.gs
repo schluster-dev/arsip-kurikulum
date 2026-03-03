@@ -1,61 +1,86 @@
-/* 1. TETAP PERTAHANKAN DOGET (Agar script tetap bisa dideploy) */
-function doGet() {
+function doGet(){
   return HtmlService.createTemplateFromFile("index")
-    .evaluate()
-    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  .evaluate()
+  // Diubah ke DEFAULT untuk mencegah Clickjacking
+  .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.DEFAULT)
+  .setTitle("Arsip Kurikulum SMKN 3 Linggabuana")
+  .addMetaTag('viewport', 'width=device-width, initial-scale=1');
 }
 
-/* 2. TAMBAHKAN DOPOST (Pintu masuk data dari GitHub) */
-function doPost(e) {
-  try {
-    // Mengambil data yang dikirim dari GitHub
-    const requestData = JSON.parse(e.postData.contents);
-    const action = requestData.action;
-    let result;
-
-    // Cek aksi apa yang diminta oleh GitHub
-    if (action === "getNames") {
-      result = getNames();
-    } 
-    else if (action === "getDownloadLink") {
-      result = getDownloadLink(requestData.name);
-    }
-
-    // Mengembalikan jawaban ke GitHub dalam bentuk JSON
-    return ContentService.createTextOutput(JSON.stringify({ data: result }))
-      .setMimeType(ContentService.MimeType.JSON);
-
-  } catch (err) {
-    return ContentService.createTextOutput(JSON.stringify({ error: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
+/* INCLUDE HTML TEMPLATE */
+function include(filename){
+  return HtmlService.createHtmlOutputFromFile(filename).getContent();
 }
 
-/* --- FUNGSI ASLIMU (TIDAK BERUBAH) --- */
-
+/* LOAD NAMA - Proteksi agar tidak bisa diintip sembarang orang */
 function getNames(){
-  const sheetId="ID_SPREADSHEET_ANDA";
-  const sheet=SpreadsheetApp.openById(sheetId).getSheets()[0];
-  const data=sheet.getRange(2,1,sheet.getLastRow()-1,1).getValues();
-  return data.flat().filter(String);
+  try {
+    const sheetId = "1Gf7GzSy0RRcdGnCGZ7k2U6tRaqy3qUNQdQ9gDe9uCWo";
+    const sheet = SpreadsheetApp.openById(sheetId).getSheets()[0];
+    const data = sheet.getRange(2, 1, sheet.getLastRow() - 1, 1).getValues();
+    return data.flat().filter(String);
+  } catch(e) {
+    return []; // Kembalikan array kosong jika gagal
+  }
 }
 
-function getDownloadLink(name) {
-  const folderId = "ID_FOLDER_ANDA"; 
-  const folder = DriveApp.getFolderById(folderId);
-  const files = folder.getFiles();
+/* DOWNLOAD LINK DRIVE DENGAN VALIDASI */
+/* DOWNLOAD LINK DRIVE DENGAN LOGIKA FOLDER TERPISAH */
+function getDownloadLink(name, category) {
+  // Validasi Input
+  if (!name || name.trim() === "") return "";
 
-  let cleanInput = name.toLowerCase()
-    .replace(/\s+/g, "").replace(/,/g, "").replace(/\./g, "").replace(/-/g, "").replace(".pdf", "");
+  // Mapping ID Folder berdasarkan kategori
+  const folderMap = {
+    "skbm": "15GVCkKfDsfPBVM1pyqPXz2wy_ikqpa5r",       // Folder SKBM
+    "sertifikat": "10tdJ6LPBLe7ND36OVfOkSuAd2Gk93h0c", // Folder Sertifikat
+    "sklain": " "      // Folder default (bisa diganti jika ada folder lain)
+  };
 
-  while (files.hasNext()) {
-    let file = files.next();
-    let fileName = file.getName().toLowerCase()
-      .replace(/\s+/g, "").replace(/,/g, "").replace(/\./g, "").replace(/-/g, "").replace(".pdf", "");
+  // Pilih folderId berdasarkan kategori yang dikirim dari JS
+  // Jika kategori tidak ditemukan, default ke folder Sertifikat
+  let folderId = folderMap[category] || "10tdJ6LPBLe7ND36OVfOkSuAd2Gk93h0c"; 
 
-    if (fileName.includes(cleanInput) || cleanInput.includes(fileName)) {
-      return file.getUrl();
+  try {
+    const folder = DriveApp.getFolderById(folderId);
+    
+    // Sanitasi Nama: Bersihkan karakter berbahaya
+    let cleanName = name.replace(/[<>/\\'"%;()&]/g, "").trim();
+    
+    // Logika Pencarian: Mencari file yang judulnya mengandung Nama yang dicari
+    const searchQuery = "title contains '" + cleanName + "' and trashed = false";
+    const files = folder.searchFiles(searchQuery);
+
+    if (files.hasNext()) {
+      let file = files.next();
+      return file.getUrl(); // Mengembalikan link file
     }
+  } catch(e) {
+    console.log("Error: " + e.message);
+    return ""; 
   }
-  return "";
+  
+  return ""; 
+}
+
+/* LOGIN SERVER SIDE */
+function checkLoginServer(user, pass, role) {
+  const credentials = {
+    "guru": { u: "N3", p: "linggabuana01" },
+    "siswa": { u: "SISWA", p: "smkn3" }
+  };
+
+  // Gunakan pengecekan yang ketat (Strict)
+  if (credentials[role] && 
+      credentials[role].u.toUpperCase() === user.trim().toUpperCase() && 
+      credentials[role].p === pass.trim()) {
+    
+    return { 
+      success: true, 
+      role: role,
+      message: "Login Berhasil" 
+    };
+  }
+  
+  return { success: false, message: "ID User atau Password salah!" };
 }
