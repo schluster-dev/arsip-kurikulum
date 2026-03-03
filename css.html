@@ -1,3 +1,4 @@
+<style>
 /* ================= GLOBAL ================= */
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
@@ -124,31 +125,50 @@ body {
 }
 
 /* ================= PASSWORD BOX ================= */
+
+/* 1. Pastikan pembungkus password input dan icon-nya ada di mode flex */
 .password-box {
-  position: relative;
-  margin-top: 15px;
+  position: relative; /* Ini wajib agar icon mata bisa diposisikan di dalam */
+  display: flex;       /* Tambahkan ini */
+  align-items: center; /* JADIIN KE TENGAH VERTIKAL */
+  margin-bottom: 20px; /* Jarak ke tombol login di bawahnya */
 }
 
+/* 2. Style untuk input password itu sendiri */
 .password-box input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 13px 45px 13px 14px;
-  border-radius: 14px;
-  border: 1px solid #b3e5fc;
+  width: 100%;             /* Penuh ke kanan */
+  padding: 15px;           /* Ukuran padding yang nyaman */
+  padding-right: 50px;     /* Kasih ruang di kanan untuk icon matanya */
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  box-sizing: border-box;  /* Biar padding tidak nambah lebar */
+  outline: none;
 }
 
+/* 3. Style untuk icon mata (PENGATURAN POSISI DI SINI) */
 .eye-icon {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  opacity: .6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute !important;
+  right: 15px !important;
+  
+  /* Kita coba tarik lebih bawah lagi secara manual */
+  top: 60% !important; /* Saya ubah dari 50% ke 60% agar lebih turun */
+  transform: translateY(-50%) !important;
+  
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 24px !important; /* Tentukan tinggi area icon */
+  width: 24px !important;  /* Tentukan lebar area icon */
+  z-index: 10 !important;
+}
+
+/* Pastikan SVG di dalamnya juga ikut aturan */
+.eye-icon svg {
+  width: 20px !important;
+  height: 20px !important;
+  display: block !important;
 }
 
 /* Gaya Tombol Role */
@@ -214,6 +234,41 @@ body {
   cursor: pointer;
 }
 
+/* Sembunyikan menu kategori dan tombol download di awal */
+#menu, #downloadBtn {
+  display: none;
+}
+#subMenu {
+  display: block !important; /* Pastikan dia selalu siap tampil */
+  width: 100%;
+}
+
+/* Animasi Berputar */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Class untuk icon yang sedang loading */
+.spinner-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* Efek tombol saat dilarang klik */
+.disabled {
+  pointer-events: none;
+  opacity: 0.7;
+  filter: grayscale(0.5);
+}
+
 /* ================= LOGOUT BUTTON ================= */
 .logout-btn {
   position: fixed;
@@ -227,6 +282,16 @@ body {
   font-weight: 600;
   box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   z-index: 100;
+  
+  /* TAMBAHKAN BARIS INI */
+  cursor: pointer; 
+  transition: transform 0.2s, background 0.2s;
+}
+
+/* Tambahkan efek sedikit membesar saat disentuh mouse agar lebih interaktif */
+.logout-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #d32f2f, #b71c1c);
 }
 
 /* ================= MEDIA QUERIES (UNTUK TAMPILAN DESKTOP) ================= */
@@ -239,6 +304,13 @@ body {
   .role-selection { flex-direction: row; } /* Berjejer di laptop */
   .container { margin: 60px auto; }
   .card { padding: 35px; }
+}
+
+@media (max-width: 600px) {
+  .modal-box {
+    width: 90%; /* Memberi ruang bernapas di sisi kiri-kanan */
+    padding: 20px 15px;
+  }
 }
 
 /* Tambahan: Penutup Modal (X) */
@@ -269,9 +341,30 @@ body {
   z-index: 100;
 }
 
+#suggestions {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  position: absolute;
+  width: calc(100% - 2px); /* Sesuaikan lebar agar pas dengan input */
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
 .suggest-item {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
+  padding: 12px 15px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  color: #333;
+}
+
+.suggest-item:hover {
+  background-color: #e1f5fe;
+  color: #0288d1;
+  padding-left: 20px; /* Efek geser sedikit saat di-hover */
 }
 
 /* ================= FOOTER ================= */
@@ -300,3 +393,4 @@ body {
     color: #0288d1;
   }
 }
+</style>
