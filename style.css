@@ -1,3 +1,4 @@
+<style>
 /* ================= GLOBAL ================= */
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
@@ -278,3 +279,5 @@ select:not([disabled]) {
 @media (max-width: 768px) {
   .footer { padding-bottom: 100px; } /* Ruang untuk tombol logout di HP */
 }
+
+</style>
