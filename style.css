@@ -231,9 +231,9 @@ select:not([disabled]) {
 
 /* ================= LOGOUT BUTTON ================= */
 .logout-btn {
-  position: fixed !important;
-  right: 20px !important;
-  bottom: 20px !important;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
   padding: 12px 25px;
   border-radius: 50px;
   background: linear-gradient(135deg, #ff5252, #d32f2f);
@@ -241,12 +241,9 @@ select:not([disabled]) {
   border: none;
   font-weight: 600;
   box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-  
-  /* KUNCI PERBAIKAN */
-  z-index: 9999 !important;      /* Angka paling tinggi agar di atas semua elemen */
-  cursor: pointer !important;    /* Paksa ikon tangan */
-  pointer-events: auto !important; /* Pastikan bisa diklik */
-  display: block !important;
+  z-index: 3000;
+  cursor: pointer !important;
+  transition: 0.3s;
 }
 
 .logout-btn:hover {
