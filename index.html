@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arsip Digital | SMKN 3 Linggabuana</title>
-  <base target="_top">
+<base target="_top">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="icon" type="image/png" href="https://smkn3linggabuana.sch.id/wp-content/uploads/2021/12/cropped-cropped-imageedit_3_6783038155-1.png">
+<?!= include("css") ?>
 
-  <meta property="og:title" content="Arsip Digital SMKN 3 Linggabuana">
-  <meta property="og:description" content="Layanan Arsip Kurikulum dan Data Siswa SMKN 3 Linggabuana Purwakarta.">
-  <meta property="og:image" content="https://smkn3linggabuana.sch.id/wp-content/uploads/2021/12/cropped-cropped-imageedit_3_6783038155-1.png">
-  <meta property="og:url" content="https://schluster-dev.github.io/arsip-kurikulum/">
-  <meta property="og:type" content="website">
-
-  <link rel="stylesheet" href="style.css">
 </head>
-  
+
 <body>
+
 <!-- ================= HEADER ================= -->
 
 <nav class="navbar">
@@ -106,11 +98,15 @@ onkeyup="searchName()">
 
 <div id="suggestions"></div>
 
-<select id="menu" class="premium-input" onchange="changeMenu()" disabled>
-  <option value="" disabled selected>-- Pilih Jenis Arsip --</option>
-  <option value="skbm">SKBM</option>
-  <option value="sertifikat">Sertifikat</option>
-  <option value="sklain">SK Lainnya</option>
+<select id="menu"
+class="premium-input"
+onchange="changeMenu()">
+
+<option value="">📁 Pilih Kategori</option>
+<option value="skbm">SKBM</option>
+<option value="sertifikat">Sertifikat</option>
+<option value="sklain">SK Lain</option>
+
 </select>
 
 <div id="subMenu"></div>
@@ -143,6 +139,6 @@ Logout
 Untuk memudahkan akses arsip kurikulum bagi yang membutuhkan
 </p>
 </footer>
-<script src="script.js"></script> 
+
 </body>
 </html>
