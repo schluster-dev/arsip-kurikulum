@@ -141,10 +141,13 @@ function searchName(){
     div.className = "suggest-item";
     div.innerText = name;
     div.onclick = function(){
-      document.getElementById("search").value = name;
-      box.innerHTML = "";
-      loadDownload(); // Otomatis cari setelah pilih nama
-    };
+  document.getElementById("search").value = name;
+  box.innerHTML = "";
+  document.getElementById("menu").disabled = false; // Membuka kunci menu
+  document.getElementById("menu").style.opacity = "1"; // Opsional: buat warnanya jadi terang kembali
+  
+  loadDownload(); 
+};
     box.appendChild(div);
   });
 }
