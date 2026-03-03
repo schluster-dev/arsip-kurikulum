@@ -133,23 +133,30 @@ function searchName(){
   let input = document.getElementById("search").value.toLowerCase();
   let box = document.getElementById("suggestions");
   box.innerHTML = "";
+  
   if(input.length < 3) return;
 
   let filtered = allNames.filter(n => n.toLowerCase().includes(input));
+  
   filtered.slice(0,8).forEach(name => {
     let div = document.createElement("div");
     div.className = "suggest-item";
     div.innerText = name;
+    
     div.onclick = function(){
-  document.getElementById("search").value = name;
-  box.innerHTML = "";
-  document.getElementById("menu").disabled = false; // Membuka kunci menu
-  document.getElementById("menu").style.opacity = "1"; // Opsional: buat warnanya jadi terang kembali
-  
-  loadDownload(); 
-};
+      document.getElementById("search").value = name;
+      box.innerHTML = "";
+      
+      // MEMBUKA KUNCI MENU
+      let menu = document.getElementById("menu");
+      menu.disabled = false; 
+      menu.style.opacity = "1"; 
+      
+      loadDownload(); 
+    };
+
     box.appendChild(div);
-  });
+  }); // <--- Tadi kurung ini hilang
 }
 
 function openDownload(){
