@@ -1,5 +1,3 @@
-<script>
-
 let userRole = ""; 
 
 // --- FUNGSI YANG HILANG TADI ---
@@ -243,5 +241,3 @@ window.onkeydown = function(event) {
     closeLogin();
   }
 };
-
-</script>
