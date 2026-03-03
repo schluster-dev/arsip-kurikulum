@@ -1,0 +1,332 @@
+<script>
+
+let userRole = ""; 
+
+// --- FUNGSI YANG HILANG TADI ---
+function showLogin(){
+  document.getElementById("loginModal").style.display = "flex";
+}
+// ------------------------------
+
+function login(){
+  let role = document.getElementById("role").value;
+  let user = document.getElementById("user").value;
+  let pass = document.getElementById("pass").value;
+  let msg = document.getElementById("loginMsg");
+
+  msg.innerText = "⌛ Memverifikasi...";
+
+  // Memanggil fungsi checkLoginServer yang ada di Code.gs
+  google.script.run.withSuccessHandler(function(response){
+    if(response.success){
+      userRole = response.role;
+      masukDashboard(response.role);
+    } else {
+      msg.innerText = "❌ ID atau Password salah!";
+    }
+  }).checkLoginServer(user, pass, role);
+}
+
+function masukDashboard(tipe){
+  document.getElementById("loginModal").style.display = "none";
+  document.querySelector(".hero").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
+  
+  let menu = document.getElementById("menu");
+  
+  if(tipe === "guru"){
+    document.querySelector(".card h2").innerText = "📂 Arsip Kurikulum (Guru)";
+  } else {
+    document.querySelector(".card h2").innerText = "📂 Layanan Siswa";
+    
+    // Hapus menu yang tidak boleh dilihat siswa
+    for (let i = menu.options.length - 1; i >= 0; i--) {
+      if (menu.options[i].value === "skbm" || menu.options[i].value === "sklain") {
+        menu.remove(i);
+      }
+    }
+  }
+  
+  loadNames();
+}
+
+// ... sisanya (logout, loadNames, searchName, dll) tetap sama ...
+
+/* ================= FUNGSI LOGOUT (DIPERBAIKI) ================= */
+function logout(){
+  try {
+    // 1. Sembunyikan Dashboard, tampilkan Hero
+    document.getElementById("dashboard").style.display = "none";
+    document.querySelector(".hero").style.display = "block";
+
+    // 2. Kosongkan input login agar tidak nyangkut saat refresh
+    if(document.getElementById("user")) document.getElementById("user").value = "";
+    if(document.getElementById("pass")) document.getElementById("pass").value = "";
+    
+    // 3. REFRESH HALAMAN (Ini intinya)
+    // Gunakan window.location.reload(true) untuk memastikan refresh total
+    window.location.reload(); 
+    
+  } catch(e) {
+    // Jika ada error di kode atas, tetap paksa refresh
+    window.location.reload();
+  }
+}
+
+/* SEARCH */
+let allNames=[];
+let currentDownloadUrl="";
+
+function loadNames(){
+google.script.run.withSuccessHandler(res=>{
+allNames=res;
+}).getNames();
+}
+
+function searchName(){
+  let input = document.getElementById("search").value.toLowerCase();
+  let box = document.getElementById("suggestions");
+  let menu = document.getElementById("menu");
+  let sub = document.getElementById("subMenu");
+  let btn = document.getElementById("downloadBtn");
+
+  box.innerHTML = "";
+  
+  // Jika user menghapus/mengubah ketikan, tutup lagi menunya
+  menu.style.display = "none";
+  sub.innerHTML = "";
+  btn.style.display = "none";
+
+  if(input.length < 3) return;
+
+  let filtered = allNames.filter(n => n.toLowerCase().includes(input));
+
+  filtered.slice(0, 8).forEach(name => {
+    let div = document.createElement("div");
+    div.className = "suggest-item";
+    div.innerText = name;
+
+    // KETIKA NAMA DIKLIK
+    div.onclick = function(){
+      document.getElementById("search").value = name;
+      box.innerHTML = "";
+      
+      // Reset dan munculkan menu
+      menu.selectedIndex = 0; // Kembalikan ke "Pilih Jenis Arsip"
+      menu.style.display = "block"; 
+      sub.innerHTML = ""; // Bersihkan branch lama jika ada
+      btn.style.display = "none";
+    };
+
+    box.appendChild(div);
+  });
+}
+
+/* MENU */
+function changeMenu(){
+  let nama = document.getElementById("search").value;
+  let menu = document.getElementById("menu").value;
+  let sub = document.getElementById("subMenu");
+  let btn = document.getElementById("downloadBtn");
+
+  // Bersihkan subMenu dan sembunyikan tombol setiap kali ganti kategori
+  sub.innerHTML = "";
+  btn.style.display = "none";
+
+  console.log("Kategori dipilih:", menu); // Untuk cek di Inspect Element
+
+  if (menu === "skbm") {
+    sub.innerHTML = `
+      <select id="tahun" class="premium-input" onchange="loadDownload()">
+        <option value="" disabled selected>-- Pilih Tahun Ajaran --</option>
+        <option value="2026-Genap">2026 Genap</option>
+        <option value="2026-Ganjil">2026 Ganjil</option>
+        <option value="2025-Genap">2025 Genap</option>
+        <option value="2025-Ganjil">2025 Ganjil</option>
+        <option value="2024-Genap">2024 Genap</option>
+        <option value="2024-Ganjil">2024 Ganjil</option>
+      </select>`;
+  } 
+  else if (menu === "sertifikat") {
+    sub.innerHTML = `
+      <select id="jenis" class="premium-input" onchange="loadDownload()">
+        <option value="" disabled selected>-- Pilih Jenis Sertifikat --</option>
+        <option value="-IHT">Sertifikat IHT</option>
+        <option value="-WORKSHOP">Sertifikat Workshop</option>
+        <option value="-LAIN">Lainnya</option>
+      </select>`;
+  } 
+  else if (menu === "sklain") {
+    sub.innerHTML = `
+      <select id="jenis" class="premium-input" onchange="loadDownload()">
+        <option value="" disabled selected>-- Pilih Jenis SK --</option>
+        <option value="SK-PEMBINA">SK Pembina</option>
+        <option value="SK-PANITIA">SK Panitia</option>
+      </select>`;
+  }
+}
+
+/* TOGGLE PASSWORD */
+function togglePassword(){
+
+let pass=document.getElementById("pass");
+
+if(pass.type==="password"){
+pass.type="text";
+}else{
+pass.type="password";
+}
+
+}
+
+/* ENTER KEY LOGIN */
+function checkEnter(e){
+if(e.key==="Enter"){
+login();
+}
+}
+
+/* DOWNLOAD */
+function loadDownload(){
+  let nama = document.getElementById("search").value;
+  let menu = document.getElementById("menu").value;
+  let tahun = document.getElementById("tahun")?.value || "";
+  let jenis = document.getElementById("jenis")?.value || "";
+
+  if(!nama || !menu) return;
+
+  let btn = document.getElementById("downloadBtn");
+  btn.innerHTML = '<span class="spinner-icon"></span> Sedang mencari file...';
+  btn.classList.add("disabled");
+  btn.style.display = "block";
+
+  let searchString = "";
+  
+  if(menu === "skbm") {
+    // LOGIKA: Guru sudah pilih nama di awal, tapi kita HANYA cari 
+    // file yang judulnya mengandung "SKBM", "Tahun", dan "Semester"
+    let tahunBersih = tahun.replace("-", " "); // "2026-Genap" jadi "2026 Genap"
+    searchString = "SKBM " + tahunBersih; 
+  } 
+  else if(menu === "sertifikat") {
+    // Untuk sertifikat, nama guru WAJIB ada di judul file
+    searchString = nama + " " + (jenis ? jenis.replace("-", "") : "IHT"); 
+  } 
+  else {
+    searchString = nama;
+  }
+
+  // Panggil server dengan parameter string pencarian dan kategorinya
+  google.script.run.withSuccessHandler(function(url){
+    if(url){
+      currentDownloadUrl = url;
+      // Kembalikan tombol ke kondisi normal
+      btn.innerHTML = '⬇ Download File'; 
+      btn.classList.remove("disabled");
+      btn.style.opacity = "1";
+    } else {
+      showFileNotFound();
+    }
+}).getDownloadLink(searchString, menu);
+}
+
+/* ===== TAMPILKAN FILE TIDAK DITEMUKAN ===== */
+
+function showFileNotFound(){
+
+let btn=document.getElementById("downloadBtn");
+
+currentDownloadUrl="";
+btn.style.display="block";
+btn.classList.add("disabled");
+btn.innerText="❌ File tidak ditemukan";
+
+}
+
+function openDownload(){
+if(currentDownloadUrl){
+window.open(currentDownloadUrl,"_blank");
+}
+}
+
+// Fungsi saat tombol Guru/Siswa diklik
+function selectRole(role) {
+  document.getElementById("role").value = role; // Simpan role ke hidden input
+  document.getElementById("roleSelection").style.display = "none"; // Sembunyikan pilihan
+  document.getElementById("loginFields").style.display = "block"; // Munculkan form
+  
+  // Update teks petunjuk
+  let teks = (role === 'guru') ? "Login sebagai Guru" : "Login sebagai Siswa";
+  document.getElementById("selectedRoleText").innerText = teks;
+}
+
+// Fungsi untuk kembali pilih role
+/* FUNGSI RESET & BERSIHKAN FORM LOGIN */
+function resetRole() {
+  // 1. Kembalikan tampilan ke pilihan Role (Guru/Siswa)
+  document.getElementById("roleSelection").style.display = "flex";
+  document.getElementById("loginFields").style.display = "none";
+  
+  // 2. Bersihkan pesan error (merah)
+  document.getElementById("loginMsg").innerText = "";
+  
+  // 3. Kosongkan semua kotak input agar tidak ada sisa ketikan
+  document.getElementById("user").value = "";
+  document.getElementById("pass").value = "";
+  
+  // 4. Reset nilai role yang tersimpan di hidden input
+  document.getElementById("role").value = "";
+}
+
+/* FUNGSI TUTUP MODAL LOGIN (X ATAU ESC) */
+/* ================= FUNGSI RESET & BERSIHKAN FORM LOGIN ================= */
+function resetRole() {
+  // 1. Munculkan kembali tombol pilihan Role (Guru/Siswa)
+  document.getElementById("roleSelection").style.display = "flex";
+  
+  // 2. Sembunyikan kotak input User & Password
+  document.getElementById("loginFields").style.display = "none";
+  
+  // 3. Bersihkan pesan error merah (jika tadi sempat salah login)
+  document.getElementById("loginMsg").innerText = "";
+  
+  // 4. KOSONGKAN isi kotak ID User dan Password agar tidak ada sisa ketikan
+  document.getElementById("user").value = "";
+  document.getElementById("pass").value = "";
+  
+  // 5. Reset nilai role yang tersimpan di hidden input
+  document.getElementById("role").value = "";
+}
+
+/* ================= FUNGSI TUTUP MODAL LOGIN (TOMBOL X / ESC) ================= */
+function closeLogin() {
+  // Sembunyikan modal login dari layar
+  document.getElementById("loginModal").style.display = "none";
+  
+  // Panggil fungsi reset agar saat modal dibuka lagi, form sudah kosong & bersih
+  resetRole(); 
+}
+
+/* ================= TAMBAHAN: MODIFIKASI FUNGSI LOGOUT ================= */
+function logout(){
+  // Sembunyikan dashboard dan kembali ke halaman depan (Hero)
+  document.getElementById("dashboard").style.display="none";
+  document.querySelector(".hero").style.display="block";
+
+  // Pastikan form login benar-benar kosong saat logout
+  resetRole();
+
+  // Refresh halaman agar sistem kembali segar (Fresh)
+  setTimeout(()=>{
+    location.reload();
+  }, 300);
+}
+
+// Tambahkan ini agar bisa tutup pakai tombol ESC di Keyboard
+window.onkeydown = function(event) {
+  if (event.key === "Escape") {
+    closeLogin();
+  }
+};
+
+</script>
