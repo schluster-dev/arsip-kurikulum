@@ -184,8 +184,18 @@ function showFileNotFound(){
   btn.innerText = "❌ File tidak ditemukan";
 }
 
-function logout(){
-  location.reload(); // Paling bersih untuk GitHub Pages
+function logout() {
+    // Sembunyikan Dashboard dan tampilkan halaman Login kembali
+    document.getElementById("dashboard").style.display = "none";
+    document.getElementById("login-page").style.display = "block";
+    
+    // Reset input agar bersih
+    document.getElementById("search").value = "";
+    document.getElementById("menu").disabled = true;
+    document.getElementById("menu").style.opacity = "0.5";
+    
+    // Refresh halaman (Opsional, agar benar-benar bersih)
+    // location.reload(); 
 }
 
 function resetRole() {
@@ -230,3 +240,30 @@ function changeMenu(){
 
 // Event Listeners
 window.onkeydown = (e) => { if(e.key === "Escape") closeLogin(); };
+
+// --- FITUR SESSION EXPIRED (30 MENIT) ---
+let idleTime = 0;
+
+// Fungsi untuk Reset Timer saat ada aktivitas
+function resetTimer() {
+    idleTime = 0;
+}
+
+// Jalankan pengecekan setiap 1 menit
+setInterval(timerIncrement, 60000); 
+
+function timerIncrement() {
+    idleTime = idleTime + 1;
+    if (idleTime >= 30) { // 30 Menit
+        alert("Sesi Anda telah berakhir karena tidak ada aktivitas selama 30 menit. Silakan login kembali.");
+        logout(); // Memanggil fungsi logout
+    }
+}
+
+// Deteksi Aktivitas User
+window.onload = resetTimer;
+window.onmousemove = resetTimer;
+window.onmousedown = resetTimer; // Klik mouse
+window.ontouchstart = resetTimer; // Touchscreen HP
+window.onclick = resetTimer;     // Klik
+window.onkeypress = resetTimer;  // Mengetik
