@@ -290,11 +290,14 @@ window.open(currentDownloadUrl,"_blank");
 
 // Fungsi saat tombol Guru/Siswa diklik
 function selectRole(role) {
-  document.getElementById("role").value = role; // Simpan role ke hidden input
-  document.getElementById("roleSelection").style.display = "none"; // Sembunyikan pilihan
-  document.getElementById("loginFields").style.display = "block"; // Munculkan form
+  // 1. PANGGIL DATA DARI GOOGLE SHEET (Sangat Penting!)
+  // Kita panggil di sini agar saat user mulai mengetik nama, data sudah siap.
+  loadNames(); 
+
+  document.getElementById("role").value = role;
+  document.getElementById("roleSelection").style.display = "none";
+  document.getElementById("loginFields").style.display = "block";
   
-  // Update teks petunjuk
   let teks = (role === 'guru') ? "Login sebagai Guru" : "Login sebagai Siswa";
   document.getElementById("selectedRoleText").innerText = teks;
 }
@@ -348,25 +351,40 @@ function closeLogin() {
 
 /* FUNGSI CARI NAMA DI MODAL LOGIN */
 function searchLoginName() {
-  let input = document.getElementById("loginName").value.toLowerCase();
+  let inputVal = document.getElementById("loginName").value;
+  let input = inputVal.toLowerCase();
   let box = document.getElementById("loginSuggestions");
-  box.innerHTML = "";
+  
+  box.innerHTML = ""; // Bersihkan setiap kali ngetik
 
   if (input.length < 3) return;
 
-  // Mencari nama yang cocok dari array allNames yang sudah diload
+  // Proteksi jika allNames belum terisi atau gagal load
+  if (!allNames || allNames.length === 0) {
+    box.innerHTML = "<div class='suggest-item'>⌛ Memuat data nama...</div>";
+    loadNames(); // Coba panggil lagi jika kosong
+    return;
+  }
+
   let filtered = allNames.filter(n => n.toLowerCase().includes(input));
+
+  if (filtered.length === 0) {
+    box.innerHTML = "<div class='suggest-item' style='color:red;'>❌ Nama tidak ditemukan</div>";
+    return;
+  }
 
   filtered.slice(0, 5).forEach(name => {
     let div = document.createElement("div");
-    div.className = "suggest-item"; // Menggunakan style yang sudah kamu buat sebelumnya
+    div.className = "suggest-item"; 
     div.innerText = name;
     
     div.onclick = function() {
       document.getElementById("loginName").value = name;
       box.innerHTML = "";
-      // Otomatis isi juga kolom search di dashboard supaya sinkron
-      document.getElementById("search").value = name; 
+      
+      // Sinkronkan ke input search dashboard agar user tidak ngetik 2x nanti
+      const dashSearch = document.getElementById("search");
+      if(dashSearch) dashSearch.value = name; 
     };
     box.appendChild(div);
   });
