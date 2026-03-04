@@ -71,13 +71,12 @@ function login() {
 
   google.script.run.withSuccessHandler(function(response) {
     if (response.success) {
-      // --- TAMBAHAN UNTUK FOOTER LOGIN INFO ---
+      // ISI TULISAN LOGIN DI FOOTER
       const footerInfo = document.getElementById("footerLoginInfo");
       if (footerInfo) {
-        footerInfo.innerHTML = "👤 Anda login sebagai: <strong>" + nama + "</strong>";
+        footerInfo.innerHTML = "👤 Anda login sebagai: <span style='color:#01579b'>" + nama + "</span>";
       }
-      // ----------------------------------------
-
+      
       userRole = response.role;
       masukDashboard(response.role);
     } else {
