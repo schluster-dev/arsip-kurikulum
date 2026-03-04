@@ -533,24 +533,43 @@ input::-webkit-credentials-auto-fill-button {
 .footer {
   text-align: center;
   margin-top: 100px; 
-  padding: 20px 20px; /* Sedikit diperlebar agar tidak sesak */
+  padding: 20px; 
   color: #555;
   font-size: 13px;
   background: white;
   border-top: 1px solid #e1f5fe;
-  line-height: 1.6;
   position: relative;
   z-index: 5;
-  box-shadow: 0 -5px 15px rgba(0,0,0,0.03); /* Tambah bayangan halus di atas footer */
 }
 
-/* Tambahan style khusus untuk teks login di footer */
-#footerLoginInfo {
+.footer-status {
+  color: #0288d1;
+  font-weight: bold;
+  margin-bottom: 12px; /* Jarak antara nama login dengan teks kredit */
   font-size: 12px;
-  display: block;
 }
 
-/* Responsif HP */
+/* CSS AGAR TEKS RAPAT */
+.credit-box p {
+  margin: 0 !important; /* Menghapus jarak antar baris */
+  line-height: 1.4;    /* Mengatur kerapatan vertikal */
+}
+
+.main-credit {
+  font-weight: 500;
+}
+
+.sub-credit {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+.copyright {
+  margin-top: 15px !important;
+  font-size: 10px;
+  opacity: 0.6;
+}
+
 @media (max-width: 768px) {
   .footer {
     margin-top: 60px; 
