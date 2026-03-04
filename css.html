@@ -371,8 +371,8 @@ body {
 
 .footer {
   text-align: center;
-  margin-top: 50px; /* Jarak dari konten atas */
-  padding: 30px 20px;
+  margin-top: 30px; /* Jarak atas dikurangi agar lebih rapat */
+  padding: 20px 20px; /* Padding lebih proporsional */
   color: #555;
   font-size: 13px;
   background: white;
@@ -382,15 +382,22 @@ body {
   z-index: 5;
 }
 
-/* Tambahan agar teks footer tidak tertutup tombol logout di HP */
+/* Responsif HP */
 @media (max-width: 768px) {
   .footer {
-    padding-bottom: 100px; /* Ruang extra untuk tombol logout melayang */
+    /* Padding bottom dikurangi dari 100px ke 70px agar tidak terlalu panjang ke bawah */
+    padding-bottom: 70px; 
     font-size: 12px;
+    margin-top: 20px;
   }
   
+  /* Membuat teks footer sedikit lebih naik agar tombol logout tidak menutupi teks penting */
+  .footer p {
+    margin-bottom: 5px;
+  }
+
   .footer b {
     color: #0288d1;
   }
-}
+} 
 </style>
