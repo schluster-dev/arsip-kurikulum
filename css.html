@@ -549,7 +549,7 @@ input::-webkit-credentials-auto-fill-button {
 .footer {
   text-align: center;
   margin-top: 100px;
-  /* UBAH DI SINI: 30px untuk atas, 20px kanan, 15px bawah, 20px kiri */
+  /* Padding: Atas 20px, Kiri-Kanan 20px, Bawah 15px */
   padding: 20px 20px 15px 20px; 
   color: #555;
   font-size: 13px;
@@ -560,56 +560,72 @@ input::-webkit-credentials-auto-fill-button {
   z-index: 5;
 }
 
-.footer-status {
-  font-weight: bold;
-  color: #555; 
-  margin-bottom: 12px; /* Jarak pas agar tidak terlalu renggang tapi tidak nempel */
-  display: block;      /* Memastikan dia mengambil satu baris penuh */
-}
-
-.credit-box p {
-  margin: 0 !important;
-  line-height: 1.4;
-}
-
-.main-credit strong {
-  /* Memastikan nama Ridho tetap tegas */
-  color: #444;
-}
-
-  #footerLoginInfo {
-  /* Membuat tulisan "Anda login sebagai" tidak bold */
+/* Memastikan baris status login tetap di tengah */
+#footerLoginInfo {
   font-weight: 400; 
-  /* Warna abu-abu gelap agar senada dengan teks lainnya */
   color: #555; 
-  /* Memberi jarak ke bawah agar tidak mepet dengan nama Ridho */
   margin-bottom: 15px; 
   font-size: 12px;
   display: block;
+  text-align: center; /* Memaksa rata tengah di mobile */
 }
 
-/* Memastikan tag strong (nama user) tetap tebal dan hitam pekat */
+/* Nama user bold dengan warna biru pilihanmu */
 #footerLoginInfo strong {
   font-weight: bold;
   color: #23A0E0;
 }
 
-  .copyright {
-  margin-top: 15px !important; 
-  font-size: 10px;            /* Ukuran kecil sesuai permintaan */
-  opacity: 0.7;               /* Dibuat agak pudar/transparan */
-  color: #777;
+/* Mengatur blok kredit agar rapat */
+.credit-box {
   display: block;
-  text-transform: uppercase;  /* Membuat teks kapital agar tetap profesional meski kecil */
-  letter-spacing: 0.5px;      /* Memberi jarak antar huruf agar mudah dibaca */
+  text-align: center;
 }
 
-/* Responsif HP */
+.credit-box p {
+  margin: 0 !important;
+  line-height: 1.4;
+  text-align: center; /* Rata tengah untuk mobile */
+}
+
+.main-credit strong {
+  color: #444;
+}
+
+/* Gaya Copyright paling bawah */
+.copyright {
+  margin-top: 15px !important; 
+  font-size: 10px;
+  opacity: 0.7;
+  color: #777;
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* --- PERBAIKAN RESPONSIF HP --- */
 @media (max-width: 768px) {
   .footer {
     margin-top: 60px; 
-    padding: 10px 15px 25px 15px; 
+    /* Padding disesuaikan agar di HP tidak terlalu mepet garis atas */
+    padding: 25px 15px 25px 15px; 
     font-size: 11px;
+  }
+
+  #footerLoginInfo {
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+
+  .credit-box p {
+    line-height: 1.5; /* Memberi sedikit ruang napas di layar sempit */
+    padding: 0 5px;   /* Mencegah teks menyentuh pinggir layar */
+  }
+
+  .copyright {
+    font-size: 9px;
+    margin-top: 12px !important;
   }
 }
 </style>
