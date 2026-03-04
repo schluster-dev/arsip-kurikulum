@@ -1,13 +1,23 @@
 <script>
-/* FUNGSI BUKA/TUTUP MENU HP */
+/* FUNGSI BUKA/TUTUP MENU HP (DENGAN OVERLAY) */
 function toggleMobileMenu() {
     const nav = document.getElementById("nav-links");
+    const overlay = document.getElementById("menu-overlay");
+    
+    // 1. Toggle class active pada menu putih (1/3 layar)
     nav.classList.toggle("active");
+    
+    // 2. Munculkan/Sembunyikan area klik transparan (2/3 layar)
+    if (nav.classList.contains("active")) {
+        overlay.style.display = "block";
+    } else {
+        overlay.style.display = "none";
+    }
 }
 
-/* MODIFIKASI FUNGSI SHOWPAGE AGAR MENU OTOMATIS TERTUTUP SETELAH DIKLIK (UNTUK HP) */
+/* MODIFIKASI FUNGSI SHOWPAGE (TUTUP MENU + OVERLAY SETELAH KLIK) */
 function showPage(pageName) {
-    // 1. Logika ganti konten (seperti sebelumnya)
+    // 1. Logika ganti konten
     const titleMap = {
         'struktur': '📂 Struktur Kurikulum',
         'agenda': '📅 Agenda Sekolah',
@@ -19,10 +29,13 @@ function showPage(pageName) {
         document.querySelector(".card h2").innerText = titleMap[pageName];
     }
 
-    // 2. TUTUP MENU SETELAH KLIK (Khusus Mobile)
+    // 2. TUTUP MENU & OVERLAY (Khusus Mobile)
     const nav = document.getElementById("nav-links");
+    const overlay = document.getElementById("menu-overlay");
+    
     if (nav.classList.contains("active")) {
         nav.classList.remove("active");
+        overlay.style.display = "none"; // Pastikan overlay juga hilang
     }
 }
 
