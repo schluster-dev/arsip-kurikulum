@@ -85,22 +85,38 @@ body {
 
 /* HAMBURGER ICON */
 .menu-toggle {
-    display: none; /* Sembunyi di PC */
+    display: none; /* Sembunyi di PC lebar */
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
     cursor: pointer;
-    padding: 10px 0;
+    padding: 10px;
+    background: #0288d1; /* Kasih background biru agar terlihat */
+    border-radius: 8px;
+    width: fit-content;
+    z-index: 101;
 }
 
 .menu-toggle span {
-    width: 25px;
+    width: 20px;
     height: 3px;
-    background: #0288d1;
-    border-radius: 5px;
-    transition: 0.3s;
+    background: white; /* Garisnya jadi warna putih */
+    border-radius: 2px;
+    display: block;
 }
 
-/* ================= NAV LINKS (TAMPILAN HP) ================= */
+/* MEDIA QUERY: AKTIFKAN HAMBURGER */
+@media (max-width: 992px) {
+    .sub-navbar {
+        display: none; /* Akan diubah jadi 'flex' oleh JS saat login */
+        justify-content: flex-start !important;
+        padding: 0 5%;
+    }
+
+    /* Paksa tombol muncul di layar kecil */
+    .menu-toggle {
+        display: flex !important; 
+    }
+}
 /* ================= SUB-NAVBAR PRO (ADAPTIF & ROUNDED) ================= */
 .sub-navbar {
     display: none; /* Muncul via JS */
