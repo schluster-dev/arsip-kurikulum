@@ -102,40 +102,45 @@ body {
     border-radius: 5px;
 }
 
-/* ================= RESPONSIVE (TABLET & HP) ================= */
-/* ================= SIDE MENU (2/5 LAYAR) ================= */
+/* ================= RESPONSIVE SIDE MENU (FIXED) ================= */
 @media (max-width: 992px) {
     .sub-navbar {
-        justify-content: flex-end !important; /* Hamburger tetap di kanan */
-        margin-top: 5px;
+        display: flex !important; /* Pastikan container muncul */
+        justify-content: flex-end !important; /* Hamburger di kanan */
+        margin-top: 10px;
         padding: 0 5%;
+        min-height: auto; /* Reset tinggi agar tidak memakan ruang */
+    }
+
+    .menu-toggle {
+        display: flex !important; /* PAKSA muncul */
+        z-index: 1001; /* Di bawah menu tapi di atas konten */
     }
 
     .nav-links {
+        /* Reset tampilan PC */
         display: flex; 
         flex-direction: column;
+        
+        /* Setting Side Menu */
         position: fixed; 
         top: 0;
-        right: -100%; /* Sembunyi di kanan luar layar */
-        
-        /* KUNCI: Lebar 2/5 layar (40%) */
+        right: -105%; /* Sembunyi total di kanan */
         width: 40%; 
-        min-width: 200px; /* Batas minimum agar tidak terlalu gepeng di HP kecil */
-        
+        min-width: 220px; 
         height: 100vh; 
         background: white;
         box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-        z-index: 2000;
-        padding-top: 80px; /* Ruang agar tidak tertabrak Navbar atas */
-        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Efek slide smooth */
-        
-        /* Sudut membulat hanya di sisi kiri agar estetik */
-        border-radius: 25px 0 0 25px; 
+        z-index: 2000; /* Paling atas */
+        padding-top: 60px; 
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 25px 0 0 25px;
+        border: none; /* Hilangkan border kapsul PC */
     }
 
     /* SAAT MENU AKTIF */
     .nav-links.active {
-        right: 0; 
+        right: 0 !important; 
     }
 
     .nav-links a {
@@ -145,18 +150,17 @@ body {
         font-size: 14px;
         color: #0288d1;
         font-weight: 600;
-
-        /* SOLUSI TEKS PANJANG: Otomatis turun ke bawah (Wrap) */
-        white-space: normal; 
+        white-space: normal; /* Teks turun ke bawah jika panjang */
         line-height: 1.4;
         display: block;
+        border-radius: 0; /* Reset rounded kapsul PC */
     }
 
     .nav-links a:hover {
         background: #f0faff;
     }
 
-    /* Tambahkan Overlay (Opsional): Klik di luar menu untuk tutup */
+    /* Overlay Hitam Transparan saat menu buka */
     .nav-links.active::before {
         content: "";
         position: fixed;
@@ -164,8 +168,9 @@ body {
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: rgba(0,0,0,0.2);
+        background: rgba(0,0,0,0.3);
         z-index: -1;
+        cursor: pointer;
     }
 }
   
