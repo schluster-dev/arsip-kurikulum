@@ -106,7 +106,8 @@ body {
 @media (max-width: 992px) {
     .sub-navbar {
         display: flex !important;
-        justify-content: flex-end !important;
+        /* KUNCI: Gunakan flex-end hanya jika dashboard aktif */
+        justify-content: flex-end !important; 
         margin-top: 10px;
         padding: 0 5%;
     }
@@ -116,16 +117,17 @@ body {
         z-index: 1001; 
     }
 
-    /* AREA 2/3 LAYAR (BENING / TRANSPARAN) */
+    /* AREA 2/3 LAYAR (Hanya di sebelah kiri) */
     #menu-overlay {
         display: none; 
         position: fixed;
         top: 0;
         left: 0;
-        width: 100vw;
+        /* Lebar 66% (2/3 layar) agar tidak menutupi menu putih */
+        width: 66.66%; 
         height: 100vh;
-        background: transparent; /* Benar-benar bening */
-        z-index: 1500; /* Di bawah kotak putih menu */
+        background: transparent; 
+        z-index: 1500; 
     }
 
     .nav-links {
@@ -141,8 +143,8 @@ body {
         
         height: 100vh; 
         background: white;
-        box-shadow: -5px 0 20px rgba(0,0,0,0.05); /* Shadow tipis agar terlihat batasnya */
-        z-index: 2000;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.05);
+        z-index: 2000; /* Lebih tinggi dari overlay */
         padding-top: 70px; 
         transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         border-radius: 25px 0 0 25px;
