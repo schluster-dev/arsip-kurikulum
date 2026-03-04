@@ -530,14 +530,10 @@ input::-webkit-credentials-auto-fill-button {
 }
 
 /* ================= FOOTER (FIT TO TEXT) ================= */
-.footer {
+..footer {
   text-align: center;
-  /* PERUBAHAN DI SINI: Naikkan margin-top agar footer menjauh dari dashboard */
   margin-top: 100px; 
-  
-  /* Padding tetap ramping agar box putih tidak melar */
-  padding: 15px 20px; 
-  
+  padding: 20px 20px; /* Sedikit diperlebar agar tidak sesak */
   color: #555;
   font-size: 13px;
   background: white;
@@ -545,14 +541,20 @@ input::-webkit-credentials-auto-fill-button {
   line-height: 1.6;
   position: relative;
   z-index: 5;
+  box-shadow: 0 -5px 15px rgba(0,0,0,0.03); /* Tambah bayangan halus di atas footer */
+}
+
+/* Tambahan style khusus untuk teks login di footer */
+#footerLoginInfo {
+  font-size: 12px;
+  display: block;
 }
 
 /* Responsif HP */
 @media (max-width: 768px) {
   .footer {
-    /* Di HP jaraknya kita buat 60px saja agar tidak terlalu jauh di layar sempit */
     margin-top: 60px; 
-    padding: 10px 15px 25px 15px; 
+    padding: 15px 15px 25px 15px; 
     font-size: 11px;
   }
 }
