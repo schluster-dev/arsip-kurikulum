@@ -1,13 +1,11 @@
 <script>
-/* FUNGSI BUKA/TUTUP MENU HP (DENGAN OVERLAY) */
+/* FUNGSI BUKA/TUTUP MENU HP (DENGAN OVERLAY 2/3) */
 function toggleMobileMenu() {
     const nav = document.getElementById("nav-links");
     const overlay = document.getElementById("menu-overlay");
     
-    // 1. Toggle class active pada menu putih (1/3 layar)
     nav.classList.toggle("active");
     
-    // 2. Munculkan/Sembunyikan area klik transparan (2/3 layar)
     if (nav.classList.contains("active")) {
         overlay.style.display = "block";
     } else {
