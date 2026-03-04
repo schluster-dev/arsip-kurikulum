@@ -9,17 +9,13 @@ body {
 
 /* ================= NAVBAR ================= */
 .navbar {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  padding: 15px 5% !important;
-  /* Warna Biru Gradient SMKN 3 */
-  background: #0288d1 !important; /* Warna dasar jika gradient gagal */
-  background: linear-gradient(90deg, #4fc3f7, #0288d1) !important; 
-  color: white !important;
-  box-shadow: 0 5px 25px rgba(0,0,0,.15) !important;
-  position: relative;
-  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5%; /* Padding lebih fleksibel */
+  background: linear-gradient(90deg, #4fc3f7, #0288d1);
+  color: white;
+  box-shadow: 0 5px 25px rgba(0,0,0,.15);
 }
 
 .logo-group {
@@ -371,11 +367,12 @@ body {
   padding-left: 20px; /* Efek geser sedikit saat di-hover */
 }
 
-/* ================= FOOTER (KEMBALI NORMAL & RAMPING) ================= */
+/* ================= FOOTER ================= */
+
 .footer {
   text-align: center;
-  margin-top: 30px; /* Jarak standar dari card atas */
-  padding: 20px;    /* Padding seimbang */
+  margin-top: 30px; /* Jarak atas dikurangi agar lebih rapat */
+  padding: 20px 20px; /* Padding lebih proporsional */
   color: #555;
   font-size: 13px;
   background: white;
@@ -385,23 +382,22 @@ body {
   z-index: 5;
 }
 
-/* KHUSUS MODE MOBILE */
+/* Responsif HP */
 @media (max-width: 768px) {
   .footer {
-    /* KUNCI: Padding bottom dikecilkan agar tidak melorot */
-    padding: 15px 15px 25px 15px; 
-    margin-top: 15px; 
-    font-size: 11px;
-    
-    /* Gunakan max-height jika konten terasa terlalu panjang */
-    max-height: 150px; 
-    overflow: hidden; /* Mencegah teks footer bikin scroll baru */
+    /* Padding bottom dikurangi dari 100px ke 70px agar tidak terlalu panjang ke bawah */
+    padding-bottom: 70px; 
+    font-size: 12px;
+    margin-top: 20px;
+  }
+  
+  /* Membuat teks footer sedikit lebih naik agar tombol logout tidak menutupi teks penting */
+  .footer p {
+    margin-bottom: 5px;
   }
 
-  /* Agar teks tidak tertutup tombol logout tapi tetap di tengah */
-  .footer p {
-    margin: 0 auto;
-    max-width: 80%; /* Teks akan menyempit di tengah, memberi ruang kosong di kiri-kanan untuk tombol */
+  .footer b {
+    color: #0288d1;
   }
-}
+} 
 </style>
