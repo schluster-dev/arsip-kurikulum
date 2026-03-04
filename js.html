@@ -1,4 +1,30 @@
 <script>
+/* FUNGSI BUKA/TUTUP MENU HP */
+function toggleMobileMenu() {
+    const nav = document.getElementById("nav-links");
+    nav.classList.toggle("active");
+}
+
+/* MODIFIKASI FUNGSI SHOWPAGE AGAR MENU OTOMATIS TERTUTUP SETELAH DIKLIK (UNTUK HP) */
+function showPage(pageName) {
+    // 1. Logika ganti konten (seperti sebelumnya)
+    const titleMap = {
+        'struktur': '📂 Struktur Kurikulum',
+        'agenda': '📅 Agenda Sekolah',
+        'kalender': '🗓️ Kalender Pendidikan',
+        'staff': '👥 Daftar Staff & Guru'
+    };
+    
+    if(titleMap[pageName]) {
+        document.querySelector(".card h2").innerText = titleMap[pageName];
+    }
+
+    // 2. TUTUP MENU SETELAH KLIK (Khusus Mobile)
+    const nav = document.getElementById("nav-links");
+    if (nav.classList.contains("active")) {
+        nav.classList.remove("active");
+    }
+}
 
 let userRole = ""; 
 
