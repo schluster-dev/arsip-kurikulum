@@ -44,7 +44,6 @@ function showLogin(){
   document.getElementById("loginModal").style.display = "flex";
 }
 // ------------------------------
-
 function login() {
   // 1. Ambil semua nilai input
   let role = document.getElementById("role").value;
@@ -53,28 +52,24 @@ function login() {
   let pass = document.getElementById("pass").value;
   let msg = document.getElementById("loginMsg");
 
-  // 2. VALIDASI NAMA (Cegat di sini sebelum kirim ke server)
+  // 2. VALIDASI NAMA
   if (!nama || nama.length < 3) {
     msg.innerText = "❌ Silakan pilih Nama Anda dari saran yang muncul!";
     msg.style.color = "red";
-    
-    // Beri efek sedikit getar atau warna merah pada input nama agar user sadar
     document.getElementById("loginName").style.borderColor = "red";
-    return; // STOP! Jangan lanjut ke proses verifikasi password
+    return; 
   }
 
-  // Jika nama sudah ada, pastikan border kembali normal
   document.getElementById("loginName").style.borderColor = "#b3e5fc";
 
-  // 3. Jika nama sudah diisi, baru jalankan verifikasi server
+  // 3. Verifikasi server
   msg.innerText = "⌛ Memverifikasi...";
 
-google.script.run.withSuccessHandler(function(response) {
+  google.script.run.withSuccessHandler(function(response) {
     if (response.success) {
       // ISI TULISAN LOGIN DI FOOTER
       const footerInfo = document.getElementById("footerLoginInfo");
       if (footerInfo) {
-        // SUDAH DIPERBAIKI: Tidak ada lagi teks ganda
         footerInfo.innerHTML = "👤 <span style='color: #000;'>Anda login sebagai: </span><strong>" + nama + "</strong>";
       }
       
@@ -82,8 +77,10 @@ google.script.run.withSuccessHandler(function(response) {
       masukDashboard(response.role);
     } else {
       msg.innerText = "❌ ID atau Password salah!";
+      msg.style.color = "red";
     }
   }).checkLoginServer(user, pass, role);
+} 
 
 function masukDashboard(tipe){
   document.getElementById("loginModal").style.display = "none";
