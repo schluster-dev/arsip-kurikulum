@@ -116,10 +116,14 @@ function logout(){
 let allNames=[];
 let currentDownloadUrl="";
 
-function loadNames(){
-google.script.run.withSuccessHandler(res=>{
-allNames=res;
-}).getNames();
+function loadNames() {
+  // Jika sudah ada isinya, tidak usah ambil lagi ke server (hemat kuota)
+  if (allNames.length > 0) return; 
+
+  google.script.run.withSuccessHandler(res => {
+    allNames = res;
+    console.log("Data nama berhasil dimuat: " + allNames.length + " orang.");
+  }).getNames();
 }
 
 function searchName(){
