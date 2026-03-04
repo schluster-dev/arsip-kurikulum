@@ -103,58 +103,70 @@ body {
 }
 
 /* ================= RESPONSIVE (TABLET & HP) ================= */
+/* ================= SIDE MENU (2/5 LAYAR) ================= */
 @media (max-width: 992px) {
     .sub-navbar {
-        justify-content: center !important; 
-        margin-top: 10px; /* Jarak di mode mobile */
-    }
-
-    .menu-toggle {
-        display: flex; 
+        justify-content: flex-end !important; /* Hamburger tetap di kanan */
+        margin-top: 5px;
+        padding: 0 5%;
     }
 
     .nav-links {
-        display: none; 
+        display: flex; 
         flex-direction: column;
-        position: absolute;
-        top: 55px; 
+        position: fixed; 
+        top: 0;
+        right: -100%; /* Sembunyi di kanan luar layar */
         
-        /* MELEBAR KE KANAN & KIRI (FULL WIDTH) */
-        left: 0;
-        right: 0;
-        width: 100%; 
+        /* KUNCI: Lebar 2/5 layar (40%) */
+        width: 40%; 
+        min-width: 200px; /* Batas minimum agar tidak terlalu gepeng di HP kecil */
         
+        height: 100vh; 
         background: white;
-        border-radius: 15px; /* Tetap rounded di sudut dropdown */
-        padding: 10px 0;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        z-index: 1000;
-        overflow: hidden;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+        z-index: 2000;
+        padding-top: 80px; /* Ruang agar tidak tertabrak Navbar atas */
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Efek slide smooth */
+        
+        /* Sudut membulat hanya di sisi kiri agar estetik */
+        border-radius: 25px 0 0 25px; 
     }
 
+    /* SAAT MENU AKTIF */
     .nav-links.active {
-        display: flex;
-        animation: slideDown 0.3s ease-out;
+        right: 0; 
     }
 
     .nav-links a {
-        padding: 18px 25px; /* Ruang klik lebih besar untuk jempol HP */
-        border-radius: 0;
+        padding: 18px 20px;
         border-bottom: 1px solid #f1f8ff;
         text-align: left;
         font-size: 14px;
-        white-space: nowrap; /* Teks tidak akan turun ke baris baru */
+        color: #0288d1;
+        font-weight: 600;
+
+        /* SOLUSI TEKS PANJANG: Otomatis turun ke bawah (Wrap) */
+        white-space: normal; 
+        line-height: 1.4;
+        display: block;
     }
 
-    .nav-links a:last-child {
-        border-bottom: none;
+    .nav-links a:hover {
+        background: #f0faff;
     }
-}
 
-/* Animasi Muncul */
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-15px); }
-    to { opacity: 1; transform: translateY(0); }
+    /* Tambahkan Overlay (Opsional): Klik di luar menu untuk tutup */
+    .nav-links.active::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.2);
+        z-index: -1;
+    }
 }
   
 /* ================= HERO ================= */
