@@ -74,7 +74,7 @@ function login() {
       // ISI TULISAN LOGIN DI FOOTER
       const footerInfo = document.getElementById("footerLoginInfo");
       if (footerInfo) {
-        footerInfo.innerHTML = "👤 <span style='color: #000;'>Anda login sebagai: </span>" + nama + "</span>";
+        footerInfo.innerHTML footerInfo.innerHTML = "👤 <span style='color: #000;'>Anda login sebagai: </span><strong>" + nama + "</strong>";
       }
       
       userRole = response.role;
