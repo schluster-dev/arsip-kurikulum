@@ -43,6 +43,34 @@ body {
   opacity: .9;
 }
 
+.sub-navbar {
+    background: white;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #e1f5fe;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.sub-navbar a {
+    text-decoration: none;
+    color: #0288d1;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 10px;
+    transition: 0.3s;
+}
+.sub-navbar a:hover {
+    background: #e1f5fe;
+    border-radius: 8px;
+}
+/* Agar rapi di HP */
+@media (max-width: 768px) {
+    .sub-navbar { justify-content: flex-start; padding: 10px 5%; }
+}
+  
 /* ================= HERO ================= */
 .hero {
   text-align: center;
