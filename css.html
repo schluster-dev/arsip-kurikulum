@@ -44,18 +44,6 @@ body {
 }
 
 /* ================= SUB-NAVBAR FINAL (PC & MOBILE OPTIMIZED) ================= */
-.sub-navbar {
-    display: none; /* Muncul via JS setelah login */
-    justify-content: center; /* Tengah horizontal di PC */
-    align-items: center;     /* Tengah vertikal */
-    margin-top: 5px;         /* Posisi aman: tidak terlalu naik, tidak terlalu turun */
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 100;
-    padding: 0 5%;
-    min-height: 50px;
-}
-
 /* TAMPILAN MENU KAPSUL (PC) */
 .nav-links {
     display: flex;
@@ -63,8 +51,19 @@ body {
     background: white;
     padding: 8px 15px;
     border-radius: 50px; /* Bentuk Kapsul */
-    border: 1px solid #e1f5fe;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border: 1px solid rgba(225, 245, 254, 0.8); /* Border tipis transparan */
+    
+    /* SHADOW BARU AGAR TERLIHAT NGAMBANG */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); 
+    
+    /* SEDIKIT EFEK TRANSISI SAAT HOVER HALUS */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* EFEK SAAT MENU DI-HOVER (PC) */
+.nav-links:hover {
+    transform: translateY(-2px); /* Naik sedikit saat mouse lewat */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); /* Shadow makin dalam */
 }
 
 .nav-links a {
@@ -75,7 +74,7 @@ body {
     padding: 8px 18px;
     border-radius: 30px; 
     transition: 0.3s;
-    white-space: nowrap; /* Menjaga teks PC tetap satu baris */
+    white-space: nowrap;
 }
 
 .nav-links a:hover {
