@@ -8,14 +8,19 @@ body {
 }
 
 /* ================= NAVBAR ================= */
+/* ================= NAVBAR ================= */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 5%; /* Padding lebih fleksibel */
-  background: linear-gradient(90deg, #4fc3f7, #0288d1);
-  color: white;
-  box-shadow: 0 5px 25px rgba(0,0,0,.15);
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 15px 5% !important;
+  /* Warna Biru Gradient SMKN 3 */
+  background: #0288d1 !important; /* Warna dasar jika gradient gagal */
+  background: linear-gradient(90deg, #4fc3f7, #0288d1) !important; 
+  color: white !important;
+  box-shadow: 0 5px 25px rgba(0,0,0,.15) !important;
+  position: relative;
+  z-index: 10;
 }
 
 .logo-group {
