@@ -43,25 +43,26 @@ body {
   opacity: .9;
 }
 
-/* ================= SUB-NAVBAR PRO ================= */
+/* ================= SUB-NAVBAR FINAL (TENGAH & ROUNDED) ================= */
 .sub-navbar {
-    display: none; /* Muncul via JS */
-    justify-content: center;
-    margin-top: 10px;
+    display: none; /* Muncul via JS setelah login */
+    justify-content: center; /* Tengah horizontal di PC */
+    align-items: center;     /* Tengah vertikal */
+    margin-top: -15px;       /* MENARIK KE ATAS agar lebih rapat ke Navbar */
+    margin-bottom: 20px;
     position: relative;
-    z-index: 95;
+    z-index: 100;
+    padding: 0 5%;
+    min-height: 50px;
 }
 
-/* ================= NAV LINKS (TAMPILAN PC) ================= */
+/* TAMPILAN MENU KAPSUL (PC) */
 .nav-links {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     background: white;
-    padding: 8px 15px;
-    
-    /* KUNCI: Membuat sudut melengkung seperti Dashboard */
-    border-radius: 50px; /* Bentuk kapsul di PC */
-    
+    padding: 6px 12px;
+    border-radius: 50px; /* Bentuk Kapsul */
     border: 1px solid #e1f5fe;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
@@ -71,9 +72,7 @@ body {
     color: #0288d1;
     font-size: 13px;
     font-weight: 600;
-    padding: 8px 18px;
-    
-    /* Membuat tiap item menu juga sedikit rounded saat di-hover */
+    padding: 8px 16px;
     border-radius: 30px; 
     transition: 0.3s;
 }
@@ -83,123 +82,50 @@ body {
     color: #01579b;
 }
 
-/* HAMBURGER ICON */
+/* TOMBOL HAMBURGER (PC SEMBUNYI) */
 .menu-toggle {
-    display: none; /* Sembunyi di PC lebar */
+    display: none; 
     flex-direction: column;
     gap: 4px;
     cursor: pointer;
     padding: 10px;
-    background: #0288d1; /* Kasih background biru agar terlihat */
-    border-radius: 8px;
-    width: fit-content;
-    z-index: 101;
+    background: #0288d1; /* Kotak Biru */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(2, 136, 209, 0.2);
 }
 
 .menu-toggle span {
     width: 20px;
     height: 3px;
-    background: white; /* Garisnya jadi warna putih */
-    border-radius: 2px;
-    display: block;
-}
-
-/* MEDIA QUERY: AKTIFKAN HAMBURGER */
-@media (max-width: 992px) {
-    .sub-navbar {
-        display: none; /* Akan diubah jadi 'flex' oleh JS saat login */
-        justify-content: flex-start !important;
-        padding: 0 5%;
-    }
-
-    /* Paksa tombol muncul di layar kecil */
-    .menu-toggle {
-        display: flex !important; 
-    }
-}
-/* ================= SUB-NAVBAR PRO (ADAPTIF & ROUNDED) ================= */
-.sub-navbar {
-    display: none; /* Muncul via JS */
-    justify-content: center;
-    margin-top: 15px; /* Jarak dari navbar */
-    position: relative;
-    z-index: 95;
-    padding: 0 5%;
-}
-
-/* TAMPILAN DEFAULT (PC/LAPTOP LEBAR) */
-.nav-links {
-    display: flex;
-    gap: 10px;
-    background: white;
-    padding: 8px 15px;
-    border-radius: 50px; /* Bentuk kapsul di PC */
-    border: 1px solid #e1f5fe;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #0288d1;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 8px 18px;
-    border-radius: 30px; 
-    transition: 0.3s;
-}
-
-.nav-links a:hover {
-    background: #e1f5fe;
-    color: #01579b;
-}
-
-/* HAMBURGER ICON (Default Sembunyi) */
-.menu-toggle {
-    display: none; 
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 10px;
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #e1f5fe;
-}
-
-.menu-toggle span {
-    width: 22px;
-    height: 3px;
-    background: #0288d1;
+    background: white; /* Garis Putih */
     border-radius: 5px;
 }
 
-/* ================= KUNCI RESPONSIVE (BREAKPOINT 992px) ================= */
-/* Ketika browser dikecilkan (Laptop Kecil/Tablet/HP) */
+/* ================= RESPONSIVE (TABLET & HP) ================= */
 @media (max-width: 992px) {
     .sub-navbar {
-        justify-content: flex-start; /* Hamburger di kiri */
+        justify-content: center !important; /* Hamburger jadi di TENGAH layar HP */
+        margin-top: -10px;
     }
 
     .menu-toggle {
-        display: flex; /* Hamburger muncul */
+        display: flex; /* Hamburger Muncul */
     }
 
     .nav-links {
-        display: none; /* Menu kapsul sembunyi */
+        display: none; /* Sembunyikan kapsul */
         flex-direction: column;
         position: absolute;
-        top: 55px;
+        top: 55px; /* Jarak dropdown dari tombol */
         left: 5%;
         right: 5%;
         width: auto;
-        
-        /* KOTAK MENU ROUNDED */
-        border-radius: 20px; 
-        
+        background: white;
+        border-radius: 20px; /* Dropdown Rounded */
         padding: 10px 0;
-        gap: 0;
         box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        overflow: hidden;
         z-index: 1000;
+        overflow: hidden;
     }
 
     .nav-links.active {
@@ -209,10 +135,8 @@ body {
 
     .nav-links a {
         padding: 15px 25px;
-        border-radius: 0; 
+        border-radius: 0;
         border-bottom: 1px solid #f1f8ff;
-        width: 100%;
-        box-sizing: border-box;
         text-align: left;
     }
 
@@ -221,6 +145,7 @@ body {
     }
 }
 
+/* Animasi Halus */
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-15px); }
     to { opacity: 1; transform: translateY(0); }
