@@ -117,12 +117,17 @@ let allNames=[];
 let currentDownloadUrl="";
 
 function loadNames() {
-  // Jika sudah ada isinya, tidak usah ambil lagi ke server (hemat kuota)
   if (allNames.length > 0) return; 
 
   google.script.run.withSuccessHandler(res => {
     allNames = res;
-    console.log("Data nama berhasil dimuat: " + allNames.length + " orang.");
+    console.log("Data berhasil dimuat");
+
+    // CEK: Jika user sedang mengetik di login, langsung update saran namanya
+    let loginInput = document.getElementById("loginName");
+    if (loginInput && loginInput.value.length >= 3) {
+      searchLoginName(); // Panggil ulang pencarian setelah data siap
+    }
   }).getNames();
 }
 
@@ -359,14 +364,15 @@ function searchLoginName() {
   let input = inputVal.toLowerCase();
   let box = document.getElementById("loginSuggestions");
   
-  box.innerHTML = ""; // Bersihkan setiap kali ngetik
+  box.innerHTML = ""; 
 
   if (input.length < 3) return;
 
-  // Proteksi jika allNames belum terisi atau gagal load
+  // Jika data belum ada, panggil server dan tampilkan status loading
   if (!allNames || allNames.length === 0) {
     box.innerHTML = "<div class='suggest-item'>⌛ Memuat data nama...</div>";
-    loadNames(); // Coba panggil lagi jika kosong
+    box.style.display = "block";
+    loadNames(); 
     return;
   }
 
@@ -374,9 +380,12 @@ function searchLoginName() {
 
   if (filtered.length === 0) {
     box.innerHTML = "<div class='suggest-item' style='color:red;'>❌ Nama tidak ditemukan</div>";
+    box.style.display = "block";
     return;
   }
 
+  // Jika data ada, tampilkan saran
+  box.style.display = "block";
   filtered.slice(0, 5).forEach(name => {
     let div = document.createElement("div");
     div.className = "suggest-item"; 
@@ -385,8 +394,7 @@ function searchLoginName() {
     div.onclick = function() {
       document.getElementById("loginName").value = name;
       box.innerHTML = "";
-      
-      // Sinkronkan ke input search dashboard agar user tidak ngetik 2x nanti
+      box.style.display = "none";
       const dashSearch = document.getElementById("search");
       if(dashSearch) dashSearch.value = name; 
     };
