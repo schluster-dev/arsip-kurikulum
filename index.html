@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arsip Kurikulum SMKN 3</title>
     <style>
-        /* Tetap menggunakan style asli kamu */
+        /* CSS Utama */
         body { 
             background: #f4f7f6; 
             margin: 0; 
@@ -13,6 +13,7 @@
             overflow: hidden; /* Mencegah scroll double */
         }
         
+        /* Kontainer Utama Layar Loading */
         .loading-screen {
             display: flex; 
             flex-direction: column; 
@@ -20,13 +21,25 @@
             justify-content: center; 
             height: 100vh;
             width: 100%;
-            position: absolute;
+            position: fixed; /* Fixed agar menutupi seluruh layar */
             top: 0;
             left: 0;
             background: #f4f7f6;
-            z-index: 99; /* Muncul di atas iframe saat loading */
+            z-index: 99; /* Muncul di atas iframe */
+            
+            /* Trik untuk Fade Out Halus */
+            opacity: 1; /* Awalnya terlihat penuh */
+            visibility: visible; /* Awalnya terlihat penuh */
+            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out; /* Durasi animasi */
         }
 
+        /* Kelas untuk memicu efek pudar (dipanggil lewat JS) */
+        .loading-screen.fade-out {
+            opacity: 0; /* Menjadi transparan */
+            visibility: hidden; /* Benar-benar hilang setelah transparan */
+        }
+
+        /* Style Asli Loader Kamu */
         .loader { 
             border: 5px solid #f3f3f3; 
             border-top: 5px solid #0288d1; 
@@ -48,7 +61,7 @@
             width: 100%;
             height: 100%;
             border: none;
-            z-index: 1;
+            z-index: 1; /* Iframe berada di bawah layar loading */
         }
     </style>
 </head>
@@ -62,17 +75,15 @@
 
     <iframe 
         src="https://script.google.com/macros/s/AKfycbzNDPDU_BpWJ5qDAXezYsmTYSH_p-ihkuAHxKOz2UHWoHi1QVmcJiVwG3hu2jTRkISRjw/exec" 
-        onload="hideLoader()">
+        onload="startFadeOut()">
     </iframe>
 
     <script>
-        // Fungsi untuk menghilangkan loader setelah iframe selesai dimuat
-        function hideLoader() {
+        // Fungsi untuk menghilangkan loader secara perlahan
+        function startFadeOut() {
             const loader = document.getElementById('loader-container');
-            // Beri sedikit delay agar transisi mulus
-            setTimeout(() => {
-                loader.style.display = 'none';
-            }, 500);
+            // Menambahkan kelas 'fade-out' yang memicu animasi CSS
+            loader.classList.add('fade-out');
         }
     </script>
 </body>
