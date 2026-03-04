@@ -303,6 +303,22 @@ font-size: 20px;
   display: block !important;
 }
 
+/* Menghilangkan icon mata bawaan Chrome, Edge, dan Safari */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-credentials-auto-fill-button {
+  display: none !important;
+}
+
+/* Khusus untuk beberapa versi browser modern */
+.password-box input::-webkit-password-reveal {
+  display: none;
+}
+  
 /* Gaya Tombol Role */
 .role-selection {
   display: flex;
