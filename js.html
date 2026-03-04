@@ -69,12 +69,13 @@ function login() {
   // 3. Jika nama sudah diisi, baru jalankan verifikasi server
   msg.innerText = "⌛ Memverifikasi...";
 
-  google.script.run.withSuccessHandler(function(response) {
+google.script.run.withSuccessHandler(function(response) {
     if (response.success) {
       // ISI TULISAN LOGIN DI FOOTER
       const footerInfo = document.getElementById("footerLoginInfo");
       if (footerInfo) {
-        footerInfo.innerHTML footerInfo.innerHTML = "👤 <span style='color: #000;'>Anda login sebagai: </span><strong>" + nama + "</strong>";
+        // SUDAH DIPERBAIKI: Tidak ada lagi teks ganda
+        footerInfo.innerHTML = "👤 <span style='color: #000;'>Anda login sebagai: </span><strong>" + nama + "</strong>";
       }
       
       userRole = response.role;
@@ -83,7 +84,6 @@ function login() {
       msg.innerText = "❌ ID atau Password salah!";
     }
   }).checkLoginServer(user, pass, role);
-}
 
 function masukDashboard(tipe){
   document.getElementById("loginModal").style.display = "none";
