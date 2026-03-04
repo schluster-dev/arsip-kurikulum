@@ -43,15 +43,12 @@ body {
   opacity: .9;
 }
 
-/* ================= SUB-NAVBAR FINAL (TENGAH & ROUNDED) ================= */
+/* ================= SUB-NAVBAR FINAL (PC & MOBILE OPTIMIZED) ================= */
 .sub-navbar {
-    display: none; 
-    justify-content: center; 
-    align-items: center;     
-    
-    /* UBAH DI SINI: */
-    margin-top: 10px;  /* Kalau masih terlalu ke atas, ganti jadi 0px atau 5px */
-    
+    display: none; /* Muncul via JS setelah login */
+    justify-content: center; /* Tengah horizontal di PC */
+    align-items: center;     /* Tengah vertikal */
+    margin-top: 5px;         /* Posisi aman: tidak terlalu naik, tidak terlalu turun */
     margin-bottom: 20px;
     position: relative;
     z-index: 100;
@@ -62,9 +59,9 @@ body {
 /* TAMPILAN MENU KAPSUL (PC) */
 .nav-links {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     background: white;
-    padding: 6px 12px;
+    padding: 8px 15px;
     border-radius: 50px; /* Bentuk Kapsul */
     border: 1px solid #e1f5fe;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
@@ -73,11 +70,12 @@ body {
 .nav-links a {
     text-decoration: none;
     color: #0288d1;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
-    padding: 8px 16px;
+    padding: 8px 18px;
     border-radius: 30px; 
     transition: 0.3s;
+    white-space: nowrap; /* Menjaga teks PC tetap satu baris */
 }
 
 .nav-links a:hover {
@@ -92,7 +90,7 @@ body {
     gap: 4px;
     cursor: pointer;
     padding: 10px;
-    background: #0288d1; /* Kotak Biru */
+    background: #0288d1; 
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(2, 136, 209, 0.2);
 }
@@ -100,33 +98,36 @@ body {
 .menu-toggle span {
     width: 20px;
     height: 3px;
-    background: white; /* Garis Putih */
+    background: white; 
     border-radius: 5px;
 }
 
 /* ================= RESPONSIVE (TABLET & HP) ================= */
 @media (max-width: 992px) {
     .sub-navbar {
-        justify-content: center !important; /* Hamburger jadi di TENGAH layar HP */
-        margin-top: 10px;
+        justify-content: center !important; 
+        margin-top: 10px; /* Jarak di mode mobile */
     }
 
     .menu-toggle {
-        display: flex; /* Hamburger Muncul */
+        display: flex; 
     }
 
     .nav-links {
-        display: none; /* Sembunyikan kapsul */
+        display: none; 
         flex-direction: column;
         position: absolute;
-        top: 55px; /* Jarak dropdown dari tombol */
-        left: 5%;
-        right: 5%;
-        width: auto;
+        top: 55px; 
+        
+        /* MELEBAR KE KANAN & KIRI (FULL WIDTH) */
+        left: 0;
+        right: 0;
+        width: 100%; 
+        
         background: white;
-        border-radius: 20px; /* Dropdown Rounded */
+        border-radius: 15px; /* Tetap rounded di sudut dropdown */
         padding: 10px 0;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         z-index: 1000;
         overflow: hidden;
     }
@@ -137,10 +138,12 @@ body {
     }
 
     .nav-links a {
-        padding: 15px 25px;
+        padding: 18px 25px; /* Ruang klik lebih besar untuk jempol HP */
         border-radius: 0;
         border-bottom: 1px solid #f1f8ff;
         text-align: left;
+        font-size: 14px;
+        white-space: nowrap; /* Teks tidak akan turun ke baris baru */
     }
 
     .nav-links a:last-child {
@@ -148,7 +151,7 @@ body {
     }
 }
 
-/* Animasi Halus */
+/* Animasi Muncul */
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-15px); }
     to { opacity: 1; transform: translateY(0); }
