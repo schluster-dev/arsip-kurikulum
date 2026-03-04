@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/smknling/public_html/kurikulum/
+    - /bin/cp -R * $DEPLOYPATH
