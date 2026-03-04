@@ -371,35 +371,42 @@ body {
 
 /* ================= FOOTER (VERSI RAMPING) ================= */
 
+/* ================= FOOTER (VERSI ANTI-TABRAK TOMBOL) ================= */
+
 .footer {
   text-align: center;
-  margin-top: 20px; /* Jarak minimal dari card di atasnya */
-  padding: 15px 10px; /* Padding sangat kecil agar tidak memakan ruang */
+  margin-top: auto; 
+  padding: 30px 20px; 
   color: #555;
   font-size: 13px;
   background: white;
   border-top: 1px solid #e1f5fe;
-  line-height: 1.4;
+  line-height: 1.6;
   position: relative;
   z-index: 5;
   width: 100%;
   box-sizing: border-box;
 }
 
-/* Responsif HP */
+/* KHUSUS TAMPILAN HP */
 @media (max-width: 768px) {
   .footer {
-    /* HAPUS PADDING 100px LAMA */
-    padding-bottom: 20px; 
-    margin-top: 15px;
-    font-size: 11px; /* Teks sedikit diperkecil agar tidak makan baris */
+    /* Padding bawah kita buat pas, tidak melorot 100px lagi */
+    padding: 20px 15px 25px 15px; 
+    
+    /* RAHASIANYA: Kasih jarak di kanan agar teks tidak tertutup tombol Logout */
+    padding-right: 80px; 
+    
+    text-align: left; /* Ubah ke kiri agar teks lebih rapi saat mengalah dari tombol */
+    font-size: 11px;
+    margin-top: 20px;
   }
-  
+
   .footer b {
     color: #0288d1;
+    display: block; /* Agar nama aplikasi dan sekolah berjejer rapi di HP */
   }
 }
-
 /* ANTI-MOLOR: Pastikan body tidak dipaksa tinggi 100vh jika konten sedikit */
 body {
   height: auto !important; 
