@@ -31,6 +31,7 @@ function masukDashboard(tipe){
   document.getElementById("loginModal").style.display = "none";
   document.querySelector(".hero").style.display = "none";
   document.getElementById("dashboard").style.display = "block";
+  document.getElementById("sub-menu-login").style.display = "flex";
   
   let menu = document.getElementById("menu");
   
@@ -58,6 +59,7 @@ function logout(){
     // 1. Sembunyikan Dashboard, tampilkan Hero
     document.getElementById("dashboard").style.display = "none";
     document.querySelector(".hero").style.display = "block";
+    document.getElementById("sub-menu-login").style.display = "none";
 
     // 2. Kosongkan input login agar tidak nyangkut saat refresh
     if(document.getElementById("user")) document.getElementById("user").value = "";
