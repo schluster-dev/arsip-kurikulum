@@ -369,35 +369,47 @@ body {
 
 /* ================= FOOTER ================= */
 
+/* ================= FOOTER (VERSI RAMPING) ================= */
+
 .footer {
   text-align: center;
-  margin-top: 30px; /* Jarak atas dikurangi agar lebih rapat */
-  padding: 20px 20px; /* Padding lebih proporsional */
+  margin-top: 20px; /* Jarak minimal dari card di atasnya */
+  padding: 15px 10px; /* Padding sangat kecil agar tidak memakan ruang */
   color: #555;
   font-size: 13px;
   background: white;
   border-top: 1px solid #e1f5fe;
-  line-height: 1.6;
+  line-height: 1.4;
   position: relative;
   z-index: 5;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Responsif HP */
 @media (max-width: 768px) {
   .footer {
-    /* Padding bottom dikurangi dari 100px ke 70px agar tidak terlalu panjang ke bawah */
-    padding-bottom: 70px; 
-    font-size: 12px;
-    margin-top: 20px;
+    /* HAPUS PADDING 100px LAMA */
+    padding-bottom: 20px; 
+    margin-top: 15px;
+    font-size: 11px; /* Teks sedikit diperkecil agar tidak makan baris */
   }
   
-  /* Membuat teks footer sedikit lebih naik agar tombol logout tidak menutupi teks penting */
-  .footer p {
-    margin-bottom: 5px;
-  }
-
   .footer b {
     color: #0288d1;
   }
-} 
+}
+
+/* ANTI-MOLOR: Pastikan body tidak dipaksa tinggi 100vh jika konten sedikit */
+body {
+  height: auto !important; 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dorong footer ke paling bawah hanya jika layar masih kosong */
+.footer {
+  margin-top: auto; 
+}
 </style>
