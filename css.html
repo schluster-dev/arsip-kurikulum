@@ -368,6 +368,19 @@ font-family: 'Segoe UI', Arial, sans-serif;
 
 /* ================= FOOTER ================= */
 
+/* ================= GLOBAL (REVISI) ================= */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #e3f2fd, #f1f8ff);
+  overflow-x: hidden;
+  
+  /* HAPUS height: 100vh jika ada, ganti dengan ini */
+  min-height: 100vh;
+  display: block; /* Kembalikan ke normal agar tidak narik footer ke bawah */
+}
+
+/* ================= FOOTER (KEMBALI NORMAL & RAMPING) ================= */
 .footer {
   text-align: center;
   margin-top: 30px; /* Jarak standar dari card atas */
