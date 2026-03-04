@@ -367,17 +367,16 @@ body {
   padding-left: 20px; /* Efek geser sedikit saat di-hover */
 }
 
-/* ================= FOOTER ================= */
-
+/* ================= FOOTER (FIT TO TEXT) ================= */
 .footer {
   text-align: center;
-  margin-top: 30px; /* Jarak atas dikurangi agar lebih rapat */
-  padding: 20px 20px; /* Padding lebih proporsional */
+  margin-top: 20px; /* Jarak dari konten atas */
+  padding: 15px 20px; /* Padding atas-bawah hanya 15px agar ramping */
   color: #555;
   font-size: 13px;
   background: white;
   border-top: 1px solid #e1f5fe;
-  line-height: 1.6;
+  line-height: 1.4; /* Spasi antar baris lebih rapat */
   position: relative;
   z-index: 5;
 }
@@ -385,19 +384,18 @@ body {
 /* Responsif HP */
 @media (max-width: 768px) {
   .footer {
-    /* Padding bottom dikurangi dari 100px ke 70px agar tidak terlalu panjang ke bawah */
-    padding-bottom: 70px; 
-    font-size: 12px;
-    margin-top: 20px;
+    /* Menghapus padding 70px/100px yang bikin melorot */
+    padding: 10px 15px; 
+    font-size: 11px;
+    margin-top: 15px;
   }
   
-  /* Membuat teks footer sedikit lebih naik agar tombol logout tidak menutupi teks penting */
   .footer p {
-    margin-bottom: 5px;
+    margin: 5px 0; /* Jarak antar paragraf sangat tipis */
   }
 
   .footer b {
     color: #0288d1;
   }
-} 
+}
 </style>
