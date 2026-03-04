@@ -1,20 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arsip Kurikulum SMKN 3</title>
     <style>
-        body { background: #f4f7f6; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: Arial, sans-serif; }
-        .loader { border: 5px solid #f3f3f3; border-top: 5px solid #0288d1; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        /* Tetap menggunakan style asli kamu */
+        body { 
+            background: #f4f7f6; 
+            margin: 0; 
+            font-family: Arial, sans-serif; 
+            overflow: hidden; /* Mencegah scroll double */
+        }
+        
+        .loading-screen {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #f4f7f6;
+            z-index: 99; /* Muncul di atas iframe saat loading */
+        }
+
+        .loader { 
+            border: 5px solid #f3f3f3; 
+            border-top: 5px solid #0288d1; 
+            border-radius: 50%; 
+            width: 40px; 
+            height: 40px; 
+            animation: spin 1s linear infinite; 
+        }
+
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
         img { width: 100px; margin-bottom: 20px; }
+
+        /* Style untuk Iframe agar tampil penuh */
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: 1;
+        }
     </style>
-    <meta http-equiv="refresh" content="1; url=https://script.google.com/macros/s/AKfycbzNDPDU_BpWJ5qDAXezYsmTYSH_p-ihkuAHxKOz2UHWoHi1QVmcJiVwG3hu2jTRkISRjw/exec">
 </head>
 <body>
-    <img src="https://smkn3linggabuana.sch.id/wp-content/uploads/2021/12/cropped-cropped-imageedit_3_6783038155-1.png">
-    <div class="loader"></div>
-    <p style="color: #555; margin-top: 15px;">Menghubungkan ke Server Arsip...</p>
+
+    <div id="loader-container" class="loading-screen">
+        <img src="https://smkn3linggabuana.sch.id/wp-content/uploads/2021/12/cropped-cropped-imageedit_3_6783038155-1.png">
+        <div class="loader"></div>
+        <p style="color: #555; margin-top: 15px;">Menghubungkan ke Server Arsip...</p>
+    </div>
+
+    <iframe 
+        src="https://script.google.com/macros/s/AKfycbzNDPDU_BpWJ5qDAXezYsmTYSH_p-ihkuAHxKOz2UHWoHi1QVmcJiVwG3hu2jTRkISRjw/exec" 
+        onload="hideLoader()">
+    </iframe>
+
+    <script>
+        // Fungsi untuk menghilangkan loader setelah iframe selesai dimuat
+        function hideLoader() {
+            const loader = document.getElementById('loader-container');
+            // Beri sedikit delay agar transisi mulus
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        }
+    </script>
 </body>
 </html>
