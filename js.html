@@ -346,6 +346,32 @@ function closeLogin() {
   resetRole(); 
 }
 
+/* FUNGSI CARI NAMA DI MODAL LOGIN */
+function searchLoginName() {
+  let input = document.getElementById("loginName").value.toLowerCase();
+  let box = document.getElementById("loginSuggestions");
+  box.innerHTML = "";
+
+  if (input.length < 3) return;
+
+  // Mencari nama yang cocok dari array allNames yang sudah diload
+  let filtered = allNames.filter(n => n.toLowerCase().includes(input));
+
+  filtered.slice(0, 5).forEach(name => {
+    let div = document.createElement("div");
+    div.className = "suggest-item"; // Menggunakan style yang sudah kamu buat sebelumnya
+    div.innerText = name;
+    
+    div.onclick = function() {
+      document.getElementById("loginName").value = name;
+      box.innerHTML = "";
+      // Otomatis isi juga kolom search di dashboard supaya sinkron
+      document.getElementById("search").value = name; 
+    };
+    box.appendChild(div);
+  });
+}
+    
 /* ================= TAMBAHAN: MODIFIKASI FUNGSI LOGOUT ================= */
 function logout(){
   // Sembunyikan dashboard dan kembali ke halaman depan (Hero)
