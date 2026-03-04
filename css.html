@@ -117,18 +117,15 @@ body {
     }
 
     /* AREA 2/3 LAYAR (BENING / TRANSPARAN) */
-   #menu-overlay {
+    #menu-overlay {
         display: none; 
         position: fixed;
         top: 0;
         left: 0;
-        
-        /* KUNCI: Lebar hanya 66.6% (2/3 layar) */
-        width: 66.66%; 
-        
+        width: 100vw;
         height: 100vh;
-        background: transparent; /* Tetap bening */
-        z-index: 1500; /* Di bawah kotak menu putih */
+        background: transparent; /* Benar-benar bening */
+        z-index: 1500; /* Di bawah kotak putih menu */
     }
 
     .nav-links {
@@ -138,14 +135,14 @@ body {
         top: 0;
         right: -100%; 
         
-        /* KUNCI: Lebar Kotak Menu 33.3% (1/3 layar) */
+        /* Lebar Kotak Menu 1/3 layar */
         width: 33.33%; 
         min-width: 250px; 
         
         height: 100vh; 
         background: white;
-        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-        z-index: 2000; /* Harus lebih tinggi dari overlay */
+        box-shadow: -5px 0 20px rgba(0,0,0,0.05); /* Shadow tipis agar terlihat batasnya */
+        z-index: 2000;
         padding-top: 70px; 
         transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         border-radius: 25px 0 0 25px;
@@ -156,7 +153,6 @@ body {
     .nav-links.active {
         right: 0 !important; 
     }
-}
 
     .nav-links a {
         padding: 20px 25px;
