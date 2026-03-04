@@ -45,17 +45,32 @@ function showLogin(){
 }
 // ------------------------------
 
-function login(){
+function login() {
+  // 1. Ambil semua nilai input
   let role = document.getElementById("role").value;
+  let nama = document.getElementById("loginName").value; // Input Nama
   let user = document.getElementById("user").value;
   let pass = document.getElementById("pass").value;
   let msg = document.getElementById("loginMsg");
 
+  // 2. VALIDASI NAMA (Cegat di sini sebelum kirim ke server)
+  if (!nama || nama.length < 3) {
+    msg.innerText = "❌ Silakan pilih Nama Anda dari saran yang muncul!";
+    msg.style.color = "red";
+    
+    // Beri efek sedikit getar atau warna merah pada input nama agar user sadar
+    document.getElementById("loginName").style.borderColor = "red";
+    return; // STOP! Jangan lanjut ke proses verifikasi password
+  }
+
+  // Jika nama sudah ada, pastikan border kembali normal
+  document.getElementById("loginName").style.borderColor = "#b3e5fc";
+
+  // 3. Jika nama sudah diisi, baru jalankan verifikasi server
   msg.innerText = "⌛ Memverifikasi...";
 
-  // Memanggil fungsi checkLoginServer yang ada di Code.gs
-  google.script.run.withSuccessHandler(function(response){
-    if(response.success){
+  google.script.run.withSuccessHandler(function(response) {
+    if (response.success) {
       userRole = response.role;
       masukDashboard(response.role);
     } else {
