@@ -532,42 +532,43 @@ input::-webkit-credentials-auto-fill-button {
 /* ================= FOOTER (FIT TO TEXT) ================= */
 .footer {
   text-align: center;
+  /* Kembali ke margin asli permintaanmu */
   margin-top: 100px; 
-  padding: 20px; 
+  /* Padding asli agar box tidak melar */
+  padding: 15px 20px; 
   color: #555;
   font-size: 13px;
   background: white;
   border-top: 1px solid #e1f5fe;
+  line-height: 1.6;
   position: relative;
   z-index: 5;
 }
 
+/* Pengaturan tambahan agar HTML baru tetap rapi & rapat */
 .footer-status {
-  color: #0288d1;
-  margin-bottom: 12px; /* Jarak antara nama login dengan teks kredit */
-  font-size: 12px;
+  font-weight: bold;
+  /* Warna disamakan dengan teks Ridho Kiswanto agar tidak belang */
+  color: #555; 
+  margin-bottom: 2px;
 }
 
-/* CSS AGAR TEKS RAPAT */
 .credit-box p {
-  margin: 0 !important; /* Menghapus jarak antar baris */
-  line-height: 1.4;    /* Mengatur kerapatan vertikal */
+  /* Memaksa teks kredit jadi rapat sesuai keinginan */
+  margin: 0 !important;
+  line-height: 1.3;
 }
 
-.main-credit {
-  font-size: 13px;;
-}
-  
-.copyright {
-  margin-top: 15px !important;
-  font-size: 10px;
-  opacity: 0.6;
+.main-credit strong {
+  /* Memastikan nama Ridho tetap tegas */
+  color: #444;
 }
 
+/* Responsif HP */
 @media (max-width: 768px) {
   .footer {
     margin-top: 60px; 
-    padding: 15px 15px 25px 15px; 
+    padding: 10px 15px 25px 15px; 
     font-size: 11px;
   }
 }
