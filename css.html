@@ -108,6 +108,32 @@ font-size: 20px;
     border-radius: 5px;
 }
 
+  /* Style Tombol Tutup Menu */
+.mobile-close-btn {
+    display: none; /* Sembunyikan di desktop */
+    padding: 15px;
+    background-color: #f8f9fa;
+    color: #23A0E0; /* Warna biru biar senada */
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Tampilkan hanya di Mobile (Max-width 768px) */
+@media (max-width: 768px) {
+    .mobile-close-btn {
+        display: flex; /* Aktifkan di mobile */
+    }
+    
+    /* Tambahan agar nav-links rapi saat dibuka */
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+    }
+}
+  
 /* ================= SIDE MENU (1/3 LAYAR & TRANSPARAN) ================= */
 @media (max-width: 992px) {
     .sub-navbar {
