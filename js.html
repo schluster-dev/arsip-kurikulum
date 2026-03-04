@@ -368,7 +368,6 @@ function searchLoginName() {
 
   if (input.length < 3) return;
 
-  // Jika data belum ada, panggil server dan tampilkan status loading
   if (!allNames || allNames.length === 0) {
     box.innerHTML = "<div class='suggest-item'>⌛ Memuat data nama...</div>";
     box.style.display = "block";
@@ -384,7 +383,6 @@ function searchLoginName() {
     return;
   }
 
-  // Jika data ada, tampilkan saran
   box.style.display = "block";
   filtered.slice(0, 5).forEach(name => {
     let div = document.createElement("div");
@@ -392,11 +390,12 @@ function searchLoginName() {
     div.innerText = name;
     
     div.onclick = function() {
+      // Hanya mengisi input di dalam modal login saja
       document.getElementById("loginName").value = name;
       box.innerHTML = "";
       box.style.display = "none";
-      const dashSearch = document.getElementById("search");
-      if(dashSearch) dashSearch.value = name; 
+      
+      // Bagian sinkronisasi ke dashboard (dashSearch) SUDAH DIHAPUS
     };
     box.appendChild(div);
   });
