@@ -370,13 +370,17 @@ body {
 /* ================= FOOTER (FIT TO TEXT) ================= */
 .footer {
   text-align: center;
-  margin-top: 20px; /* Jarak dari konten atas */
-  padding: 15px 20px; /* Padding atas-bawah hanya 15px agar ramping */
+  /* PERUBAHAN DI SINI: Naikkan margin-top agar footer menjauh dari dashboard */
+  margin-top: 100px; 
+  
+  /* Padding tetap ramping agar box putih tidak melar */
+  padding: 15px 20px; 
+  
   color: #555;
   font-size: 13px;
   background: white;
   border-top: 1px solid #e1f5fe;
-  line-height: 1.4; /* Spasi antar baris lebih rapat */
+  line-height: 1.6;
   position: relative;
   z-index: 5;
 }
@@ -384,18 +388,10 @@ body {
 /* Responsif HP */
 @media (max-width: 768px) {
   .footer {
-    /* Menghapus padding 70px/100px yang bikin melorot */
-    padding: 10px 15px; 
+    /* Di HP jaraknya kita buat 60px saja agar tidak terlalu jauh di layar sempit */
+    margin-top: 60px; 
+    padding: 10px 15px 25px 15px; 
     font-size: 11px;
-    margin-top: 15px;
-  }
-  
-  .footer p {
-    margin: 5px 0; /* Jarak antar paragraf sangat tipis */
-  }
-
-  .footer b {
-    color: #0288d1;
   }
 }
 </style>
