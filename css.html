@@ -101,26 +101,89 @@ body {
 }
 
 /* ================= NAV LINKS (TAMPILAN HP) ================= */
-@media (max-width: 768px) {
+/* ================= SUB-NAVBAR PRO (ADAPTIF & ROUNDED) ================= */
+.sub-navbar {
+    display: none; /* Muncul via JS */
+    justify-content: center;
+    margin-top: 15px; /* Jarak dari navbar */
+    position: relative;
+    z-index: 95;
+    padding: 0 5%;
+}
+
+/* TAMPILAN DEFAULT (PC/LAPTOP LEBAR) */
+.nav-links {
+    display: flex;
+    gap: 10px;
+    background: white;
+    padding: 8px 15px;
+    border-radius: 50px; /* Bentuk kapsul di PC */
+    border: 1px solid #e1f5fe;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #0288d1;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 30px; 
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    background: #e1f5fe;
+    color: #01579b;
+}
+
+/* HAMBURGER ICON (Default Sembunyi) */
+.menu-toggle {
+    display: none; 
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 10px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e1f5fe;
+}
+
+.menu-toggle span {
+    width: 22px;
+    height: 3px;
+    background: #0288d1;
+    border-radius: 5px;
+}
+
+/* ================= KUNCI RESPONSIVE (BREAKPOINT 992px) ================= */
+/* Ketika browser dikecilkan (Laptop Kecil/Tablet/HP) */
+@media (max-width: 992px) {
     .sub-navbar {
-        margin: 10px 5%;
-        justify-content: flex-start; /* Geser ke kiri untuk hamburger */
+        justify-content: flex-start; /* Hamburger di kiri */
+    }
+
+    .menu-toggle {
+        display: flex; /* Hamburger muncul */
     }
 
     .nav-links {
-        display: none; 
+        display: none; /* Menu kapsul sembunyi */
         flex-direction: column;
         position: absolute;
-        top: 50px;
-        left: 0;
-        width: 100%;
+        top: 55px;
+        left: 5%;
+        right: 5%;
+        width: auto;
         
-        /* Sudut melengkung untuk kotak dropdown HP */
+        /* KOTAK MENU ROUNDED */
         border-radius: 20px; 
         
         padding: 10px 0;
         gap: 0;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         overflow: hidden;
+        z-index: 1000;
     }
 
     .nav-links.active {
@@ -130,8 +193,11 @@ body {
 
     .nav-links a {
         padding: 15px 25px;
-        border-radius: 0; /* Di HP kotak full width agar rapi */
-        border-bottom: 1px solid #f8f8f8;
+        border-radius: 0; 
+        border-bottom: 1px solid #f1f8ff;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: left;
     }
 
     .nav-links a:last-child {
@@ -140,7 +206,7 @@ body {
 }
 
 @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
+    from { opacity: 0; transform: translateY(-15px); }
     to { opacity: 1; transform: translateY(0); }
 }
   
