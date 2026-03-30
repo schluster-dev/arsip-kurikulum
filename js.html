@@ -201,6 +201,25 @@ function changeMenu(){
 
   console.log("Kategori dipilih:", menu); // Untuk cek di Inspect Element
 
+    // --- FITUR BARU: TRANSKRIP ---
+  if (menu === "transkrip") {
+    sub.innerHTML = `
+      <div style="margin-top:15px; display:flex; flex-direction:column; gap:10px;">
+        <button id="btnInputTranskrip" onclick="bukaTranskripExcel()" class="premium-input" style="background:#27ae60; color:white; font-weight:bold; cursor:pointer; margin-top:0; display:none;">
+          📝 Input Nilai Transkrip
+        </button>
+        <button onclick="loadDownloadTranskrip()" class="premium-input" style="background:#0288d1; color:white; font-weight:bold; cursor:pointer; margin-top:0;">
+          ⬇️ Download Transkrip
+        </button>
+      </div>`;
+
+    // Tombol Input hanya muncul jika userRole adalah guru
+    if(userRole === "guru") {
+      document.getElementById("btnInputTranskrip").style.display = "block";
+    }
+  } 
+  // --- FITUR LAMA (TETAP DIJAGA) ---
+
   if (menu === "skbm") {
     sub.innerHTML = `
       <select id="tahun" class="premium-input" onchange="loadDownload()">
