@@ -303,6 +303,14 @@ function bukaTranskripExcel() {
       loading.innerText = "❌ Koneksi Gagal: " + err.message;
     });
 }
+
+/** * FUNGSI PENUTUP: Menutup halaman pilihan transkrip 
+ * dan mengembalikan menu utama (subMenu) 
+ */
+function tutupPilihanTranskrip() {
+  document.getElementById("halamanPilihTranskrip").style.display = "none";
+  document.getElementById("subMenu").style.display = "block";
+}
     
 /* TOGGLE PASSWORD */
 function togglePassword(){
