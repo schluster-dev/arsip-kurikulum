@@ -254,50 +254,43 @@ function changeMenu(){
 
 /* FUNGSI UNTUK MENAMPILKAN HALAMAN PILIHAN TRANSKRIP */
 function bukaTranskripExcel() {
-  // 1. Sembunyikan menu sub-transkrip, tampilkan area list file
-  document.getElementById("subMenu").style.display = "none";
+  const subMenu = document.getElementById("subMenu");
   const areaPilih = document.getElementById("halamanPilihTranskrip");
   const container = document.getElementById("listFileTranskrip");
   const loading = document.getElementById("loadingTranskrip");
 
+  subMenu.style.display = "none";
   areaPilih.style.display = "block";
   container.innerHTML = "";
   loading.style.display = "block";
 
-  // 2. Ambil daftar file dari Google Drive via Code.gs
-  google.script.run.withSuccessHandler(function(files) {
-    loading.style.display = "none";
-    
-    if (files && files.length > 0) {
-      files.forEach(f => {
-        let btn = document.createElement("button");
-        btn.className = "premium-input";
-        // Style agar tombol list terlihat rapi dan lebar penuh
-        btn.style.cssText = "background:white; color:#333; text-align:left; cursor:pointer; border:1px solid #b3e5fc; margin:0; display:flex; align-items:center; gap:10px; padding:12px; font-size:13px; transition: 0.2s;";
-        
-        // Hover effect manual
-        btn.onmouseover = () => btn.style.background = "#e1f5fe";
-        btn.onmouseout = () => btn.style.background = "white";
+  // GANTI INI DENGAN URL WEB APP GAS KAMU (akhiran /exec)
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbw4Rfmix-5JGoapTW5_vz1fuDCZVl7jJyqta1fTws6c1yt8N5Q09x9rTgdB-UtTD3FiLw/exec"; 
 
-        btn.innerHTML = "📄 " + f.name;
-        
-        // Klik langsung buka Sheet 2 (Input nilai)
-        btn.onclick = function() {
-          // GID 1510340338 adalah contoh untuk sheet 'Input nilai'
-          window.open(f.url + "#gid=1510340338", "_blank");
-        };
-        container.appendChild(btn);
-      });
-    } else {
-      container.innerHTML = "<p style='font-size:12px; color:#ef5350; text-align:center;'>❌ Tidak ada file transkrip ditemukan.</p>";
-    }
-  }).getTranskripFiles();
-}
-
-/* FUNGSI KEMBALI */
-function tutupPilihanTranskrip() {
-  document.getElementById("halamanPilihTranskrip").style.display = "none";
-  document.getElementById("subMenu").style.display = "block";
+  fetch(GAS_URL + "?action=getTranskripFiles")
+    .then(response => response.json())
+    .then(files => {
+      loading.style.display = "none";
+      if (files && files.length > 0) {
+        files.forEach(f => {
+          let btn = document.createElement("button");
+          btn.className = "premium-input";
+          btn.style.cssText = "background:white; color:#333; text-align:left; cursor:pointer; border:1px solid #b3e5fc; margin-bottom:8px; display:block; width:100%; padding:12px;";
+          btn.innerHTML = "📄 " + f.name;
+          btn.onclick = function() {
+            // Memasuki Sheet 2 (Input Nilai)
+            window.open(f.url + "#gid=1510340338", "_blank");
+          };
+          container.appendChild(btn);
+        });
+      } else {
+        container.innerHTML = "<p style='font-size:12px; color:red;'>❌ File tidak ditemukan.</p>";
+      }
+    })
+    .catch(err => {
+      loading.innerText = "❌ Error: " + err.message;
+      console.error(err);
+    });
 }
     
 /* TOGGLE PASSWORD */
