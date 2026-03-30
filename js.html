@@ -252,15 +252,42 @@ function changeMenu(){
   }
 }
 
-// Fungsi pembantu untuk membuka sheet 2 (Gunakan GID Sheet 2 jika tetap)
-function bukaSheetInput() {
-  let url = document.getElementById("selectFileTranskrip").value;
-  if(url) {
-    // Menambahkan parameter agar langsung membuka sheet kedua (Input nilai)
-    // Pastikan GID ini sesuai dengan Sheet 'Input nilai' di file Anda
-    window.open(url + "#gid=1510340338", "_blank"); 
-  }
+/* FUNGSI UNTUK MENAMPILKAN HALAMAN PILIHAN TRANSKRIP */
+function bukaTranskripExcel() {
+  // Sembunyikan menu pilihan utama, tampilkan halaman pilih file
+  document.getElementById("subMenu").style.display = "none";
+  document.getElementById("halamanPilihTranskrip").style.display = "block";
+  document.getElementById("listFileTranskrip").innerHTML = "";
+  document.getElementById("loadingTranskrip").style.display = "block";
+
+  google.script.run.withSuccessHandler(function(files) {
+    document.getElementById("loadingTranskrip").style.display = "none";
+    const container = document.getElementById("listFileTranskrip");
+    
+    if (files.length > 0) {
+      files.forEach(f => {
+        let btn = document.createElement("button");
+        btn.className = "premium-input";
+        btn.style.cssText = "background:white; color:#333; text-align:left; cursor:pointer; border:1px solid #ccc; margin:0;";
+        btn.innerHTML = "📄 " + f.name;
+        btn.onclick = function() {
+          // Buka langsung ke Sheet 2 (Gunakan GID 'Input nilai' kamu)
+          window.open(f.url + "#gid=1510340338", "_blank");
+        };
+        container.appendChild(btn);
+      });
+    } else {
+      container.innerHTML = "<p style='font-size:12px; color:red;'>Tidak ada file di folder.</p>";
+    }
+  }).getTranskripFiles();
 }
+
+/* FUNGSI KEMBALI */
+function tutupPilihanTranskrip() {
+  document.getElementById("halamanPilihTranskrip").style.display = "none";
+  document.getElementById("subMenu").style.display = "block";
+}
+    
 /* TOGGLE PASSWORD */
 function togglePassword(){
 
