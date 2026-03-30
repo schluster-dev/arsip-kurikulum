@@ -196,49 +196,31 @@ function changeMenu(){
   let sub = document.getElementById("subMenu");
   let btn = document.getElementById("downloadBtn");
 
+  // Bersihkan subMenu dan sembunyikan tombol setiap kali ganti kategori
   sub.innerHTML = "";
   btn.style.display = "none";
 
-  console.log("Kategori dipilih:", menu);
+  console.log("Kategori dipilih:", menu); // Untuk cek di Inspect Element
 
-  // --- UPDATE FITUR TRANSKRIP (DENGAN DROPDOWN FILE DRIVE) ---
+  // --- FITUR TRANSKRIP ---
   if (menu === "transkrip") {
-    // Tampilkan tombol Download dulu (Bisa untuk Guru & Siswa)
     sub.innerHTML = `
       <div style="margin-top:15px; display:flex; flex-direction:column; gap:10px;">
+        <button id="btnInputTranskrip" onclick="bukaTranskripExcel()" class="premium-input" style="background:#27ae60; color:white; font-weight:bold; cursor:pointer; margin-top:0; display:none;">
+          📝 Input Nilai Transkrip
+        </button>
         <button onclick="loadDownloadTranskrip()" class="premium-input" style="background:#0288d1; color:white; font-weight:bold; cursor:pointer; margin-top:0;">
           ⬇️ Download Transkrip
         </button>
-        <div id="areaInputGuru" style="display:none; border-top: 1px dashed #ccc; pt-10px; mt-5px;">
-           <p style="font-size:12px; color:#555; margin-bottom:5px;">Pilih File untuk Input Nilai:</p>
-           <div id="loadingFiles" style="font-size:11px; color:#888;">⌛ Memuat daftar file...</div>
-           <select id="selectFileTranskrip" class="premium-input" style="display:none; margin-bottom:10px;"></select>
-           <button onclick="bukaSheetInput()" class="premium-input" style="background:#27ae60; color:white; font-weight:bold; cursor:pointer; margin-top:0;">
-             📝 Buka Form Input (Sheet 2)
-           </button>
-        </div>
       </div>`;
 
-    // Jika Guru, ambil daftar file dari Drive secara otomatis
+    // Tombol Input hanya muncul jika userRole adalah guru
     if(userRole === "guru") {
-      document.getElementById("areaInputGuru").style.display = "block";
-      
-      google.script.run.withSuccessHandler(function(files) {
-        let dropdown = document.getElementById("selectFileTranskrip");
-        let loading = document.getElementById("loadingFiles");
-        
-        if (files && files.length > 0) {
-          dropdown.innerHTML = files.map(f => `<option value="${f.url}">${f.name}</option>`).join("");
-          dropdown.style.display = "block";
-          loading.style.display = "none";
-        } else {
-          loading.innerText = "❌ Tidak ada file ditemukan.";
-        }
-      }).getTranskripFiles(); // Fungsi ini harus ada di Code.gs
+      document.getElementById("btnInputTranskrip").style.display = "block";
     }
   } 
   
-  // --- FITUR LAMA (TETAP DIJAGA, TIDAK DIUBAH) ---
+  // --- FITUR LAMA (TETAP DIJAGA) ---
   if (menu === "skbm") {
     sub.innerHTML = `
       <select id="tahun" class="premium-input" onchange="loadDownload()">
