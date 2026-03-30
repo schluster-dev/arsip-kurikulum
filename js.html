@@ -264,9 +264,10 @@ function bukaTranskripExcel() {
   container.innerHTML = "";
   loading.style.display = "block";
 
-  // GANTI INI DENGAN URL WEB APP GAS KAMU (akhiran /exec)
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbw4Rfmix-5JGoapTW5_vz1fuDCZVl7jJyqta1fTws6c1yt8N5Q09x9rTgdB-UtTD3FiLw/exec"; 
+  // MASUKKAN URL WEB APP (EXEC) KAMU DI SINI:
+  const GAS_URL = "https://script.google.com/macros/s/AKfycb....ISI_ID_KAMU..../exec"; 
 
+  // Memanggil API yang sudah kita buat di doGet tadi
   fetch(GAS_URL + "?action=getTranskripFiles")
     .then(response => response.json())
     .then(files => {
@@ -275,21 +276,21 @@ function bukaTranskripExcel() {
         files.forEach(f => {
           let btn = document.createElement("button");
           btn.className = "premium-input";
-          btn.style.cssText = "background:white; color:#333; text-align:left; cursor:pointer; border:1px solid #b3e5fc; margin-bottom:8px; display:block; width:100%; padding:12px;";
+          btn.style.cssText = "background:white; color:#333; text-align:left; cursor:pointer; border:1px solid #b3e5fc; margin-bottom:8px; display:block; width:100%; padding:12px; font-weight:500;";
           btn.innerHTML = "📄 " + f.name;
+          
           btn.onclick = function() {
-            // Memasuki Sheet 2 (Input Nilai)
+            // Memasuki Sheet 2 (Input Nilai) secara otomatis
             window.open(f.url + "#gid=1510340338", "_blank");
           };
           container.appendChild(btn);
         });
       } else {
-        container.innerHTML = "<p style='font-size:12px; color:red;'>❌ File tidak ditemukan.</p>";
+        container.innerHTML = "<p style='font-size:12px; color:red; text-align:center;'>❌ File tidak ditemukan di Drive.</p>";
       }
     })
     .catch(err => {
-      loading.innerText = "❌ Error: " + err.message;
-      console.error(err);
+      loading.innerText = "❌ Koneksi Gagal: " + err.message;
     });
 }
     
