@@ -88,6 +88,9 @@ function masukDashboard(tipe){
   document.getElementById("dashboard").style.display = "block";
   document.getElementById("sub-menu-login").style.display = "flex";
   
+  // SIMPAN TIPE LOGIN KE VARIABEL GLOBAL
+  userRole = tipe; 
+  
   let menu = document.getElementById("menu");
   
   if(tipe === "guru"){
@@ -95,7 +98,7 @@ function masukDashboard(tipe){
   } else {
     document.querySelector(".card h2").innerText = "📂 Layanan Siswa";
     
-    // Hapus menu yang tidak boleh dilihat siswa
+    // Hapus menu yang tidak boleh dilihat siswa (SKBM & SK LAIN tetap dihapus untuk siswa)
     for (let i = menu.options.length - 1; i >= 0; i--) {
       if (menu.options[i].value === "skbm" || menu.options[i].value === "sklain") {
         menu.remove(i);
@@ -105,9 +108,7 @@ function masukDashboard(tipe){
   
   loadNames();
 }
-
-// ... sisanya (logout, loadNames, searchName, dll) tetap sama ...
-
+    
 /* ================= FUNGSI LOGOUT (DIPERBAIKI) ================= */
 function logout(){
   try {
