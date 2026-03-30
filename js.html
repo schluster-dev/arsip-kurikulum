@@ -196,6 +196,16 @@ function changeMenu(){
   let sub = document.getElementById("subMenu");
   let btn = document.getElementById("downloadBtn");
 
+  // --- TAMBAHAN PERBAIKAN ---
+  // Pastikan halaman pilihan transkrip sembunyi saat ganti menu apapun
+  const areaPilih = document.getElementById("halamanPilihTranskrip");
+  if (areaPilih) {
+    areaPilih.style.display = "none";
+  }
+  // Pastikan subMenu (kontainer utama) selalu tampil saat ganti menu
+  sub.style.display = "block"; 
+  // ---------------------------
+
   // Bersihkan subMenu dan sembunyikan tombol setiap kali ganti kategori
   sub.innerHTML = "";
   btn.style.display = "none";
@@ -218,7 +228,7 @@ function changeMenu(){
     if(userRole === "guru") {
       document.getElementById("btnInputTranskrip").style.display = "block";
     }
-  } 
+  }  
   
   // --- FITUR LAMA (TETAP DIJAGA) ---
   if (menu === "skbm") {
