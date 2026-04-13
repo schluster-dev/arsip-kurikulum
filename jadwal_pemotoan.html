@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Resmi Foto Ijazah XII 2026 | SMKN 3 Linggabuana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: { 's3l-cyan': '#06b6d4', 's3l-dark': '#0f172a', },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f8fafc; color: #1e293b; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .formal-card { background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
+        .jurusan-header:hover { background-color: #f1f5f9; cursor: pointer; }
+        .student-list-container { display: none; }
+        .student-list-container.active { display: block; animation: slideDown 0.3s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* PDF specific styles */
+        .pdf-page { padding: 40px; background: white; width: 210mm; min-height: 297mm; margin: 0 auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .no-print { display: block; }
+        @media print { 
+            .no-print { display: none !important; } 
+            body { background: white; padding: 0; } 
+            .pdf-page { box-shadow: none; margin: 0; width: 100%; padding: 20px; } 
+            .student-list-container { display: block !important; opacity: 1 !important; transform: none !important; }
+            .fa-chevron-down { display: none !important; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 font-sans">
+
+    <div class="max-w-7xl mx-auto mb-8 no-print p-4 formal-card rounded-2xl flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <span class="relative flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-s3l-cyan opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-s3l-cyan"></span>
+            </span>
+            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Status: Dokumen Resmi Aktif</span>
+        </div>
+        <button onclick="generatePDF()" class="bg-s3l-dark hover:bg-slate-800 text-white text-xs font-bold px-6 py-2.5 rounded-lg flex items-center gap-2 transition-all shadow-md">
+            <i class="fa-solid fa-file-pdf text-base"></i> UNDUH PDF (JADWAL LENGKAP)
+        </button>
+    </div>
+
+    <div id="secure-manifest" class="pdf-page formal-card rounded-3xl">
+        
+        <div class="border-b-2 border-slate-200 pb-6 mb-10 text-center">
+            <img src="https://i.imgur.com/22oGEF7.png" alt="Kop Surat" class="w-full h-auto mb-4">
+            <p class="text-base font-bold text-s3l-black tracking-wide uppercase">
+                Jadwal Pelaksanaan Pemotretan Foto Ijazah Siswa Kelas XII // TP 2025/2026
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
+            <div class="border border-slate-100 p-5 rounded-xl bg-slate-50/50">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">Hari & Tanggal</p>
+                <p class="text-sm text-s3l-dark font-bold">Jumat, 17 April 2026</p>
+            </div>
+            <div class="border border-slate-100 p-5 rounded-xl bg-slate-50/50">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">Waktu Operasional</p>
+                <p class="text-sm text-s3l-dark font-bold">08:00 - 16:30 WIB</p>
+            </div>
+            <div class="border border-slate-100 p-5 rounded-xl bg-slate-50/50">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">Total Peserta</p>
+                <p class="text-sm text-s3l-dark font-bold">327 Siswa</p>
+            </div>
+            <div class="border border-slate-100 p-5 rounded-xl bg-slate-50/50">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">Lokasi</p>
+                <p class="text-sm text-s3l-dark font-bold">SMKN 3 Linggabuana</p>
+            </div>
+        </div>
+
+        <div id="schedule-container" class="space-y-4">
+        </div>
+
+        <div class="mt-12 pt-10 border-t border-slate-200">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="md:col-span-2 space-y-2 text-xs text-slate-600 leading-relaxed">
+                    <p class="font-bold text-s3l-dark">CATATAN PENTING:</p>
+                    <p>1. Siswa wajib hadir 15 menit sebelum waktu pemotretan dimulai.</p>
+                    <p>2. Menggunakan seragam sekolah lengkap, rapi, dan sesuai ketentuan ijazah.</p>
+                    <p>3. Daftar nama di atas adalah *Manifest Resmi* yang sinkron dengan Buku Induk.</p>
+                </div>
+                <div class="text-center text-xs pt-2 p-0">
+    <p class="mb-1">Purwakarta, 7 April 2026</p>
+    <p class="font-bold text-s3l-dark mb-20">Mengetahui,</p> 
+
+    <div class="inline-block">
+        <p class="font-extrabold text-s3l-dark border-t border-s3l-dark pt-1 w-48 mx-auto uppercase">
+            ARBANA, S.ST.
+        </p>
+        <p class="text-[10px] text-slate-500 mt-0 leading-tight">NIP. 19790223 200801 1 004</p>
+    </div>
+</div>
+        </div>
+
+        <p class="text-center text-[9px] text-slate-400 uppercase tracking-widest mt-12 no-print">
+            *** Klik pada baris jurusan untuk melihat/menyembunyikan daftar nama siswa ***
+        </p>
+    </div>
+
+    <script>
+        const studentManifest = {
+    "TKR": [
+        "ABDULAH ABDURAHMAN", "APDAL", "ARMAN MAULANA YUSUP", "ARYA ALDIFATHUR", 
+        "BASAR BAEHAKI NURDIN", "DAFFA MUZZAKI", "DAFFA PUTRA RAMDANY", 
+        "DAVIT M SILAEN", "DEDE MUHAMAD FAJAR", "DISYA NURHALIMAH", 
+        "FAISAL FAQIH ALDJABAR", "FAIZAL RIDWAN NUGRAHA", "FAJAR RAMADHAN", 
+        "FAJAR ROHIMAN", "FAZRY ALAMSYAH", "FIRLY KHOIRIANSYAH", "FIRMANSYAH", 
+        "GILANG SEPTIAN", "HASBY ASSHIDDIQI PUTRA RAIMAN", "M JAENAL", "M. FAHRI", 
+        "M. LOGAN AIDAN SAMURA", "MUHAMAD AKBAR FIRDAUS", "MUHAMAD REZI PAHLEPI", 
+        "MUHAMMAD FADLI AQIL SATRIA", "MUHAMAD RYAN FIRDAUS", "MUHAMMAD SYAFIQ ARKAM", 
+        "NABIL MUHAMAD RIZQI", "RANGGITA DENTA ANUGRAH", "RIFKI SUMARYANA PUTRA", 
+        "SANDIKA PUTRA", "SARIM MAULANA"
+    ].sort(),
+
+    "TP": [
+    "ABIE YUGA PUTRA",
+    "ADNAN SETIAWAN",
+    "AKBAR RAMDHANI",
+    "APRIAN FIRDAUS",
+    "BAYU MAULANA",
+    "BINTANG ADI WIBOWO",
+    "BUKHARI MUSLIM",
+    "CHRISTIAN FIRDAUS AL ZIBRAN",
+    "DANI SETIADARMA",
+    "DION",
+    "FAIZ ISNENDI",
+    "IQBAL AMNUR AKBAR",
+    "KARMA PALA",
+    "M. FAHRUL FABIANSYAH",
+    "M. ZULFIKAR AL FATH",
+    "MUHAMAD PAUZI",
+    "MUHAMAD RIZKI",
+    "MUHAMAD RIZKY RAMADHAN",
+    "MUHAMMAD BINTANG GUMILAR",
+    "PANJI SULAEMAN",
+    "PARID MELASRANA",
+    "RACHMAN ALI HAFID",
+    "RAFLI RIYANSAH",
+    "RAPLI JIHA",
+    "RAYHAN GIRI PUTRA",
+    "RD. BAGUS SATRIA. PA",
+    "REFLY FEBRIAN",
+    "REIFAN SUKMA PERMANA",
+    "RIDWANSYAH",
+    "RIZKY FADILLAH",
+    "SAYYID ROSES",
+    "THEODORUS JANUAR PARULIAN"
+].sort(),
+
+    "TKJ": [
+        "ADAM MISBAHU ZAMAN", "ADLYA AYU SYTA", "AHMAD RIZKI", "ALFIN ARDIANSYAH", 
+        "ANGGUN SRI WAHYUNI", "CICI AMELIA", "D AMALIA AGUSTINA", 
+        "GAVRILLA ARASATYA TAMMA", "JENNIFER CHRISVENIA OENTOENG", 
+        "M. DZAKY RASYAAD AQIILAH", "M. FATHUR RAHMAN AL FHARIZI", 
+        "M. NAJMII NASHRULADIN", "MARIO MAULIDAN", "MECCA RAS MOHAMMAD", 
+        "MOCHAMMAD IQBAL MAULANA", "MOHAMAD REZA SULTON", "MUHAMAD AZHWAR HADITAMA", 
+        "MUHAMAD RIDHO NURCAHYA", "MUHAMMAD PARMAN", "MUHAMMAD PUJA AL RAFI", 
+        "NENENG INYAR", "PATRICIA PUTRI SONDANG", "RAFFI ACHMAD JALALUDDIN", 
+        "RAISSA PUTRI SALEHA", "RAISYA MARYAM", "RANIA PUTRI MARSYALITA", 
+        "RESA AULIA", "REYHAN EFANDRA ARYANSAH", "SHALSA BILLAH RANJANY", 
+        "WELA HANDAYANI", "WILDAN NUGRAHA", "WULAN", "ZASTIN MAULANA"
+    ].sort(),
+
+    "APHP": [
+        "ADRIAN MAULANA", "AHMAD CAHYA NUGRAHA", "APRILIAN", "ARDI SUPARDI", 
+        "ARYA NUGRAHA SAPUTRA", "FADIL FITRULLOH", "FIRMAN MAULANA", 
+        "HABIB NURROHMAN AL HABSY", "HERAWATI", "JIHAD AL JIDANI", "KENNU ADITYA", 
+        "MELKY MUNAWAR", "MOCH. WILDAN RAHMAN SAPUTRA", "MOCHAMAD MIKDAD MUAMMAR", 
+        "MUHAMAD FIRMAN MAULANA", "MUHAMAD RIZKI UBEIDILLAH", "MUHAMMAD ERVAN NURZAMAN", 
+        "MUHAMMAD HILMI RIZQILLAH SUTRISNA", "MUHAMMAD ZINDAN ALFATIR", 
+        "NAUVAL BINTANG HERDIANSYAH", "PARIZ AZRIANSYAH", "RAIHAN JAYA SAPUTRA", 
+        "RAISYA ZARLIANTI", "REVALINA HERLINA", "RIFKI FIRDAUS", "RIFKI PRATAMA", 
+        "RIKA AMELIA", "ROHAENI", "SYAHREN EL ISLAMI RAMADHAN", "YUDA KURNIAWAN", 
+        "YUSUF EXALT FAHRESI"
+    ].sort(),
+
+    "AK": [
+        "ADETIYA NURMAYA", "AGIETHA CAHAYA MARIDZA", "AKBAR ALDIANSYAH", 
+        "ALYA KALTSUM KAMILAH", "AMELIA NURFATWA", "ANISA SAFIRA", "ASYRI RAHMAYANI", 
+        "CHYNTIA PERMANA DAUD", "CIKA", "DIAZ AYU PRATIWI", "ERAT ROSITA", 
+        "HILMI NURAENI", "HUMAIRA KUSNADI", "KEYLA DESTIANI PERMANA", "MAULANA HAKIM", 
+        "MUHAMAD RAILIBRAHIM", "MUHAMAD ZARNUJI", "MUHAMMAD DAFFA FEBRIANO", 
+        "NIA HERMAWATI", "NURYANI", "PELANGI NUR ISKANDAR", "RAISHA APRILIA", 
+        "RIZKI", "ROBI RAMADAN SAFAAT", "ROSYA TIRANA", "SARI RAHAYU PUTRI", 
+        "SITI NURUL AISYAH", "SOFIA AZAHRA TUSSITA", "SYAFIRA NISAFEBRIANI", 
+        "VEARLY LASYA VIVIADEWI", "YASMIN AFNAN ZANNATI", "ZAHWA FAUZIAH"
+    ].sort(),
+
+    "PSPT": [
+        "ACHMAD RAFASYA SYOFIAN", "ANISA FAUZYAH ASLIMAH", "ARIP SUPRIATNA", 
+        "AZKIA RAIHANI SALSABILA", "BILLY MURDANI", "DEDE RAMDHANI", 
+        "DEVI HANDAYANI", "DEWANGGA SAPUTRA", "DZIKRIMA NAZWA LUTFIAH", 
+        "ELFANISA AZZAHRA", "FITRI ANGGRAINI", "HADID AKBAR", 
+        "IRTSANY RIHADATUL AISY", "M. IYAZ MIROJUL FAHRI", "MAHDA SARI NURAMALIA", 
+        "MAWLA AULIANAZHAFA", "MELANI PUTRI WIJAYA", "MUHAMAD FAQIH AL HARIS", 
+        "NAELI NI'MAH", "RAIZHYA BAGUS SALEH", "RAMA YUSUF EKA SAPUTRA", 
+        "REVA MAELANIE", "REVALINA RIYANTO", "REVAN TRI ATMAJA", "RIFKI SIROJUL PUADI", 
+        "RISKI ADITIA", "RISKI JAMALUDIN", "RIZAL SUTHA WIJAYA", "ROBI KUSUMA", 
+        "SAMUDRA DWI WIBISONO", "SHIFA TRIA ANDINI", "ZAID NAUVAL ANGONO"
+    ].sort(),
+
+    "AN": [
+        "ADITYA MATULZIKRIYANSAH", "AGUNG FEBRIAN RUKWANDA", "AKMAL NAUFAL RIZQI", 
+        "AKMAL SOPIAN", "ARGA", "BILLAL HAMKA ALRASYID", "CHANDRA ALDIANSYAH", 
+        "DELIMA PUTRI LESTARI", "DESTA CAHAYA PRATAMA", "FIKRI AKBAR", 
+        "GILANG HERMAWAN", "GILBERT ABRIANTO SIHOMBING", "HARRY AZKA PRIYATNA", 
+        "INTAN NUR INDAHSARI", "IRSAN ISKANDAR", "LUNA ZAHRA", "MUHAMAD FAHRI", 
+        "MUHAMAD ISMAIL", "MUHAMAD PARKESIT ALMAGRIBI", "MUHAMAD RAIHAN HANDAKA", 
+        "MUHAMMAD IKHSAN", "PABIYAN HERMAWAN", "RASHA NANDA", "REGA AULIA RAHMAN", 
+        "RIDWAN RAMDANI", "RIFA FADILLAH", "RIFKIANSYAH PUTRA SETIADI", 
+        "SAEPUL MUBAROK", "SIHAM MUHAMAD FAHRI", "SITI NAZWA SOPIAH", 
+        "YOHANA KASIH KUSDARYANTI", "YUDI RAMDANI", "YUSEP SUPANDI", "ZULHAM EFENDY"
+    ].sort(),
+
+    "TMI": [
+        "AFRIZAL MAULANA", "AHMAD PAUJI JAELANI", "ANDI TALULLAH ISLAMI", 
+        "DAMAR ARDIANSYAH", "DENNY DAMARA", "DIMAS FIRMAN NURWAHID", 
+        "FAHRI N. SENJAYA", "FAQIH N. SENJAYA", "FAZRIL HILAL ARRHAM", 
+        "GILANG UMBAWA", "IHSAN HARDIANSYAH", "IRHAM RAMDANI", "KHAISAR RAFAEL", 
+        "LAMRI PURWADI", "LENNO BERYL SABIAN", "M DEMIYAN HILMI", 
+        "M. RAFFI NURFARYAMAN", "MUHAMAD KEVIN RAMADHAN", "MUHAMMAD MULQY ATTALA", 
+        "MUHAMMAD NAZRIL SAFE I", "MUHAMMAD RIFAI", "MUTIARA NAZWA AZZAHRA", 
+        "NATHAN ALEANDRA PUTRA", "PANJI ILHAM SUMIRAT", "RAHMAT NUGRAHA", 
+        "RANGGA PRABOWO", "REGI REIHAN", "RESTU KRISNA FAHREZA", 
+        "RODO PUTRA SITANGGANG", "SATRIYO WIBOWO", "SHANDY AFRIANSYAH", 
+        "YUSUF ARRASYAH"
+    ].sort(),
+
+    "MP": [
+        "AHMAD FAUZAN ZAENUDIN", "AMELIA MAYANG SARI", "ANISA", "ARSYAD RAFIDIN", 
+        "ASTRIA VALERYNA", "AYI MAULANA", "AZHAR HANIF HASDIANSYAH", 
+        "BUNGA KARTIKA TRI LESTARI", "CHELSYA EKA YULIA", "DESI MULYANTI", 
+        "DIARRA JULIANA", "DIVA AMELIA AMANDA", "ELSA MEISA", "ERNAWATI", 
+        "KEISYA PRICILA MARIZKA RIZALDI", "KHANZA AXL RAHMADIA WIBAWA", 
+        "MEDHINA AJENG PRAMESTY", "MUTIA NOVIANTI", "NASYATUL KHAIRAH", 
+        "NOVAL PUTRA PRATAMA", "NURFAZRINA AMALIA", "RAFAEL JEREMIAH", 
+        "RIO YUDAWINATA", "RIRIN AMELIA", "ROSMAYA", "SALSABILA PUTRI SUTRIANA", 
+        "SARAH NAYLA ADIYUNA", "SUHERNA", "SYIFA AYUDIATAMA", "TIARA ANJANI", 
+        "TIARA NOVIANTI", "TRIANA SALMA NUROHMAN", "VALINA PUTRI DENISA", 
+        "WULAN FITRI FEBRIANTI", "WULANSARI"
+    ].sort(),
+
+    "ST": [
+        "ALIFAH CITRA DEWI", "AMELIA PUTRI ZAHRA", "ANISA FARDAH", "ANISA HAERUNISA", 
+        "BAYU RADITYO", "CHINTA FIBRIYANTI", "DECHA CHANTIKA", "DINA MEILANI", 
+        "ELYA FITRIANI", "ENENG KARTINI", "HUSNA LAUDZA ARTANTI", 
+        "IRELZHA WIDYA PUTRI", "IZKI AMALIA", "JIHAN NISRINA AULIA KHANSA", 
+        "KASIH NUR RIZQI", "MUZZADILAH MAJ NAL", "NAZWA", "RACHMAN DJAELANI", 
+        "RASYA CANTIKA NOVIANTI", "REIFA FEBRIANI", "RESTI LANA RIZKIA", 
+        "REVA CHOIRUNISA KURNIAWAN", "REZKIA SHALSHABILA JUNISHA", 
+        "SETIA AYU WULANDARI", "SITI ARIESHA AZ-ZAHRA", "SITI SOFIA KUSTIANA", 
+        "SOLIHA ASSYIFA", "SRI INDRIYANI", "SUCI PRIBADI", "TALITA RAHMADANI", 
+        "TIARA TRI ANANDA", "YULIANTI"
+    ].sort()
+};
+        const schedule = [
+            { time: "08:00 - 08:45", code: "TKR", name: "Teknik Kendaraan Ringan", count: 32 },
+            { time: "08:45 - 09:30", code: "TP", name: "Teknik Pemesinan", count: 33 },
+            { time: "09:30 - 10:15", code: "TKJ", name: "Teknik Komputer Jaringan", count: 33 },
+            { time: "10:15 - 11:00", code: "APHP", name: "Agribisnis Pengolahan Hasil Pertanian", count: 32 },
+            { time: "11:00 - 11:45", code: "AK", name: "Akuntansi", count: 33 },
+            { isBreak: true, time: "11:45 - 13:00", label: "ISTIRAHAT & SHALAT JUMAT" },
+            { time: "13:00 - 13:45", code: "PSPT", name: "Produksi & Siaran Program TV", count: 33 },
+            { time: "13:45 - 14:30", code: "AN", name: "Animasi", count: 33 },
+            { time: "14:30 - 15:15", code: "TMI", name: "Teknik Mekanik Industri", count: 32 },
+            { time: "15:15 - 16:00", code: "MP", name: "Manajemen Perkantoran", count: 33 },
+            { time: "16:00 - 16:30", code: "ST", name: "Seni Tari", count: 33 }
+        ];
+
+        const container = document.getElementById('schedule-container');
+
+        schedule.forEach((item, index) => {
+            if (item.isBreak) {
+                container.innerHTML += `
+                    <div class="bg-red-50 p-4 rounded-lg border border-red-200 flex justify-center items-center gap-4 text-red-600 my-6">
+                        <i class="fa-solid fa-mosque"></i>
+                        <span class="font-bold uppercase tracking-[0.2em] text-xs">${item.time} ${item.label}</span>
+                    </div>`;
+                return;
+            }
+
+            const students = studentManifest[item.code] || ["Memuat database..."];
+            
+            const card = `
+                <div class="formal-card rounded-xl overflow-hidden">
+                    <div class="p-5 flex justify-between items-center jurusan-header" onclick="toggleJurusan(${index})">
+                        <div class="flex items-center gap-5">
+                            <div class="bg-slate-900/50 p-3 rounded-lg text-white font-mono font-bold text-xs">
+                                ${item.time.split(' - ')[0]}
+                            </div>
+                            <div>
+                                <h3 class="text-s3l-dark font-extrabold uppercase tracking-widest text-xs">${item.name}</h3>
+                                <p class="text-[9px] text-slate-500 uppercase mt-1">Konsentrasi Keahlian: ${item.code} // Klik untuk manifest nama</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition-transform" id="icon-${index}"></i>
+                    </div>
+                    <div id="list-${index}" class="student-list-container border-t border-slate-100 p-6 bg-slate-50/50">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                            ${students.map(name => `
+                                <div class="p-2.5 bg-white rounded border border-slate-100 text-[10px] text-s3l-dark flex items-center gap-2.5 shadow-sm">
+                                    <span class="w-1 h-1 bg-s3l-cyan rounded-full"></span>
+                                    ${name}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += card;
+        });
+
+        function toggleJurusan(idx) {
+            const list = document.getElementById(`list-${idx}`);
+            const icon = document.getElementById(`icon-${idx}`);
+            const isActive = list.classList.toggle('active');
+            icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+            icon.style.color = isActive ? '#06b6d4' : '';
+        }
+
+        function generatePDF() {
+            const btn = document.querySelector('button[onclick="generatePDF()"]');
+            btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin text-base"></i> GENERATING PDF...';
+            btn.disabled = true;
+
+            const element = document.getElementById('secure-manifest');
+            const options = {
+                margin:       10,
+                filename:     'jadwal_foto_ijazah_XII_2026_SMKN3L.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, letterRendering: true, backgroundColor: '#ffffff' },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            html2pdf().set(options).from(element).save().then(() => {
+                btn.innerHTML = '<i class="fa-solid fa-file-pdf text-base"></i> UNDUH PDF (JADWAL LENGKAP)';
+                btn.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
