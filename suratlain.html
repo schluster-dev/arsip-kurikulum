@@ -24,24 +24,21 @@
       box-shadow: 0 5px 20px rgba(0,0,0,0.15);
     }
 
-    /* TOMBOL HOME (HOVER) */
+    /* TOMBOL BACK */
     .back-btn {
       position: absolute;
       left: 15px;
       top: 15px;
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.2);
       border: none;
       color: white;
-      font-size: 14px;
+      font-size: 16px;
       padding: 6px 10px;
       border-radius: 8px;
       cursor: pointer;
-      opacity: 0.5;
-      transition: 0.3s;
     }
 
     .back-btn:hover {
-      opacity: 1;
       background: rgba(255,255,255,0.35);
     }
 
@@ -115,7 +112,7 @@
 
   <!-- HEADER -->
   <div class="header">
-    <button onclick="goBack()" class="back-btn" title="Kembali ke Beranda">🏠</button>
+    <button onclick="goBack()" class="back-btn">⬅</button>
     📄 Arsip Surat Lain
   </div>
 
@@ -180,7 +177,11 @@
     }
 
     function goBack() {
-      window.location.href = "index.html";
+      if (document.referrer !== "") {
+        window.history.back();
+      } else {
+        window.location.href = "index.html";
+      }
     }
   </script>
 
