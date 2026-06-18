@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jadwal Pembagian Ijazah Resmi | SMKN 3 Linggabuana</title>
+    <title>Sistem Informasi Jadwal Ijazah | SMKN 3 Linggabuana</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,124 +12,175 @@
             theme: {
                 extend: {
                     fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], },
-                    colors: { 'brand-blue': '#0a2540', 'brand-cyan': '#06b6d4', }
+                    colors: { 
+                        'app-dark': '#0f172a',
+                        'app-primary': '#0284c7',
+                        'app-surface': '#ffffff',
+                        'app-bg': '#f8fafc'
+                    }
                 }
             }
         }
     </script>
     <style>
-        body { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); min-height: 100vh; }
-        .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); }
-        .schedule-card { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        .schedule-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        body { background-color: var(--app-bg); font-family: 'Plus Jakarta Sans', sans-serif; }
+        .app-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+        .web-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .web-card:hover { transform: translateY(-2px); box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.05); }
     </style>
 </head>
-<body class="py-12 px-4 sm:px-6 lg:px-8">
+<body class="bg-slate-50 min-height-screen text-slate-800 antialiased">
 
-    <div class="max-w-4xl mx-auto">
-        <div class="flex justify-center mb-6">
-            <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 px-4 py-1.5 rounded-full shadow-sm">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+    <header class="app-header text-white shadow-lg border-b border-slate-800 sticky top-0 z-50 px-4 py-4 sm:px-8">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4 w-full sm:w-auto">
+                <img src="https://smkn3linggabuana.sch.id/wp-content/uploads/2021/12/cropped-cropped-imageedit_3_6783038155-1.png" 
+                     alt="Logo SMKN 3 Linggabuana" 
+                     class="w-14 h-14 object-contain bg-white/10 p-1.5 rounded-xl border border-white/20 shadow-inner shrink-0">
+                <div>
+                    <h1 class="text-lg font-extrabold tracking-tight leading-none uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-sky-400">
+                        SMKN 3 Linggabuana
+                    </h1>
+                    <p class="text-xs text-sky-400 font-semibold tracking-wider mt-1 uppercase">Sistem Arsip & Kurikulum Digital</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2.5 bg-slate-900/60 border border-slate-700/50 px-4 py-2 rounded-xl text-xs font-bold shadow-sm w-full sm:w-auto justify-center sm:justify-start">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                 </span>
-                <span class="text-xs font-bold text-blue-700 tracking-wide uppercase">PENGUMUMAN PENTING</span>
+                <span class="text-slate-300 tracking-wide">SENIN, 22 JUNI 2026 (07:30 - 16:00 WIB)</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm mb-6 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div class="space-y-2 relative z-10">
+                <div class="inline-block bg-sky-50 border border-sky-200 text-sky-700 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md">
+                    DOKUMEN RESMI KELULUSAN
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">
+                    JADWAL PEMBAGIAN IJAZAH & TRANSKRIP NILAI
+                </h2>
+                <p class="text-slate-500 text-sm max-w-xl font-medium">
+                    Silakan gunakan fitur pencarian di bawah untuk menemukan slot waktu kedatangan spesifik berdasarkan kompetensi keahlian masing-masing.
+                </p>
             </div>
         </div>
 
-        <div class="glass-card rounded-3xl p-8 text-center mb-8 shadow-xl border border-white/80 relative overflow-hidden">
-            <div class="absolute -right-10 -top-10 w-40 h-40 bg-cyan-400/10 rounded-full blur-2xl"></div>
-            <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-400/10 rounded-full blur-2xl"></div>
-            
-            <h1 class="text-3xl md:text-4xl font-extrabold text-brand-blue tracking-tight leading-none uppercase">
-                Jadwal Pembagian Ijazah <br class="hidden sm:inline"><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600">& Transkrip Nilai</span>
-            </h1>
-            <p class="text-slate-500 text-sm md:text-base mt-3 font-semibold tracking-wide">
-                SMKN 3 Linggabuana Purwakarta
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-            <div class="glass-card p-5 rounded-2xl flex items-center gap-4 shadow-sm">
-                <div class="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center text-cyan-600">
-                    <i class="fa-solid fa-calendar-day text-xl"></i>
-                </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <div class="bg-white border border-slate-200 p-4 rounded-2xl flex items-center gap-4 shadow-sm">
+                <div class="w-10 h-10 bg-sky-500/10 rounded-xl flex items-center justify-center text-sky-600"><i class="fa-solid fa-layer-group"></i></div>
                 <div>
-                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Hari & Tanggal</p>
-                    <p class="text-sm font-bold text-brand-blue">Senin, 22 Juni 2026</p>
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Sesi Antrean</p>
+                    <p class="text-base font-extrabold text-slate-800">10 Gelombang Kelas</p>
                 </div>
             </div>
-            <div class="glass-card p-5 rounded-2xl flex items-center gap-4 shadow-sm">
-                <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-600">
-                    <i class="fa-solid fa-graduation-cap text-xl"></i>
-                </div>
+            <div class="bg-white border border-slate-200 p-4 rounded-2xl flex items-center gap-4 shadow-sm">
+                <div class="w-10 h-10 bg-amber-500/10 rounded-xl flex items-center justify-center text-amber-600"><i class="fa-solid fa-shield-halved"></i></div>
                 <div>
-                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Target Sasaran</p>
-                    <p class="text-sm font-bold text-brand-blue">Seluruh Kelas XII (10 Kompetensi Keahlian)</p>
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Sifat Pengambilan</p>
+                    <p class="text-base font-extrabold text-slate-800">Wajib & Protokoler</p>
+                </div>
+            </div>
+            <div class="bg-white border border-slate-200 p-3 rounded-2xl flex items-center gap-3 shadow-sm group focus-within:border-sky-500 transition-colors">
+                <div class="text-slate-400 pl-1 group-focus-within:text-sky-500 transition-colors"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <div class="w-full">
+                    <p class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Cari Kompetensi Keahlian</p>
+                    <input type="text" id="app-search" placeholder="Ketik kode kelas (ex: TKJ)..." 
+                           class="w-full bg-transparent border-none outline-none text-sm font-bold text-slate-800 placeholder-slate-400 p-0 focus:ring-0">
                 </div>
             </div>
         </div>
-
-        <div class="bg-white/40 border border-slate-200/60 rounded-3xl p-4 sm:p-6 shadow-sm">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-grid">
+        <div class="bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-sm">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-app-grid">
                 </div>
+            <div id="search-empty-state" class="hidden text-center py-12 text-slate-400 font-semibold text-sm">
+                <i class="fa-solid fa-folder-open text-3xl mb-2 text-slate-300 block"></i>
+                Kompetensi keahlian tidak ditemukan. Coba kata kunci lain.
+            </div>
         </div>
 
-        <div class="glass-card rounded-2xl p-6 mt-8 border-l-4 border-amber-500 shadow-sm">
-            <div class="flex items-start gap-3">
-                <div class="text-amber-500 mt-0.5"><i class="fa-solid fa-circle-exclamation text-xl"></i></div>
-                <div>
-                    <h4 class="text-sm font-bold text-brand-blue uppercase tracking-wider">Catatan Penting:</h4>
-                    <ul class="list-disc pl-4 text-xs text-slate-600 mt-2 space-y-1.5 leading-relaxed font-medium">
-                        <li>Pengambilan ijazah <span class="font-bold text-red-600">tidak boleh diwakilkan</span>.</li>
-                        <li>Mengenakan pakaian bebas rapi dan sopan.</li>
-                        <li>Membawa surat bebas perpustakaan.</li>
-                        <li>Datang tepat waktu sesuai dengan slot jam masing-masing.</li>
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 mt-6 border-l-4 border-amber-500 shadow-sm">
+            <div class="flex items-start gap-4">
+                <div class="text-amber-500 mt-1"><i class="fa-solid fa-circle-exclamation text-xl"></i></div>
+                <div class="space-y-1">
+                    <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Catatan Penting Protokol Sekolah:</h4>
+                    <ul class="list-none text-xs text-slate-600 space-y-2 pt-1 font-medium">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-square-check text-red-500"></i> Pengambilan ijazah <span class="font-bold text-red-600 underline">tidak boleh diwakilkan</span>.</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-square-check text-sky-500"></i> Mengenakan pakaian bebas rapi dan sopan.</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-square-check text-sky-500"></i> Membawa surat bebas perpustakaan.</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-square-check text-emerald-500"></i> Datang tepat waktu sesuai dengan slot jam masing-masing.</li>
                     </ul>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <script>
-        // Urutan BARU yang disesuaikan eksak berdasarkan gambar tabel terakhir
-        const dataExcel = [
-            { no: 1, kode: "AN", nama: "XII ANIMASI", jam: "07.30 - 08.15 WIB", color: "from-blue-500 to-indigo-600", icon: "fa-palette" },
-            { no: 2, kode: "PSPT", nama: "XII PSPT", jam: "08.15 - 09.00 WIB", color: "from-cyan-500 to-blue-600", icon: "fa-video" },
-            { no: 3, kode: "TKJ", nama: "XII TKJ", jam: "09.00 - 09.45 WIB", color: "from-purple-600 to-indigo-700", icon: "fa-network-wired" },
-            { no: 4, kode: "TP", nama: "XII TP", jam: "10.00 - 10.45 WIB", color: "from-slate-700 to-slate-900", icon: "fa-gears" },
-            { no: 5, kode: "TMI", nama: "XII TMI", jam: "10.45 - 11.30 WIB", color: "from-emerald-600 to-teal-700", icon: "fa-industry" },
-            { no: 6, kode: "TKR", nama: "XII TKR", jam: "11.30 - 12.15 WIB", color: "from-amber-500 to-orange-600", icon: "fa-car-side" },
-            { no: 7, kode: "APHP", nama: "XII APHP", jam: "13.00 - 13.45 WIB", color: "from-lime-600 to-green-700", icon: "fa-seedling" },
-            { no: 8, kode: "MP", nama: "XII MP", jam: "13.45 - 14.30 WIB", color: "from-rose-500 to-pink-600", icon: "fa-briefcase" },
-            { no: 9, kode: "AK", nama: "XII AK", jam: "14.30 - 15.15 WIB", color: "from-violet-500 to-purple-600", icon: "fa-calculator" },
-            { no: 10, kode: "ST", nama: "XII ST", jam: "15.15 - 16.00 WIB", color: "from-fuchsia-500 to-pink-600", icon: "fa-masks-theater" }
+        const appDataset = [
+            { id: 1, kode: "AN", nama: "XII ANIMASI", jam: "07.30 - 08.15 WIB", color: "from-blue-600 to-indigo-700", icon: "fa-palette" },
+            { id: 2, kode: "PSPT", nama: "XII PROGRAM SIARAN TV", jam: "08.15 - 09.00 WIB", color: "from-cyan-500 to-blue-600", icon: "fa-video" },
+            { id: 3, kode: "TKJ", nama: "XII TEKNIK KOMPUTER JARINGAN", jam: "09.00 - 09.45 WIB", color: "from-purple-600 to-indigo-700", icon: "fa-network-wired" },
+            { id: 4, kode: "TP", nama: "XII TEKNIK PEMESINAN", jam: "10.00 - 10.45 WIB", color: "from-slate-700 to-slate-900", icon: "fa-gears" },
+            { id: 5, kode: "TMI", nama: "XII TEKNIK MEKANIK INDUSTRI", jam: "10.45 - 11.30 WIB", color: "from-emerald-600 to-teal-700", icon: "fa-industry" },
+            { id: 6, kode: "TKR", nama: "XII TEKNIK KENDARAAN RINGAN", jam: "11.30 - 12.15 WIB", color: "from-amber-500 to-orange-600", icon: "fa-car-side" },
+            { id: 7, kode: "APHP", nama: "XII AGRIBISNIS PENGOLAHAN HASIL PERTANIAN", jam: "13.00 - 13.45 WIB", color: "from-lime-600 to-green-700", icon: "fa-seedling" },
+            { id: 8, kode: "MP", nama: "XII MANAJEMEN PERKANTORAN", jam: "13.45 - 14.30 WIB", color: "from-rose-500 to-pink-600", icon: "fa-briefcase" },
+            { id: 9, kode: "AK", nama: "XII AKUNTANSI", jam: "14.30 - 15.15 WIB", color: "from-violet-500 to-purple-600", icon: "fa-calculator" },
+            { id: 10, kode: "ST", nama: "XII SENI TARI", jam: "15.15 - 16.00 WIB", color: "from-fuchsia-500 to-pink-600", icon: "fa-masks-theater" }
         ];
 
-        const container = document.getElementById('schedule-grid');
+        const gridContainer = document.getElementById('schedule-app-grid');
+        const searchInput = document.getElementById('app-search');
+        const emptyState = document.getElementById('search-empty-state');
 
-        dataExcel.forEach(item => {
-            container.innerHTML += `
-                <div class="glass-card rounded-2xl p-5 schedule-card flex items-center justify-between border border-white/60 relative overflow-hidden group shadow-sm">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br ${item.color} text-white font-black text-xs rounded-xl flex flex-col items-center justify-center tracking-wider shadow-sm shrink-0">
-                            <span class="text-[9px] opacity-70">#${item.no}</span>
-                            <span>${item.kode}</span>
-                        </div>
-                        <div class="space-y-0.5">
-                            <h3 class="text-brand-blue font-extrabold text-sm uppercase tracking-wide group-hover:text-cyan-600 transition-colors">${item.nama}</h3>
-                            <div class="flex items-center gap-1.5 text-slate-500 font-medium text-xs">
-                                <i class="fa-regular fa-clock text-cyan-500"></i>
-                                <span>${item.jam}</span>
+        function renderCards(data) {
+            gridContainer.innerHTML = '';
+            if(data.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            emptyState.classList.add('hidden');
+            
+            data.forEach(item => {
+                gridContainer.innerHTML += `
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex items-center justify-between web-card relative overflow-hidden group cursor-pointer">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-gradient-to-br ${item.color} text-white font-black text-xs rounded-xl flex flex-col items-center justify-center tracking-wider shadow-sm shrink-0">
+                                <span class="text-[8px] opacity-70">SESI</span>
+                                <span class="text-[13px] leading-none mt-0.5">${item.id}</span>
+                            </div>
+                            <div class="space-y-0.5">
+                                <h3 class="text-slate-900 font-extrabold text-xs sm:text-sm uppercase tracking-wide group-hover:text-sky-600 transition-colors">${item.nama}</h3>
+                                <div class="flex items-center gap-1.5 text-slate-500 font-semibold text-xs">
+                                    <i class="fa-regular fa-clock text-sky-500"></i>
+                                    <span>${item.jam}</span>
+                                </div>
                             </div>
                         </div>
+                        <div class="text-slate-300 group-hover:text-sky-500 transition-colors pl-2">
+                            <i class="fa-solid ${item.icon} text-lg opacity-40 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
                     </div>
-                    <div class="text-slate-200 group-hover:text-cyan-500 transition-colors pl-2">
-                        <i class="fa-solid ${item.icon} text-xl opacity-40 group-hover:opacity-100 transition-opacity"></i>
-                    </div>
-                </div>
-            `;
+                `;
+            });
+        }
+
+        // Live Search Filtering Controller Logic
+        searchInput.addEventListener('input', (e) => {
+            const keyword = e.target.value.toLowerCase();
+            const filteredData = appDataset.filter(item => 
+                item.nama.toLowerCase().includes(keyword) || 
+                item.kode.toLowerCase().includes(keyword)
+            );
+            renderCards(filteredData);
         });
+
+        // Initialize App Screen View
+        renderCards(appDataset);
     </script>
 </body>
 </html>
