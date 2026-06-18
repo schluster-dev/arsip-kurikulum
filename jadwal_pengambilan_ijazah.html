@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Foto Ijazah XII</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f1f5f9; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
+    </style>
+</head>
+<body class="py-12 px-4">
 
+    <div class="max-w-md mx-auto">
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-extrabold text-slate-800 uppercase tracking-tighter">Jadwal Pemotretan</h1>
+            <p class="text-slate-500 text-sm mt-1">Kelas XII - SMKN 3 Linggabuana</p>
+        </div>
+
+        <div class="space-y-4">
+            <div id="schedule-list"></div>
+        </div>
+    </div>
+
+    <script>
+        // Urutan sesuai gambar
+        const jadwal = [
+            { kode: "AN", nama: "Animasi" },
+            { kode: "PSPT", nama: "Produksi & Siaran Program TV" },
+            { kode: "TKJ", nama: "Teknik Komputer Jaringan" },
+            { kode: "TP", nama: "Teknik Pemesinan" },
+            { kode: "TMI", nama: "Teknik Mekanik Industri" },
+            { kode: "TKR", nama: "Teknik Kendaraan Ringan" },
+            { kode: "APHP", nama: "Agribisnis Pengolahan Hasil Pertanian" },
+            { kode: "MP", nama: "Manajemen Perkantoran" },
+            { kode: "AK", nama: "Akuntansi" },
+            { kode: "ST", nama: "Seni Tari" }
+        ];
+
+        const container = document.getElementById('schedule-list');
+
+        jadwal.forEach((item) => {
+            container.innerHTML += `
+                <div class="group relative overflow-hidden transition-all duration-300 hover:scale-[1.02]">
+                    <div class="absolute inset-0 bg-cyan-500 opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                    <div class="glass p-5 rounded-2xl flex items-center gap-6 shadow-sm">
+                        <div class="w-16 h-16 bg-slate-900 rounded-xl flex items-center justify-center shrink-0">
+                            <span class="text-white font-bold text-sm tracking-widest">${item.kode}</span>
+                        </div>
+                        <div>
+                            <h2 class="text-slate-800 font-bold text-sm uppercase">${item.nama}</h2>
+                            <p class="text-cyan-600 text-[10px] font-semibold tracking-wider mt-1">SIAP DIPOTRET</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    </script>
+</body>
