@@ -27,7 +27,6 @@
 <body class="py-12 px-4 sm:px-6 lg:px-8">
 
     <div class="max-w-4xl mx-auto">
-        <!-- Badge Status -->
         <div class="flex justify-center mb-6">
             <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 px-4 py-1.5 rounded-full shadow-sm">
                 <span class="relative flex h-2 w-2">
@@ -38,7 +37,6 @@
             </div>
         </div>
 
-        <!-- Header Section -->
         <div class="glass-card rounded-3xl p-8 text-center mb-8 shadow-xl border border-white/80 relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-40 h-40 bg-cyan-400/10 rounded-full blur-2xl"></div>
             <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-400/10 rounded-full blur-2xl"></div>
@@ -51,7 +49,6 @@
             </p>
         </div>
 
-        <!-- Info Waktu & Tempat -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
             <div class="glass-card p-5 rounded-2xl flex items-center gap-4 shadow-sm">
                 <div class="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center text-cyan-600">
@@ -73,14 +70,11 @@
             </div>
         </div>
 
-        <!-- Jadwal Utama (Satu Hari Saja) -->
         <div class="bg-white/40 border border-slate-200/60 rounded-3xl p-4 sm:p-6 shadow-sm">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-grid">
-                <!-- Data otomatis dimasukkan lewat Javascript di bawah -->
-            </div>
+                </div>
         </div>
 
-        <!-- Catatan Kritis / Aturan Pengambilan -->
         <div class="glass-card rounded-2xl p-6 mt-8 border-l-4 border-amber-500 shadow-sm">
             <div class="flex items-start gap-3">
                 <div class="text-amber-500 mt-0.5"><i class="fa-solid fa-circle-exclamation text-xl"></i></div>
@@ -98,18 +92,18 @@
     </div>
 
     <script>
-        // Urutan Kelas dan Waktu Pelaksanaan Eksak dari Data Excel
+        // Urutan BARU yang disesuaikan eksak berdasarkan gambar tabel terakhir
         const dataExcel = [
-            { no: 1, kode: "TP", nama: "XII TP", jam: "07.30 - 08.15 WIB", color: "from-slate-700 to-slate-900", icon: "fa-gears" },
-            { no: 2, kode: "TMI", nama: "XII TMI", jam: "08.15 - 09.00 WIB", color: "from-emerald-600 to-teal-700", icon: "fa-industry" },
-            { no: 3, kode: "TKR", nama: "XII TKR", jam: "09.00 - 09.45 WIB", color: "from-amber-500 to-orange-600", icon: "fa-car-side" },
-            { no: 4, kode: "TKJ", nama: "XII TKJ", jam: "10.00 - 10.45 WIB", color: "from-purple-600 to-indigo-700", icon: "fa-network-wired" },
-            { no: 5, kode: "APHP", nama: "XII APHP", jam: "10.45 - 11.30 WIB", color: "from-lime-600 to-green-700", icon: "fa-seedling" },
-            { no: 6, kode: "MP", nama: "XII MP", jam: "11.30 - 12.15 WIB", color: "from-rose-500 to-pink-600", icon: "fa-briefcase" },
-            { no: 7, kode: "AK", nama: "XII AK", jam: "13.00 - 13.45 WIB", color: "from-violet-500 to-purple-600", icon: "fa-calculator" },
-            { no: 8, kode: "PSPT", nama: "XII PSPT", jam: "13.45 - 14.30 WIB", color: "from-cyan-500 to-blue-600", icon: "fa-video" },
-            { no: 9, kode: "ST", nama: "XII ST", jam: "14.30 - 15.15 WIB", color: "from-fuchsia-500 to-pink-600", icon: "fa-masks-theater" },
-            { no: 10, kode: "AN", nama: "XII ANIMASI", jam: "15.15 - 16.00 WIB", color: "from-blue-500 to-indigo-600", icon: "fa-palette" }
+            { no: 1, kode: "AN", nama: "XII ANIMASI", jam: "07.30 - 08.15 WIB", color: "from-blue-500 to-indigo-600", icon: "fa-palette" },
+            { no: 2, kode: "PSPT", nama: "XII PSPT", jam: "08.15 - 09.00 WIB", color: "from-cyan-500 to-blue-600", icon: "fa-video" },
+            { no: 3, kode: "TKJ", nama: "XII TKJ", jam: "09.00 - 09.45 WIB", color: "from-purple-600 to-indigo-700", icon: "fa-network-wired" },
+            { no: 4, kode: "TP", nama: "XII TP", jam: "10.00 - 10.45 WIB", color: "from-slate-700 to-slate-900", icon: "fa-gears" },
+            { no: 5, kode: "TMI", nama: "XII TMI", jam: "10.45 - 11.30 WIB", color: "from-emerald-600 to-teal-700", icon: "fa-industry" },
+            { no: 6, kode: "TKR", nama: "XII TKR", jam: "11.30 - 12.15 WIB", color: "from-amber-500 to-orange-600", icon: "fa-car-side" },
+            { no: 7, kode: "APHP", nama: "XII APHP", jam: "13.00 - 13.45 WIB", color: "from-lime-600 to-green-700", icon: "fa-seedling" },
+            { no: 8, kode: "MP", nama: "XII MP", jam: "13.45 - 14.30 WIB", color: "from-rose-500 to-pink-600", icon: "fa-briefcase" },
+            { no: 9, kode: "AK", nama: "XII AK", jam: "14.30 - 15.15 WIB", color: "from-violet-500 to-purple-600", icon: "fa-calculator" },
+            { no: 10, kode: "ST", nama: "XII ST", jam: "15.15 - 16.00 WIB", color: "from-fuchsia-500 to-pink-600", icon: "fa-masks-theater" }
         ];
 
         const container = document.getElementById('schedule-grid');
@@ -118,7 +112,6 @@
             container.innerHTML += `
                 <div class="glass-card rounded-2xl p-5 schedule-card flex items-center justify-between border border-white/60 relative overflow-hidden group shadow-sm">
                     <div class="flex items-center gap-4">
-                        <!-- Nomor Urut & Badge Kelas -->
                         <div class="w-12 h-12 bg-gradient-to-br ${item.color} text-white font-black text-xs rounded-xl flex flex-col items-center justify-center tracking-wider shadow-sm shrink-0">
                             <span class="text-[9px] opacity-70">#${item.no}</span>
                             <span>${item.kode}</span>
