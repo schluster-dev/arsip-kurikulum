@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Informasi Jadwal Ijazah | SMKN 3 Linggabuana</title>
+    <title>Jadwal Pembagian Ijazah | SMKN 3 Linggabuana</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,8 +13,8 @@
                 extend: {
                     fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], },
                     colors: { 
-                        'app-primary': '#0284c7',
-                        'app-bg': '#f8fafc'
+                        's3l-blue': '#0284c7',
+                        's3l-dark': '#1e293b'
                     }
                 }
             }
@@ -30,7 +30,7 @@
 
     <div class="max-w-5xl mx-auto space-y-6">
         
-        <div class="bg-white rounded-3xl overflow-hidden shadow-md border border-slate-200">
+        <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200">
             <img src="https://imgur.com/22oGEF7.png" 
                  alt="Kop Surat Resmi SMKN 3 Linggabuana" 
                  class="w-full h-auto object-contain mx-auto"
@@ -40,10 +40,10 @@
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-white border border-slate-200 p-6 rounded-2xl shadow-sm">
             <div class="space-y-1">
                 <div class="inline-flex items-center gap-2 bg-sky-50 border border-sky-200 px-2.5 py-1 rounded-md text-[10px] font-bold text-sky-700 tracking-widest uppercase">
-                    <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span> SYSTEM LIVE VIEW
+                    <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span> Pengumuman Resmi
                 </div>
                 <h3 class="text-xl font-extrabold text-slate-900 tracking-tight uppercase">Mekanisme Penyerahan Dokumen Kelulusan</h3>
-                <p class="text-xs text-slate-500 font-medium">Tahun Pelajaran 2025/2026 — Agenda Kerja Bidang Kurikulum & Kesiswaan</p>
+                <p class="text-xs text-slate-500 font-medium">Tahun Pelajaran 2025/2026 — Bidang Kurikulum & Kesiswaan</p>
             </div>
             <div class="flex items-center gap-3 bg-slate-900 text-white px-4 py-2.5 rounded-xl text-xs font-bold w-full md:w-auto justify-center shadow-sm">
                 <i class="fa-regular fa-calendar-check text-sky-400 text-sm"></i>
@@ -53,83 +53,85 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="bg-white border border-slate-200 p-4 rounded-2xl flex items-center gap-4 shadow-sm">
-                <div class="w-10 h-10 bg-sky-500/10 rounded-xl flex items-center justify-center text-sky-600 border border-sky-500/20"><i class="fa-solid fa-server"></i></div>
+                <div class="w-10 h-10 bg-sky-500/10 rounded-xl flex items-center justify-center text-sky-600 border border-sky-500/20"><i class="fa-solid fa-layer-group"></i></div>
                 <div>
-                    <p class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Total Alokasi Sesi</p>
-                    <p class="text-sm font-black text-slate-800">10 Kompetensi Keahlian</p>
+                    <p class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Alokasi Waktu</p>
+                    <p class="text-sm font-black text-slate-800">10 Sesi Pembagian</p>
                 </div>
             </div>
             <div class="bg-white border border-slate-200 p-4 rounded-2xl flex items-center gap-4 shadow-sm">
-                <div class="w-10 h-10 bg-sky-500/10 rounded-xl flex items-center justify-center text-sky-600 border border-sky-500/20"><i class="fa-solid fa-business-time"></i></div>
+                <div class="w-10 h-10 bg-sky-500/10 rounded-xl flex items-center justify-center text-sky-600 border border-sky-500/20"><i class="fa-solid fa-clock"></i></div>
                 <div>
-                    <p class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Rentang Waktu Sistem</p>
+                    <p class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Durasi Pelaksanaan</p>
                     <p class="text-sm font-black text-slate-800">07.30 s/d 16.00 WIB</p>
                 </div>
             </div>
             <div class="bg-white border border-slate-200 p-3 rounded-2xl flex items-center gap-3 shadow-sm focus-within:border-sky-500 transition-colors group">
                 <div class="text-slate-400 pl-1 group-focus-within:text-sky-500 transition-colors"><i class="fa-solid fa-magnifying-glass"></i></div>
                 <div class="w-full">
-                    <p class="text-[9px] font-bold uppercase tracking-wider text-sky-600">Live Engine Filter</p>
-                    <input type="text" id="app-search" placeholder="Cari kode kelas (contoh: TKJ)..." 
+                    <p class="text-[9px] font-bold uppercase tracking-wider text-sky-600">Pencarian Kelas</p>
+                    <input type="text" id="app-search" placeholder="Ketik program keahlian (ex: TKJ)..." 
                            class="w-full bg-transparent border-none outline-none text-xs font-bold text-slate-800 placeholder-slate-400 p-0 focus:ring-0">
                 </div>
             </div>
         </div>
-        <div class="bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-xl relative">
-            <div class="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-sky-500"></div>
-            <div class="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-sky-500"></div>
-            <div class="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-sky-500"></div>
-            <div class="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-sky-500"></div>
 
+    <!-- ================= HALAMAN UTAMA JADWAL KELAS ================= -->
+        <div class="bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-md relative">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-app-grid">
-                </div>
+                <!-- Data jadwal akan otomatis dimuat di sini oleh program -->
+            </div>
 
-            <div id="search-empty-state" class="hidden text-center py-16 text-slate-400 font-mono text-xs tracking-wider">
-                <i class="fa-solid fa-triangle-exclamation text-amber-500 text-3xl mb-3 animate-pulse"></i>
-                <p class="uppercase text-slate-700 font-bold">Data Tidak Ditemukan</p>
-                <p class="text-slate-400 mt-1">Kode atau Nama Kompetensi Keahlian Salah.</p>
+            <!-- Tampilan Jika Pencarian Tidak Ditemukan -->
+            <div id="search-empty-state" class="hidden text-center py-16 text-slate-400 text-xs tracking-wider">
+                <i class="fa-solid fa-folder-open text-slate-300 text-3xl mb-2 block"></i>
+                <p class="font-bold uppercase text-slate-600">Data Tidak Ditemukan</p>
+                <p class="text-slate-400 mt-1">Nama program keahlian atau kode kelas yang dimasukkan tidak terdaftar.</p>
             </div>
         </div>
 
-        <div class="bg-white border border-slate-200 border-l-4 border-sky-500 rounded-2xl p-6 shadow-lg">
+        <!-- ================= CATATAN PENTING & TATA TERTIB ================= -->
+        <div class="bg-white border border-slate-200 border-l-4 border-sky-500 rounded-2xl p-6 shadow-sm">
             <div class="flex items-start gap-4">
                 <div class="text-sky-600 mt-1">
-                    <i class="fa-solid fa-circle-info text-xl"></i>
+                    <i class="fa-solid fa-circle-exclamation text-xl"></i>
                 </div>
                 <div class="space-y-3 w-full">
-                    <h4 class="text-xs font-black tracking-widest text-slate-900 uppercase font-mono">
-                        Catatan Penting Protokol Penyerahan Ijazah:
+                    <h4 class="text-xs font-black tracking-widest text-slate-900 uppercase">
+                        Catatan Penting Pengambilan Dokumen Kelulusan:
                     </h4>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-medium text-slate-600">
                         <div class="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200">
                             <i class="fa-solid fa-id-card-clip text-red-500 mt-0.5 text-sm"></i>
-                            <p>Pengambilan dokumen <span class="text-red-600 font-bold underline">TIDAK BOLEH DIWAKILKAN</span> demi validitas cap tiga jari.</p>
+                            <p>Pengambilan ijazah <span class="text-red-600 font-bold underline">tidak boleh diwakilkan</span> demi keaslian cap tiga jari siswa bersangkutan[cite: 2].</p>
                         </div>
                         <div class="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200">
                             <i class="fa-solid fa-user-shield text-sky-600 mt-0.5 text-sm"></i>
-                            <p>Wajib mengenakan pakaian <span class="text-slate-900 font-bold">bebas, rapi, formal, dan sopan</span> (Bukan kaos oblong/sandal jepit).</p>
+                            <p>Siswa wajib mengenakan pakaian <span class="text-slate-900 font-bold">bebas, rapi, formal, dan sopan</span>[cite: 2] (tidak diperkenankan memakai kaos oblong atau sandal jepit).</p>
                         </div>
                         <div class="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200">
                             <i class="fa-solid fa-file-invoice text-sky-600 mt-0.5 text-sm"></i>
-                            <p>Wajib membawa lembar asli <span class="text-slate-900 font-bold">Surat Keterangan Bebas Pinjaman Perpustakaan</span> sekolah.</p>
+                            <p>Wajib membawa lembar asli <span class="text-slate-900 font-bold">Surat Keterangan Bebas Pinjaman Perpustakaan</span> dari sekolah[cite: 2].</p>
                         </div>
                         <div class="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200">
                             <i class="fa-solid fa-hourglass-half text-emerald-600 mt-0.5 text-sm"></i>
-                            <p>Diharapkan hadir <span class="text-emerald-600 font-bold">15 menit lebih awal</span> dari slot jam sesi antrean kompetensi masing-masing.</p>
+                            <p>Diharapkan hadir <span class="text-emerald-600 font-bold">15 menit tepat waktu</span> sebelum slot jam sesi antrean kelas dimulai[cite: 2].</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <footer class="text-center text-[10px] font-mono text-slate-400 tracking-widest uppercase pt-4">
-            SMKN 3 LINGGABUANA DIGITAL ARCHIVE SYSTEM v2.0
+        <!-- Hak Cipta Sekolah -->
+        <footer class="text-center text-[10px] text-slate-400 tracking-widest uppercase pt-2">
+            Halaman Resmi Informasi Kurikulum SMKN 3 Linggabuana Purwakarta
         </footer>
     </main>
 
+    <!-- ================= PROGRAM OTOMATISASI DATA JADWAL ================= -->
     <script>
-        // Dataset Urutan Jurusan Eksak Sesuai Gambar Tabel Terakhir (image_fedc5c.png)
+        // Data Urutan Jurusan Eksak Sesuai Gambar Tabel yang Dikirimkan (image_fedc5c.png)
         const appDataset = [
             { id: 1, kode: "AN", nama: "XII ANIMASI", jam: "07.30 - 08.15 WIB", color: "from-blue-500 to-indigo-600", icon: "fa-palette" },
             { id: 2, kode: "PSPT", nama: "XII PROGRAM SIARAN TV", jam: "08.15 - 09.00 WIB", color: "from-cyan-500 to-blue-500", icon: "fa-video" },
@@ -160,11 +162,13 @@
                     <div class="bg-white border border-slate-200 rounded-2xl p-4 flex items-center justify-between web-card relative overflow-hidden group cursor-pointer hover:border-sky-500 hover:shadow-md transition-all">
                         
                         <div class="flex items-center gap-4 relative z-10">
+                            <!-- Label Nomor Urut Sesi -->
                             <div class="w-12 h-12 bg-gradient-to-br ${item.color} text-white font-black text-xs rounded-xl flex flex-col items-center justify-center tracking-wider shadow-sm shrink-0">
                                 <span class="text-[8px] opacity-75 font-mono">SESI</span>
                                 <span class="text-[14px] leading-none font-bold">${item.id}</span>
                             </div>
                             
+                            <!-- Keterangan Kelas & Jam -->
                             <div class="space-y-0.5">
                                 <h3 class="text-slate-900 font-extrabold text-xs sm:text-sm uppercase tracking-wide group-hover:text-sky-600 transition-colors">${item.nama}</h3>
                                 <div class="flex items-center gap-1.5 text-slate-500 font-semibold text-xs font-mono">
@@ -174,6 +178,7 @@
                             </div>
                         </div>
                         
+                        <!-- Lambang Seni/Ikon Pendukung -->
                         <div class="text-slate-300 group-hover:text-sky-500 transition-colors pl-2 relative z-10">
                             <i class="fa-solid ${item.icon} text-lg opacity-40 group-hover:opacity-100 transition-all"></i>
                         </div>
@@ -182,7 +187,7 @@
             });
         }
 
-        // Realtime Event Filter Framework Controller
+        // Program Penyaringan Pencarian Langsung
         searchInput.addEventListener('input', (e) => {
             const keyword = e.target.value.toLowerCase();
             const filteredData = appDataset.filter(item => 
@@ -192,7 +197,7 @@
             renderCards(filteredData);
         });
 
-        // Initialize Screen Workspace Application View Engine
+        // Memuat Pertama Kali Data Ketika Halaman Dibuka
         renderCards(appDataset);
     </script>
 </body>
