@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Resmi Foto TKA Kelas XII 2026 | SMKN 3 Linggabuana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { 's3l-cyan': '#06b6d4', 's3l-dark': '#0f172a' },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f8fafc; color: #1e293b; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .formal-card { background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06); }
+        .jurusan-header:hover { background-color: #f1f5f9; cursor: pointer; }
+        .student-list-container { display: none; }
+        .student-list-container.active { display: block; animation: slideDown .3s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        .pdf-page { padding: 40px; background: white; width: 210mm; min-height: 297mm; margin: 0 auto; box-shadow: 0 0 10px rgba(0,0,0,.1); }
+        .no-print { display: block; }
+        .photo-frame { width: 72px; height: 96px; object-fit: cover; object-position: top; background: #dc2626; }
+        .photo-fallback {
+            width: 72px; height: 96px; background: linear-gradient(180deg, #0f172a 0%, #164e63 100%);
+            color: #fff; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 16px; letter-spacing: .04em;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; padding: 0; }
+            .pdf-page { box-shadow: none; margin: 0; width: 100%; padding: 20px; }
+            .student-list-container { display: block !important; opacity: 1 !important; transform: none !important; }
+            .fa-chevron-down { display: none !important; }
+        }
+        @media (max-width: 768px) {
+            .pdf-page { width: 100%; padding: 16px; min-height: auto; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 font-sans">
+    <div class="max-w-7xl mx-auto mb-6 no-print p-4 formal-card rounded-2xl flex flex-col md:flex-row gap-3 justify-between items-stretch md:items-center">
+        <div class="flex items-center gap-2">
+            <span class="relative flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-s3l-cyan opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-s3l-cyan"></span>
+            </span>
+            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Status: Dokumen Resmi Aktif</span>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-2">
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                <input id="q" type="search" placeholder="Cari nama / NISN / jurusan..."
+                    class="pl-8 pr-3 py-2.5 text-xs rounded-lg border border-slate-200 w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                    oninput="applySearch()">
+            </div>
+            <button onclick="toggleAll(true)" class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold px-4 py-2.5 rounded-lg">Buka semua</button>
+            <button onclick="toggleAll(false)" class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold px-4 py-2.5 rounded-lg">Tutup semua</button>
+            <button onclick="generatePDF()" class="bg-s3l-dark hover:bg-slate-800 text-white text-xs font-bold px-6 py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all shadow-md">
+                <i class="fa-solid fa-file-pdf text-base"></i> UNDUH PDF
+            </button>
+        </div>
+    </div>
+
+    <div id="secure-manifest" class="pdf-page formal-card rounded-3xl max-w-7xl">
+        <div class="border-b-2 border-slate-200 pb-6 mb-8 text-center">
+            <img src="https://i.imgur.com/22oGEF7.png" alt="Kop Surat" class="w-full h-auto mb-4" onerror="this.style.display='none'">
+            <p class="text-base font-bold tracking-wide uppercase">
+                Jadwal Pelaksanaan Pemotretan Foto TKA Siswa Kelas XII // T.P 2026/2027
+            </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="border border-slate-100 p-5 rounded-xl bg-slate-50/50">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">Hari &amp; Tanggal</p>
+                <p class="text-sm text-s3l-dark font-bold">Selasa, 04 Agustus 2026</p>
+            </div>
+            <div class="border border-slate-100 p-5 rounded-xl bg-slate-50/50">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">Waktu Operasional</p>
+                <p class="text-sm text-s3l-dark font-bold">08:00 s.d 13:00 WIB</p>
+            </div>
+            <div class="border border-slate-100 p-5 rounded-xl bg-slate-50/50">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">Total Peserta</p>
+                <p class="text-sm text-s3l-dark font-bold" id="total-peserta">321 Siswa</p>
+            </div>
+            <div class="border border-slate-100 p-5 rounded-xl bg-slate-50/50">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">Lokasi</p>
+                <p class="text-sm text-s3l-dark font-bold">SMKN 3 Linggabuana</p>
+            </div>
+        </div>
+
+        <div class="no-print mb-6 text-[11px] text-slate-500 bg-cyan-50 border border-cyan-100 rounded-xl p-4">
+            <p class="font-bold text-s3l-dark mb-1"><i class="fa-solid fa-camera mr-1 text-s3l-cyan"></i> Foto siswa</p>
+            Foto memakai nama file NISN. Letakkan file di folder <code class="bg-white px-1 rounded border">fotos/</code>
+            dengan format <code class="bg-white px-1 rounded border">fotos/0081935299.jpg</code>.
+            Kalau link hosting sudah ada, ubah variabel <code class="bg-white px-1 rounded border">PHOTO_BASE</code> di script.
+            Foto yang belum ada otomatis tampil inisial.
+        </div>
+
+        <div id="schedule-container" class="space-y-4"></div>
+
+        <div class="mt-12 pt-10 border-t border-slate-200">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="md:col-span-2 space-y-2 text-xs text-slate-600 leading-relaxed">
+                    <p class="font-bold text-s3l-dark">CATATAN PENTING:</p>
+                    <ol class="list-decimal pl-5 space-y-1">
+                        <li>Siswa wajib hadir 15 menit sebelum waktu pemotretan dimulai.</li>
+                        <li>Menggunakan seragam sekolah lengkap, rapi, berdasi dan sesuai ketentuan sekolah (baju putih lengkap dengan atribut linggabuana).</li>
+                        <li>Rambut rapi (cepak) bagi siswa laki-laki dan kerudung dimasukkan bagi siswi perempuan.</li>
+                        <li>Waktu pemotretan bisa berubah sesuai dengan kondisi di lapangan, dimohon stay WA.</li>
+                    </ol>
+                </div>
+                <div class="text-center text-xs pt-2 p-0">
+                    <p class="mb-1">Purwakarta, 3 Agustus 2026</p>
+                    <p class="font-bold text-s3l-dark mb-1">Mengetahui,</p>
+                    <div class="inline-block text-center">
+                        <img src="https://i.imgur.com/wXLNZos.png" alt="Tanda Tangan" class="mx-auto mb-2" style="width:120px;height:auto;" onerror="this.style.display='none'">
+                        <p class="font-extrabold text-s3l-dark border-t border-s3l-dark pt-1 w-48 mx-auto uppercase">ARBANA, S.ST.</p>
+                        <p class="text-[10px] text-slate-500 mt-0 leading-tight">NIP. 19790223 200801 1 004</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="text-center text-[9px] text-slate-400 uppercase tracking-widest mt-12 no-print">
+            *** Klik pada baris jurusan untuk melihat/menyembunyikan daftar nama dan foto siswa ***
+        </p>
+    </div>
+
+<script>
+/* ====== PENGATURAN FOTO ======
+   Foto sudah di-rename NISN. Contoh:
+     fotos/0081935299.jpg
+   Kalau nanti pakai link (Google Drive / hosting), ganti PHOTO_BASE misalnya:
+     const PHOTO_BASE = 'https://domain-sekolah.sch.id/tka-foto/';
+   Bisa juga isi PHOTO_MAP[nisn] = 'https://...' untuk per-siswa.
+*/
+const PHOTO_BASE = 'fotos/';
+const PHOTO_EXT  = '.jpg';
+const PHOTO_MAP  = {
+    // "0081935299": "https://link-foto-nanti.jpg",
+};
+
+const studentManifest = {"TP": [{"nama": "ABI ACHMAD FAHREZI", "nisn": "0087186446"}, {"nama": "Ahmad Hafidz Mauridz", "nisn": "0087409219"}, {"nama": "Ajkaril Abdul Malik", "nisn": "0083619200"}, {"nama": "BARA KUMARA", "nisn": "0083433700"}, {"nama": "Candi Ramdan", "nisn": "0084461345"}, {"nama": "DAFA FAUZAN RAMADHAN", "nisn": "0088419882"}, {"nama": "Deden Irwansyah", "nisn": "0073245135"}, {"nama": "DENIS PUTRA PRATAMA", "nisn": "0086648616"}, {"nama": "Fachri Adipati Pasundan", "nisn": "0087750598"}, {"nama": "Fadli Abdullah", "nisn": "0087291466"}, {"nama": "FAIZ ZAHLAN RAMADHAN", "nisn": "0089715138"}, {"nama": "JALU PRIHANTORO", "nisn": "0089688731"}, {"nama": "M. WILDAN IRSYANURAIHAN", "nisn": "0095365591"}, {"nama": "MAHEZA MANSYURUDIN AULIA", "nisn": "0082272688"}, {"nama": "MALIK IBRAHIM AGUSTIN", "nisn": "0099294921"}, {"nama": "MOCH. ANANDA LAJUARDISYAH", "nisn": "0083922868"}, {"nama": "Muhamad Arya Hirawan", "nisn": "0085637498"}, {"nama": "MUHAMAD DEA YADIN PUTRA", "nisn": "0085347258"}, {"nama": "Muhammad Akbar Nugraha", "nisn": "0097301916"}, {"nama": "Muhammad Aqmal Maulana", "nisn": "0099294721"}, {"nama": "Muhammad Hafidz Sulistyanto", "nisn": "0091275956"}, {"nama": "Muhammad Jamil Al Parisi", "nisn": "0084734627"}, {"nama": "Mulki Rizky Sulaiman", "nisn": "0085952269"}, {"nama": "NANANG HIDAYATULLOH", "nisn": "0078874804"}, {"nama": "Raihan Zaki", "nisn": "0084696078"}, {"nama": "RESTU PUTRA RAMADHAN", "nisn": "0081716925"}, {"nama": "REYHAN TEGAR PERMANA", "nisn": "0095640559"}, {"nama": "Reza Anugrah Pratama", "nisn": "0088274054"}, {"nama": "RISKI MAULIDIN", "nisn": "0096647086"}, {"nama": "Rizal Prasetya Gunawan", "nisn": "0098087745"}, {"nama": "RIZKY PAJRIANSYAH", "nisn": "0081879073"}, {"nama": "STEVAN TUPADO PURBA", "nisn": "0083220195"}, {"nama": "TONI ALJABAR AKMAL", "nisn": "0088034913"}], "AK": [{"nama": "ABDUSSYAHDAN ARRA SYID", "nisn": "0084206635"}, {"nama": "Amira", "nisn": "0091463350"}, {"nama": "ANYELIR MEGA LESTARI", "nisn": "0092096936"}, {"nama": "Arif Ramadhan", "nisn": "0093733375"}, {"nama": "ARLES NURYANTI", "nisn": "0086156142"}, {"nama": "Astridia Cilvia Susilo", "nisn": "0087378273"}, {"nama": "Bunga Citra Lestari", "nisn": "0094313131"}, {"nama": "CHIVA BILQIS", "nisn": "0093605277"}, {"nama": "DAVID YOSAFAT ARISZY BUULOLO", "nisn": "0081935299"}, {"nama": "Desita Widyanti", "nisn": "0089073347"}, {"nama": "DHAFA NURUL ILHAM", "nisn": "0084741117"}, {"nama": "Dinar Citra Buana", "nisn": "0095846346"}, {"nama": "ELIS LISTYANINGSIH", "nisn": "3083645599"}, {"nama": "Fidela Virni Putri", "nisn": "0089080335"}, {"nama": "Fitri Agustyani", "nisn": "0081496813"}, {"nama": "HAIVA NURAZIZAH", "nisn": "0084197958"}, {"nama": "HERLINDA", "nisn": "0095301475"}, {"nama": "Ibnu Panca Sabililah", "nisn": "0086149144"}, {"nama": "Jihan Fitriyanti", "nisn": "0081439624"}, {"nama": "KHOERUNISA PUTRI", "nisn": "0095627965"}, {"nama": "MUHAMAD IKHSAN AL MAFTAH", "nisn": "0072297436"}, {"nama": "MUHAMAD LAN AGUNG", "nisn": "0093782303"}, {"nama": "MUHAMMAD AZHAR ATTHARIQ", "nisn": "0097744636"}, {"nama": "Muhammad Fauzan", "nisn": "0095492463"}, {"nama": "NAURA RADHWA ALUZVY", "nisn": "0093594213"}, {"nama": "Raden Ayu Pamuragan", "nisn": "0098367889"}, {"nama": "Rafie Awal Apriyan", "nisn": "0092840169"}, {"nama": "Ryan Hardiansyah", "nisn": "0086300790"}, {"nama": "SITI AFIFAH NAJWA RASYDI", "nisn": "0092548547"}, {"nama": "SITI SAADAH", "nisn": "0086545463"}, {"nama": "SRI NIRMALA CITRA", "nisn": "0099519255"}, {"nama": "Syifa Nur Annisa", "nisn": "0081837463"}, {"nama": "ZAYNA SHAFIA KARIM", "nisn": "0087812551"}], "AN": [{"nama": "ALDRIAN KEVIN HIARIYE", "nisn": "0081046344"}, {"nama": "DENARA JAYA SUMIRAT", "nisn": "0094858444"}, {"nama": "Desta Nurhidayat", "nisn": "0095228601"}, {"nama": "DHIMAS DEWANTARA", "nisn": "0094930187"}, {"nama": "DINDA PRISCILLIA RAHMA", "nisn": "0098475532"}, {"nama": "DZIKRI LUTFI AL GHIFARI", "nisn": "0095042769"}, {"nama": "EVAN FARDAN HABIBY", "nisn": "0094205624"}, {"nama": "Fadhil Alwan", "nisn": "0075976465"}, {"nama": "GALANG ARIS PAMUNGKAS", "nisn": "0085507258"}, {"nama": "Galih Agustian", "nisn": "0081068041"}, {"nama": "Hagi Syamtahaq", "nisn": "0097811455"}, {"nama": "Hardly Muta'aly", "nisn": "0095043178"}, {"nama": "Hisyam Izary Musyaffa", "nisn": "0099041277"}, {"nama": "INAYAH FEBRIYANTI", "nisn": "0096221011"}, {"nama": "Isyal Alfiansyah", "nisn": "0097631787"}, {"nama": "MARCELLINO SEPTIAN", "nisn": "0087889138"}, {"nama": "MUHAMAD AF RIZAL", "nisn": "0079010223"}, {"nama": "MUHAMAD IKHSAN HAIRUDIN", "nisn": "0088806952"}, {"nama": "Muhammad Adam Aminuddien", "nisn": "0098480029"}, {"nama": "MUHAMMAD ARUL SATRIANSYAH", "nisn": "0093447718"}, {"nama": "MUHAMMAD HAQQI ANNAZILY", "nisn": "0094231992"}, {"nama": "RAFA SANI ARDHANI", "nisn": "0099395154"}, {"nama": "RAKA MUHAMAD YUDISTIRA PUTRA", "nisn": "0087184570"}, {"nama": "RAZZAQY FATMAYANA PUTRA", "nisn": "0084521773"}, {"nama": "RENDI PRATAMA", "nisn": "0081972667"}, {"nama": "Rio Ganessa", "nisn": "0079541001"}, {"nama": "Satria Putra Diansyah", "nisn": "0086068830"}, {"nama": "SIGIT MARTIAS QASIM", "nisn": "0095130403"}, {"nama": "SITI FADILAH", "nisn": "0081983371"}, {"nama": "Sopian", "nisn": "0096163799"}, {"nama": "THESYAR AGNI GIVARI", "nisn": "0099047801"}, {"nama": "Tubagus Daffa Adzakwan", "nisn": "0087007130"}, {"nama": "Wildan Al Ghifari", "nisn": "0081052312"}, {"nama": "Zaenudin Priatna", "nisn": "0085443076"}], "APHP": [{"nama": "AHMAD ZAMZURI", "nisn": "0088950552"}, {"nama": "APRIYANI", "nisn": "0088549903"}, {"nama": "AYUB APRIYANA", "nisn": "0155498974"}, {"nama": "AZKA NOVAN ALDIANSYAH", "nisn": "0084017648"}, {"nama": "CHINTYA CHARIN", "nisn": "0091149277"}, {"nama": "Danang Bagus Utomo", "nisn": "0093653164"}, {"nama": "DIAS RIZKI ADITIYA", "nisn": "0084963175"}, {"nama": "Diki Hermawan", "nisn": "0087245950"}, {"nama": "Dirmas Rizki Akbari", "nisn": "0091708156"}, {"nama": "FAHMI RIZKY FABBIA N", "nisn": "0093310302"}, {"nama": "Faisal Abdulah Ramadan", "nisn": "0081617608"}, {"nama": "FARID NURHIDAYAT", "nisn": "0099077878"}, {"nama": "FERNANDO ADI PRASETYO", "nisn": "0099976791"}, {"nama": "HAMDAN ABDURASYID", "nisn": "0089326474"}, {"nama": "HANA FEBIARIYANTI", "nisn": "0093790993"}, {"nama": "Hengki Kurniawan", "nisn": "0088556642"}, {"nama": "Hibridzi Attaulah Putra", "nisn": "0098580080"}, {"nama": "IFNYVA MOZA RIATNA", "nisn": "0095967458"}, {"nama": "Khaerul Rosada", "nisn": "0086164386"}, {"nama": "MUHAMMAD HAFIDZ PERMANA", "nisn": "0099375031"}, {"nama": "Nino Hilman Agustian", "nisn": "0089717025"}, {"nama": "NURIL HIDAYAH", "nisn": "0094679074"}, {"nama": "RADIT MUHAMMAD FATHIR", "nisn": "0091229719"}, {"nama": "Ramli Al Ayubi", "nisn": "0082735483"}, {"nama": "REIAN PRAGIWA", "nisn": "0085581182"}, {"nama": "REVAN FAUZI SETIAWAN", "nisn": "0081214552"}, {"nama": "Rifa Samsuri", "nisn": "0089294863"}, {"nama": "Rival Zaelani", "nisn": "0094170435"}, {"nama": "RIVALDI DWI SAPUTRA", "nisn": "0091401596"}, {"nama": "Shalshabila Shilmi", "nisn": "0072994747"}, {"nama": "Shita Rahayu", "nisn": "0086983429"}, {"nama": "SINDANG MAULANA SEMAYA", "nisn": "0081262215"}, {"nama": "Zahra Nuraeni", "nisn": "0083124761"}], "MP": [{"nama": "AGRA ZIDANE MUJIABAA", "nisn": "0097292995"}, {"nama": "Aldo Rifano Haryadi Putra", "nisn": "0099783301"}, {"nama": "ALFARIZQO TRIYANTO PUTRA", "nisn": "0097010425"}, {"nama": "Atifa Putri Ramadhani", "nisn": "0081203591"}, {"nama": "AZZAHRA ISMADINAH", "nisn": "0099627148"}, {"nama": "Cahaya Ramadhani", "nisn": "0093238623"}, {"nama": "DAUTH ALIF FAUZAN", "nisn": "0096280103"}, {"nama": "DEWI NURAIDA", "nisn": "0084365021"}, {"nama": "DINDA", "nisn": "0086175078"}, {"nama": "Fatik Khairi Sunarya", "nisn": "0099984351"}, {"nama": "Frisilia Eka Ruhyana", "nisn": "0094946679"}, {"nama": "GHINA ROBI'AH ROIQOHUNNADA", "nisn": "0084043417"}, {"nama": "Hana Fitria", "nisn": "0089627517"}, {"nama": "Intani Supitawarsih", "nisn": "0095917722"}, {"nama": "Juwita Amanda", "nisn": "0097125610"}, {"nama": "KIARA AZIZAH SUNANDAR", "nisn": "3092758804"}, {"nama": "Lia Puspita", "nisn": "0093755628"}, {"nama": "Marni", "nisn": "0086548069"}, {"nama": "MUHAMAD FAIZZAL", "nisn": "3082130583"}, {"nama": "MUHAMMAD DEDE WARDANA", "nisn": "0077890417"}, {"nama": "MUHAMMAD LUTFI ALFARISI", "nisn": "0093463439"}, {"nama": "MUTHIA CHAIRUNNISA", "nisn": "0095001709"}, {"nama": "Mutia Sahla", "nisn": "0094796462"}, {"nama": "Mutiara Anggraeni", "nisn": "0089825377"}, {"nama": "NAFSA AZ-ZAKARA AL-AKBAR", "nisn": "0099614791"}, {"nama": "Nur Amalina Ghassani", "nisn": "0082267063"}, {"nama": "RAIHAN WAHYU FIRDAUS", "nisn": "0097640720"}, {"nama": "RATI PARWATI", "nisn": "0094361026"}, {"nama": "RISSYA PUTRI RAHAYU", "nisn": "0089939543"}, {"nama": "Salwa Choirun Nisa", "nisn": "0098992920"}, {"nama": "SILPIA SOLEHA RAMADANI", "nisn": "0087868141"}, {"nama": "SURYANI", "nisn": "0098775696"}, {"nama": "Syifa Maulidia", "nisn": "0096330721"}, {"nama": "Tania Lidya Ariyanti", "nisn": "0098890018"}, {"nama": "Valda Yanti", "nisn": "0096727379"}], "PSPT": [{"nama": "Abthal Luthfan", "nisn": "0085632815"}, {"nama": "Aditya Perdana Putra", "nisn": "0096958481"}, {"nama": "AHMAD RIZKY SAPUTRA", "nisn": "0095875173"}, {"nama": "ANDIKA APRILIAN SYAH", "nisn": "0082494027"}, {"nama": "ARDIARSYAH NURSEHA", "nisn": "0088148795"}, {"nama": "Bayu Haikal", "nisn": "0094180480"}, {"nama": "Bayu Satriawan", "nisn": "0092484291"}, {"nama": "ESA MANUNGGAL NUGRAHA", "nisn": "3088727849"}, {"nama": "Fahri Al Anwari", "nisn": "0091537136"}, {"nama": "FAHRI NABIL AZHAR", "nisn": "0091363459"}, {"nama": "FIKLI AFRIZZA PUTRA NUGRAHA", "nisn": "0095027675"}, {"nama": "JULIAN TAMA HALIMI", "nisn": "0095152803"}, {"nama": "Khaibar Ashari Gusni Putra", "nisn": "0095982707"}, {"nama": "KHARIMA FAUZIAH PURBAYA", "nisn": "0085206752"}, {"nama": "Lisda", "nisn": "0096517920"}, {"nama": "M. BILLI SETIAWAN", "nisn": "0081149503"}, {"nama": "M. RIZKY ALIVINZA PRATAMA", "nisn": "0096403503"}, {"nama": "Maulana Iksan", "nisn": "0089413165"}, {"nama": "MOCHAMAD FARREL RAMDHANI", "nisn": "0093869377"}, {"nama": "Muhamad Nabil", "nisn": "0088123591"}, {"nama": "Muhamad Romi Khalifi", "nisn": "0094523910"}, {"nama": "Nabila Cahya Ramadhani", "nisn": "0088663196"}, {"nama": "Nur Ali", "nisn": "0092353020"}, {"nama": "Ramadhan Saputro", "nisn": "0089291624"}, {"nama": "Rayki Taufik Noviansyah", "nisn": "0088495371"}, {"nama": "RAYSHA SALIM", "nisn": "3096472244"}, {"nama": "RENO SEBASTIAN AL FIANO", "nisn": "0089478856"}, {"nama": "REZA AGUS PERMANA", "nisn": "0087447111"}, {"nama": "SATRIO PUTRA WINARNO", "nisn": "0089623011"}, {"nama": "SYIFA AULIA SALZA", "nisn": "0089314755"}, {"nama": "Ujang Jamil", "nisn": "0081432221"}], "ST": [{"nama": "Ai Rina Susilawati", "nisn": "0096938556"}, {"nama": "AYU ARYANI", "nisn": "0088441127"}, {"nama": "AZZAHRAH RAMADHANI", "nisn": "0097354757"}, {"nama": "DIAN RISMA FITRIANI", "nisn": "0084163734"}, {"nama": "JASMINE AURA NITA", "nisn": "0083189516"}, {"nama": "KAMILAH", "nisn": "0091863971"}, {"nama": "MELATI WIDIA SAKTI", "nisn": "0092534145"}, {"nama": "Naelun Nazwah", "nisn": "0083718456"}, {"nama": "Naysa Damar Pramesti", "nisn": "0098953086"}, {"nama": "Neng Pina Anjani", "nisn": "0082583709"}, {"nama": "Neng Suci Fauziani", "nisn": "0095731255"}, {"nama": "Nur Ramdania", "nisn": "0089321027"}, {"nama": "NURHUDA MAUIZHAH SYIFA", "nisn": "0086633447"}, {"nama": "QANIA ZAIRA ZAHWA", "nisn": "0093985136"}, {"nama": "RAHAYU PURWA SALAM", "nisn": "0096625522"}, {"nama": "Rahmah Ayu Baenilah", "nisn": "0081062207"}, {"nama": "RIMA MAULINA", "nisn": "0099875255"}, {"nama": "RISKI AMELIA KOMALA", "nisn": "0084908192"}, {"nama": "Rita Hanita", "nisn": "0084206095"}, {"nama": "RYAN ACHMAD FEBRYANA", "nisn": "0091168824"}, {"nama": "SILVANANZA PUTRI", "nisn": "0093883848"}, {"nama": "SILVIA NUR AZAHRA", "nisn": "0087914988"}, {"nama": "Sinta Ramadhani", "nisn": "0083926529"}, {"nama": "Siti Khumairoh", "nisn": "0086272261"}, {"nama": "SYIFA RAMADHANI", "nisn": "0084294581"}, {"nama": "Winda Sopianti", "nisn": "0083047771"}, {"nama": "WULAN AMBAR WANGI", "nisn": "0095757829"}], "TKJ": [{"nama": "Ahmad Rifai Viandra Wijaya", "nisn": "0077426990"}, {"nama": "Aiman Azka Hadikara", "nisn": "0095506281"}, {"nama": "Aldino Syahputra", "nisn": "0092694294"}, {"nama": "ELSAM HAIDAR YAHYA", "nisn": "0097547554"}, {"nama": "ERIK FIRMANSYAH", "nisn": "0098873766"}, {"nama": "FAZARINA KHAELA HARIS", "nisn": "3097667624"}, {"nama": "Hakim Tegar Hadinata", "nisn": "0095066945"}, {"nama": "HANIF ISMAIL", "nisn": "0081361523"}, {"nama": "IFAL RIZKI SAPUTRA", "nisn": "0099432675"}, {"nama": "JUNITA SUSANDA", "nisn": "0083463412"}, {"nama": "KAYLA AULIA FIRDAUS", "nisn": "0095907882"}, {"nama": "Lina Fitrian", "nisn": "0079724264"}, {"nama": "MELATI CIPTA FARADITA", "nisn": "0094272229"}, {"nama": "MESSIAS BAGAS INDRA PRAJA", "nisn": "0085973142"}, {"nama": "Muhamad Hendrik Pratama", "nisn": "0107454999"}, {"nama": "Muhamad Syafiq Bawazier", "nisn": "0157659499"}, {"nama": "Muhamad Taufik Alchakim", "nisn": "0092553476"}, {"nama": "Muhamad Zulfikar Nurul hadi", "nisn": "0082446063"}, {"nama": "MUHAMMAD IKRAM HABIBULLAH", "nisn": "0093272268"}, {"nama": "MUHAMMAD RAIHAN NUGRAHA", "nisn": "0083721657"}, {"nama": "PUTRI EDYLIA RAMADHANI", "nisn": "0098825787"}, {"nama": "REANOORFARIQ KAMAJAYA", "nisn": "0093138314"}, {"nama": "Rika Ayuni", "nisn": "0073488775"}, {"nama": "Ririn ariani", "nisn": "0096921176"}, {"nama": "RIZKY NURFALAH", "nisn": "0087677505"}, {"nama": "Ruby Mardy Yusup", "nisn": "0083645454"}, {"nama": "RYANSYAH", "nisn": "0095366948"}, {"nama": "Shofia Khonsa", "nisn": "0098571776"}, {"nama": "Sidik Alam Syah", "nisn": "0099086603"}, {"nama": "Siti Nur Robiatul Adawiyyah", "nisn": "0091213747"}, {"nama": "SRI DEWI RATNASARI", "nisn": "0087457294"}, {"nama": "Syahrul As. Saeful", "nisn": "0083501370"}, {"nama": "VISI BERLIAN ASH SHIDQI", "nisn": "3096802036"}], "TMI": [{"nama": "Althaf Baihaqi Tettanata", "nisn": "0084754736"}, {"nama": "Amar Shidiq", "nisn": "0086446242"}, {"nama": "Ananda Naufal Juliansyah", "nisn": "0096850519"}, {"nama": "ANDIKA PRATAMA", "nisn": "0095648392"}, {"nama": "Azka Raiz Raihan", "nisn": "0099949880"}, {"nama": "Desta Hadi Kurniawan", "nisn": "0087457688"}, {"nama": "Dika Aditya Maulana", "nisn": "0098218451"}, {"nama": "DIMO ARDIANTA", "nisn": "0086048158"}, {"nama": "Fauzan Herdiansyah", "nisn": "0089293271"}, {"nama": "FEBRIAN SYAHRUDIN", "nisn": "0084970187"}, {"nama": "Fikri Fahru Roji", "nisn": "0087894329"}, {"nama": "Lutfi Fahrul Ilham", "nisn": "0081578009"}, {"nama": "MIFTAHUL YAZAR", "nisn": "0092661180"}, {"nama": "MISBAHUL MUNIR", "nisn": "0078300485"}, {"nama": "Muhammad Ashka Cheno El Falah", "nisn": "0084672003"}, {"nama": "MUHAMMAD AZIS FAISYAL", "nisn": "0077660233"}, {"nama": "MUHAMMAD FATHURROHMAN", "nisn": "0094849242"}, {"nama": "MUHAMMAD FIKRI FATHUROHMAN", "nisn": "0097756356"}, {"nama": "Muhammad Ghani Fahrezi", "nisn": "0087039152"}, {"nama": "MUHAMMAD RIFA AULIA", "nisn": "0091723734"}, {"nama": "MUHAMMAD RIZKY FIRDAUS", "nisn": "0083265886"}, {"nama": "MUHAMMAD SATRIA AL AKBAR", "nisn": "0081113839"}, {"nama": "Muhammad Yazid Fattahillah", "nisn": "0091446171"}, {"nama": "RIVA AGUNG PRASETIA", "nisn": "0083809126"}, {"nama": "RIZKY PERMANA SAPUTRA", "nisn": "0088764784"}, {"nama": "RIZWAN NURHAKIM", "nisn": "0098145996"}, {"nama": "ROBY RIZQI ARYAGUNA", "nisn": "0096967664"}, {"nama": "RUBBY ANNABA", "nisn": "0084009903"}, {"nama": "TABAH HADI PANGESTU WIBOWO", "nisn": "0091923713"}, {"nama": "Walimatu Muzacky", "nisn": "0099172011"}, {"nama": "YOSA ANUGRAH PAJAR", "nisn": "0089386471"}, {"nama": "Zikry Robbany", "nisn": "0089142177"}], "TKR": [{"nama": "Ahmad Fikri Mugni", "nisn": "0089966340"}, {"nama": "Ahmad Hafadz Mauridz", "nisn": "0088346502"}, {"nama": "Ananda Rayvan Delanov", "nisn": "0082653915"}, {"nama": "Andri Maulana", "nisn": "0096539621"}, {"nama": "Azkiyan Haq Al Fath SN", "nisn": "0085455262"}, {"nama": "Davi Salman Al-Farizy", "nisn": "0088639404"}, {"nama": "Dheva Malikul Yusup", "nisn": "0086208692"}, {"nama": "GILANG MAULIDZIN YUSUP", "nisn": "0092850676"}, {"nama": "GINGIN MAULANA SETIAWAN", "nisn": "0094991411"}, {"nama": "HIDAYAT HAPID", "nisn": "0081841495"}, {"nama": "ICHSAN MUHAMMAD RAMADHAN", "nisn": "0089416746"}, {"nama": "Ikbal Maulana", "nisn": "0098333127"}, {"nama": "Irfan Kusumah", "nisn": "0087736403"}, {"nama": "JASID GOVALA", "nisn": "0092833293"}, {"nama": "KEVIN SOPIYANA YUSUP", "nisn": "0085800542"}, {"nama": "M. ERVAN HASANUDIN", "nisn": "0086698495"}, {"nama": "MOCH. IQBAL MAULANA FADILLAH", "nisn": "0093355884"}, {"nama": "MUHAMAD HAIDAR ALI", "nisn": "0082117133"}, {"nama": "MUHAMAD RIDWAN APRIANA", "nisn": "0098332451"}, {"nama": "MUHAMMAD ALIF JANUAR", "nisn": "0091873116"}, {"nama": "MUHAMMAD RAIHAN ADRIANSYAH", "nisn": "0091952784"}, {"nama": "PIANDI AGUSTIAN", "nisn": "0088036883"}, {"nama": "RAGAT SENGGANA GINANJAR", "nisn": "0085114317"}, {"nama": "Raski Adyatma Anggara", "nisn": "0079332161"}, {"nama": "Reifan Setiawan", "nisn": "0087969546"}, {"nama": "RIEZKI PUTRA IRAWAN", "nisn": "0082974098"}, {"nama": "Rijal Riski", "nisn": "0081074036"}, {"nama": "Salman Abdan Syakuro", "nisn": "0087243221"}, {"nama": "WULID", "nisn": "0087643684"}, {"nama": "YULAD KEVRIANDE", "nisn": "0096650385"}]};
+
+const schedule = [
+    { time: "08:00 - 08:30", code: "APHP", name: "Agribisnis Pengolahan Hasil Pertanian" },
+    { time: "08:30 - 09:00", code: "MP",   name: "Manajemen Perkantoran" },
+    { time: "09:00 - 09:30", code: "TKJ",  name: "Teknik Komputer Jaringan" },
+    { time: "09:30 - 10:00", code: "TP",   name: "Teknik Pemesinan" },
+    { time: "10:00 - 10:30", code: "TMI",  name: "Teknik Mekanik Industri" },
+    { time: "10:30 - 11:00", code: "AK",   name: "Akuntansi" },
+    { time: "11:00 - 11:30", code: "AN",   name: "Animasi" },
+    { time: "11:30 - 12:00", code: "PSPT", name: "Produksi & Siaran Program TV" },
+    { time: "12:00 - 12:30", code: "TKR",  name: "Teknik Kendaraan Ringan" },
+    { time: "12:30 - 13:00", code: "ST",   name: "Seni Tari" }
+];
+
+function initials(name) {
+    const parts = String(name).replace(/[._]/g,' ').trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return '?';
+    if (parts.length === 1) return parts[0].slice(0,2).toUpperCase();
+    return (parts[0][0] + parts[parts.length-1][0]).toUpperCase();
+}
+
+function photoUrl(nisn) {
+    if (PHOTO_MAP[nisn]) return PHOTO_MAP[nisn];
+    return PHOTO_BASE + nisn + PHOTO_EXT;
+}
+
+function studentCard(s) {
+    const src = photoUrl(s.nisn);
+    const ini = initials(s.nama);
+    return `
+        <div class="p-2 bg-white rounded-lg border border-slate-100 shadow-sm flex items-center gap-3 student-card"
+             data-nama="${s.nama.toUpperCase()}" data-nisn="${s.nisn}">
+            <div class="shrink-0 relative overflow-hidden rounded-md border border-slate-200 bg-red-600">
+                <div class="photo-fallback">${ini}</div>
+                <img src="${src}" alt="${s.nama}" class="photo-frame absolute inset-0"
+                     onload="this.previousElementSibling.style.display='none'"
+                     onerror="this.style.display='none'">
+            </div>
+            <div class="min-w-0">
+                <p class="text-[11px] font-bold text-s3l-dark leading-snug uppercase">${s.nama}</p>
+                <p class="text-[10px] text-slate-500 font-mono mt-0.5">NISN ${s.nisn}</p>
+            </div>
+        </div>`;
+}
+
+const container = document.getElementById('schedule-container');
+let total = 0;
+schedule.forEach((item, index) => {
+    const students = studentManifest[item.code] || [];
+    total += students.length;
+    const card = `
+        <div class="formal-card rounded-xl overflow-hidden jurusan-block" data-code="${item.code}" data-name="${item.name.toUpperCase()}">
+            <div class="p-5 flex justify-between items-center jurusan-header" onclick="toggleJurusan(${index})">
+                <div class="flex items-center gap-5">
+                    <div class="bg-slate-900 p-3 rounded-lg text-white font-mono font-bold text-xs min-w-[70px] text-center">
+                        ${item.time.split(' - ')[0]}
+                    </div>
+                    <div>
+                        <h3 class="text-s3l-dark font-extrabold uppercase tracking-widest text-xs">${item.name}</h3>
+                        <p class="text-[9px] text-slate-500 uppercase mt-1">
+                            Konsentrasi: ${item.code} // ${students.length} siswa // Klik untuk foto &amp; nama
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-1 rounded-full">${students.length}</span>
+                    <i class="fa-solid fa-chevron-down text-slate-400 transition-transform" id="icon-${index}"></i>
+                </div>
+            </div>
+            <div id="list-${index}" class="student-list-container border-t border-slate-100 p-6 bg-slate-50/50">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                    ${students.map(studentCard).join('')}
+                </div>
+            </div>
+        </div>`;
+    container.innerHTML += card;
+});
+document.getElementById('total-peserta').textContent = total + ' Siswa';
+
+function toggleJurusan(idx) {
+    const list = document.getElementById('list-' + idx);
+    const icon = document.getElementById('icon-' + idx);
+    const isActive = list.classList.toggle('active');
+    icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+    icon.style.color = isActive ? '#06b6d4' : '';
+}
+
+function toggleAll(open) {
+    schedule.forEach((_, idx) => {
+        const list = document.getElementById('list-' + idx);
+        const icon = document.getElementById('icon-' + idx);
+        list.classList.toggle('active', open);
+        icon.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
+        icon.style.color = open ? '#06b6d4' : '';
+    });
+}
+
+function applySearch() {
+    const q = (document.getElementById('q').value || '').trim().toUpperCase();
+    document.querySelectorAll('.jurusan-block').forEach((block, idx) => {
+        const cards = block.querySelectorAll('.student-card');
+        let visible = 0;
+        cards.forEach(c => {
+            const hit = !q || c.dataset.nama.includes(q) || c.dataset.nisn.includes(q)
+                || block.dataset.code.includes(q) || block.dataset.name.includes(q);
+            c.style.display = hit ? '' : 'none';
+            if (hit) visible++;
+        });
+        const list = document.getElementById('list-' + idx);
+        const icon = document.getElementById('icon-' + idx);
+        if (q && visible > 0) {
+            list.classList.add('active');
+            icon.style.transform = 'rotate(180deg)';
+            icon.style.color = '#06b6d4';
+            block.style.display = '';
+        } else if (q && visible === 0) {
+            block.style.display = 'none';
+        } else {
+            block.style.display = '';
+        }
+    });
+}
+
+function generatePDF() {
+    const btn = document.querySelector('button[onclick="generatePDF()"]');
+    const prev = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin text-base"></i> GENERATING PDF...';
+    btn.disabled = true;
+    toggleAll(true);
+    const element = document.getElementById('secure-manifest');
+    const options = {
+        margin: 10,
+        filename: 'jadwal_foto_TKA_XII_2026_SMKN3L.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['css', 'legacy'] }
+    };
+    html2pdf().set(options).from(element).save().then(() => {
+        btn.innerHTML = prev;
+        btn.disabled = false;
+    }).catch(() => {
+        btn.innerHTML = prev;
+        btn.disabled = false;
+    });
+}
+</script>
+</body>
+</html>
